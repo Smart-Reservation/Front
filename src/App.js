@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-function App() {
+import MainPage from "./routes/MainPage";
+import ReservationPage from "./routes/ReservationPage";
+import SettingPage from "./routes/SettingPage";
+import ReservationDetailPage from "./routes/ReservationDetailPage";
+import ReservationListPage from "./routes/ReservationListPage";
+import { ReservationInfoProvider } from "./context/ReservationInfoContext";
+import { UserInfoProvider } from "./context/UserInfoContext";
+
+
+function App(){
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <UserInfoProvider>
+        <ReservationInfoProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={
+              <MainPage />
+            }>
+            </Route>
+            <Route path="/ReservationPage" element={
+              <ReservationPage />
+            }>
+            </Route>
+            <Route path="/SettingPage" element={
+              <SettingPage />
+            }>
+            </Route>
+            <Route path="/ReservationDetailPage" element={
+              <ReservationDetailPage />
+            }>
+            </Route>
+            <Route path="/ReservationLitPage" element={
+              <ReservationListPage />
+            }>
+            </Route>
+          </Routes>
+          {/* <Copyright/> */}
+        </Router>
+      </ReservationInfoProvider>
+    </UserInfoProvider> 
+  )
 }
 
 export default App;
