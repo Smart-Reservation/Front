@@ -1,0 +1,11 @@
+.calender{
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40vw;
+}
+.oneWeek{
+    display:flex;
+    width: 70vw;
+
+}
