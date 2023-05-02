@@ -25,7 +25,6 @@ const initialState={
           endTime:"13:00"
         }
       ],
-        
       possibleList:[1,2],
       impossibleList:[3],
       reservationList:[],
