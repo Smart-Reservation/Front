@@ -1,5 +1,5 @@
 import PeriodList from "../components/PeriodList";
-import Calender from "../components/calender/Calender";
+import Calender from "../components/calender/Calendar";
 import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
 import styled, { css } from "styled-components";
 import { useState } from "react";
