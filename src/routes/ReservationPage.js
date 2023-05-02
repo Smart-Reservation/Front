@@ -1,5 +1,5 @@
 import PeriodList from "../components/PeriodList";
-import Calender from "../components/Calender";
+import Calender from "../components/calender/Calendar";
 import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
 import styled, { css } from "styled-components";
 import { useState } from "react";
@@ -200,9 +200,9 @@ function ReservationPage(){
 
   return(
     <TotalContainer>
-      {/* <LeftContainer>
+      <LeftContainer>
         <Calender />
-      </LeftContainer> */}
+      </LeftContainer>
       <RightContainer>
         <>
           <LabelText2>Select a period : </LabelText2>
