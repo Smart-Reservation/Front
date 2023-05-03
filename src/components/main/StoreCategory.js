@@ -73,7 +73,7 @@ function StoreCategory() {
                 count.map((index) =>
                     <>
                         <AbleDot />
-                        <Category text={'type'+index} active={true}/>
+                        <Category key={index} text={'type'+index} active={true}/>
                     </>
                 )
             }

@@ -30,18 +30,18 @@ const Info=styled.div`
     div{ margin: 15px 0 15px 0;}
 `
 
-function StoreBox(){
+function StoreBox({store,onClick}){
     return (
-    <StoreBoxContainer>
+    <StoreBoxContainer onClick={onClick}>
     <BoxContainer>
         <Heart style={{position:"absolute", right:0, padding:"10px"}}/>
         <DepositText>
-            0.025 BNB
+            {store.deposit} BNB
         </DepositText>
     </BoxContainer>
     <Info>
-        <div style={{fontWeight: "700", fontSize: "18px",lineHeight: "22px",color:"#484848" }}>Store 1</div>
-        <div style={{fontWeight: "500", fontSize: "14px",lineHeight: "17px",color: "#9A9A9A"}}>Location 1</div>
+        <div style={{fontWeight: "700", fontSize: "18px",lineHeight: "22px",color:"#484848" }}>{store.storeName}</div>
+        <div style={{fontWeight: "500", fontSize: "14px",lineHeight: "17px",color: "#9A9A9A"}}>{store.location}</div>
     </Info>
     </StoreBoxContainer>
     );
