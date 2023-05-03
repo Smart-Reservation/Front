@@ -1,6 +1,7 @@
 import Day from "./days";
 import {useEffect, useRef, useState} from 'react';
 import './calender.css';
+// import Head from './header';
 
 function Calender(){
     let now=new Date();
@@ -8,7 +9,8 @@ function Calender(){
     let year= now.getFullYear();
     const monthCount=useRef(month);
     const [monthCurrent,setMonth]= useState(month);
-
+    const [data, setData] = useState();
+    console.log(data)
     function monthAfter(){
 
         setMonth(monthCount.current+1);
@@ -19,10 +21,18 @@ function Calender(){
         console.log(12)
         setMonth(monthCount.current-1);
         monthCount.current--;
-
     }
-    useEffect(()=>{
-    },[])
+    function changeColor(e){
+        console.log(e)
+
+        
+        // setStyle(e.target())
+    }
+    function dataCall(e){
+        alert(e)
+    }
+    
+
     function fullYearAdder (startDate){
         const fullYear=[];
         const monthForYear=[31,28,31,30,31,30,31,31,30,31,30,31];
@@ -32,7 +42,7 @@ function Calender(){
             sevenDays.push('');}
             for(let j=0; j<=monthForYear.length; j++)
                 for(let i=1; i<=monthForYear[j]; i++){
-                    sevenDays.push(<Day date={i} month={j+1} key={i} monthCompare={monthCount.current}/>);
+                    sevenDays.push(<Day date={i} month={j+1} key={i} monthCompare={monthCount.current} dataCall={dataCall} setData={setData}/>);
                     if(sevenDays.length==7){
                         fullYear.push(sevenDays);
                         sevenDays=[];
@@ -54,9 +64,9 @@ function Calender(){
                 b.push(<div className="oneWeek">{a[i]}</div>);
         }
     }           
-            return (<>
+            return (<div>
                 {b}
-            </>)
+            </div>)
     }
 
 
@@ -77,12 +87,14 @@ function Calender(){
    
     
     return(
+        <>
+        {/* <Head /> */}
         <div className="calender"> 
-            <div><button onClick={monthBefore}>&lt;</button>{year}년{monthCurrent}월 <button onClick={monthAfter}>&gt;</button></div>
+            <div ><button onClick={monthBefore}>&lt;</button><span>{year}년{monthCurrent}월</span> <button onClick={monthAfter}>&gt;</button></div>
             <DayOfTheWeek/>
             <DaySpliter  month={monthCount.current}/>
         </div>
-
+        </>
     )
 
 

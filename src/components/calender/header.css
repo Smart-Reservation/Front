@@ -1,0 +1,18 @@
+
+img{
+    height:20vh;
+}
+
+.top{
+    height: auto;
+    margin:0px;
+    display: flex;
+    background-color: #C2C6CC;
+    justify-content: space-around;
+    width: 100vw;
+}
+
+.rightSide{
+    display: flex;
+    align-items: center ;
+}
