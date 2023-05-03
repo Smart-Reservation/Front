@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import MainPage from "./routes/MainPage";
+import LoginPage from "./routes/LoginPage";
 import ReservationPage from "./routes/ReservationPage";
 import SettingPage from "./routes/SettingPage";
 import ReservationDetailPage from "./routes/ReservationDetailPage";
@@ -22,6 +23,9 @@ function App(){
             <Route path="/" element={
               <MainPage />
             }>
+            <Route path="/LoginPage" element={
+              <LoginPage />
+            }></Route>
             </Route>
             <Route path="/ReservationPage" element={
               <ReservationPage />
