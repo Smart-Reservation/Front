@@ -3,6 +3,13 @@ import {ReactComponent as Heart} from "../../asset/img/Vector.svg"
 
 const StoreBoxContainer=styled.div`
     margin:15px;
+    &:hover{
+        cursor: pointer;
+    }
+
+    &:active{
+        filter: brightness(90%);
+    }
 `
 
 const BoxContainer=styled.div`
