@@ -1,12 +1,16 @@
 import React, { useReducer, createContext, useContext } from "react";
 
+class Store{
+
+}
+
 const initialState={
   totalStore: [
     {
       id:1,
       category:"food",
       storeName: "store1",
-      location:"",
+      location:"location",
       deposit:"0.025",
       imgUrl:"store/img/1",
       periodList:[
@@ -35,7 +39,12 @@ const initialState={
 
 function ReservationReducer(state, action){
   switch(action.type){
-    case "LOAD_STORE_RESERVATIONS": //가게 예약 목록 불러오기
+    case "LOAD_STORE_LIST":
+      return {
+        ...state,
+        totalStore:action.totalStore
+      };
+    case "LOAD_STORE_RESERVATION": //가게 예약 목록 불러오기
       return {
         ...state,
         selectedId:action.id,

@@ -12,6 +12,7 @@ import ReservationDetailPage from "./routes/ReservationDetailPage";
 import ReservationListPage from "./routes/ReservationListPage";
 import { ReservationInfoProvider } from "./context/ReservationInfoContext";
 import { UserInfoProvider } from "./context/UserInfoContext";
+import ScrollToTop from "./components/ScrollTop";
 
 
 function App(){
@@ -19,6 +20,7 @@ function App(){
     <UserInfoProvider>
         <ReservationInfoProvider>
         <Router>
+          <ScrollToTop/>  
           <Routes>
             <Route path="/" element={
               <MainPage />
