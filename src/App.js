@@ -1,8 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainPage from "./routes/MainPage";
 import LoginPage from "./routes/LoginPage";
@@ -14,43 +10,25 @@ import { ReservationInfoProvider } from "./context/ReservationInfoContext";
 import { UserInfoProvider } from "./context/UserInfoContext";
 import ScrollToTop from "./components/ScrollTop";
 
-
-function App(){
+function App() {
   return (
     <UserInfoProvider>
-        <ReservationInfoProvider>
+      <ReservationInfoProvider>
         <Router>
-          <ScrollToTop/>  
+          <ScrollToTop />
           <Routes>
-            <Route path="/" element={
-              <MainPage />
-            }>
-            <Route path="/LoginPage" element={
-              <LoginPage />
-            }></Route>
-            </Route>
-            <Route path="/ReservationPage" element={
-              <ReservationPage />
-            }>
-            </Route>
-            <Route path="/SettingPage" element={
-              <SettingPage />
-            }>
-            </Route>
-            <Route path="/ReservationDetailPage" element={
-              <ReservationDetailPage />
-            }>
-            </Route>
-            <Route path="/ReservationLitPage" element={
-              <ReservationListPage />
-            }>
-            </Route>
+            <Route path="/" element={<MainPage />}></Route>
+            <Route path="/LoginPage" element={<LoginPage />}></Route>
+            <Route path="/ReservationPage" element={<ReservationPage />}></Route>
+            <Route path="/SettingPage" element={<SettingPage />}></Route>
+            <Route path="/ReservationDetailPage" element={<ReservationDetailPage />} ></Route>
+            <Route path="/ReservationLitPage" element={<ReservationListPage />} ></Route>
           </Routes>
           {/* <Copyright/> */}
         </Router>
       </ReservationInfoProvider>
-    </UserInfoProvider> 
-  )
+    </UserInfoProvider>
+  );
 }
 
 export default App;
