@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import StoreBoxList from "../components/main/StoreBoxList";
 import StoreCategory from "../components/main/StoreCategory";
-import Head from "../components/calender/header";
+import Head from "../components/header/header";
 
 
 const MainContainer=styled.div`

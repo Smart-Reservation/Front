@@ -3,7 +3,7 @@ import Calender from "../components/calender/Calendar";
 import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
 import styled, { css } from "styled-components";
 import { useState } from "react";
-import Header from "../components/calender/header"
+import Header from "../components/header/header"
 
 //styled-components
 const TotalContainer=styled.div`

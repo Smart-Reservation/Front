@@ -3,6 +3,8 @@ import './header.css';
 import profile from './images/profile.png';
 import profileBoss from './images/profile_boss.png';
 import { useState } from 'react';
+
+
 function Head(){
         const [active, setActive]=useState(false);
         let button;
