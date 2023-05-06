@@ -1,19 +1,18 @@
 import classes from './days.module.css'
 
 
-function Day({date,month, monthCompare,isactive, hey, setData}){
+function Day({date,month, monthCompare,isactive, data, onClick}){
 
-
+    
     const dataExample={
         link : "www.naver.com",
         date, 
         avalableTime:[12,13,14,15,16],
     }
-    function dataCall(){
-        setData([dataExample.link , date, dataExample.avalableTime])
-    }    
+    
+
     return(
-        <div id={`${date}`} onClick={dataCall} style={{
+        <div id={`${date}`} onClick={()=>onClick(dataExample)} style={{
             backgroundColor: isactive ? 'blue' : ''
         }}
          className={classes.eachDay}>
