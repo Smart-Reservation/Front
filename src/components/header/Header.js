@@ -9,9 +9,9 @@ function Header(){
         function alterner(){
                 active?setActive(false)
                 :setActive(true);
-
         }
-        button= active?<div className='customerTog' ><img src={profile} /></div>:<div className='bossTog' ><img src={profileBoss} /></div> 
+        
+        button= active?<div className='bossTog' ><img src={profileBoss} /></div> :<div className='customerTog' ><img src={profile} /></div>
 
 
         return(<div className='top'>
@@ -20,13 +20,11 @@ function Header(){
 
  
         <       div className='rightSide'>
-        <       div>Download Mobile App</div>
 
-                <button className='btnHeader' type='button'>Become A StoreManager </button>
-                <button className='btnHeader' id="toggle" type='button' isActive={active} onClick={alterner} >
-                             
-                             
-                             {button} </button> 
+                <button className='btnHeader' id="btnOut" type='button'>Connect Binance Wallet 
+                <button className='btnHeader' id="toggle" type='button' isActive={active} onClick={alterner} >{button} </button>
+                </button>
+                 
 
         
         </div></div>)
