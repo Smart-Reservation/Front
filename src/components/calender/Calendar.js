@@ -3,8 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import "./calender.css";
 // import Head from './header';
 
-
-
 function Calender(SelectDate) {
   let now = new Date();
   let month = now.getMonth();
@@ -12,30 +10,26 @@ function Calender(SelectDate) {
   const monthCount = useRef(month);
   const [monthCurrent, setMonth] = useState(month);
   const [data, setData] = useState();
-  // console.log(data);
+
+  const onClick = (d) => {
+    setData(d);
+  };
+  const onClickNo = () => {};
+
   function monthAfter() {
     setMonth(monthCount.current + 1);
     monthCount.current++;
   }
   function monthBefore() {
-    // console.log(12);
     setMonth(monthCount.current - 1);
     monthCount.current--;
-  }
-  function changeColor(e) {
-    // console.log(e);
-
-    // setStyle(e.target())
-  }
-  function dataCall(e) {
-    alert(e);
   }
 
   function fullYearAdder(startDate) {
     const fullYear = [];
     const monthForYear = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     let sevenDays = [];
-    // console.log("반복 확인");
+
     for (let i = 0; i < startDate; i++) {
       sevenDays.push("");
     }
@@ -47,11 +41,10 @@ function Calender(SelectDate) {
             month={j + 1}
             key={i}
             monthCompare={monthCount.current}
-            dataCall={dataCall}
-            setData={setData}
+            onClick={onClick}
           />
         );
-        if (sevenDays.length == 7) {
+        if (sevenDays.length === 7) {
           fullYear.push(sevenDays);
           sevenDays = [];
         }
@@ -62,20 +55,10 @@ function Calender(SelectDate) {
   function DaySpliter({ month }) {
     const a = fullYearAdder();
     const b = [];
-    // console.log(a);
 
     for (let i = 0; i < a.length; i++) {
-      // console.log(a[i][0].props.month == month);
-      if (
-        a[i][0].props.month == month ||
-        a[i][a[i].length - 1].props.month == month
-      ) {
-        if (
-          ((a[i][0].props.month == month) !=
-            a[i][a[i].length - 1].props.month) ==
-          month
-        ) {
-        }
+      if (a[i][0].props.month === month ||a[i][a[i].length - 1].props.month === month) {
+        // if (((a[i][0].props.month === month) !== a[i][a[i].length - 1].props.month) ===month) { }
         b.push(<div className="oneWeek">{a[i]}</div>);
       }
     }
@@ -83,22 +66,15 @@ function Calender(SelectDate) {
   }
 
   function DayOfTheWeek() {
-    // console.log(1);
-    const arrayFor = [];
+    const daylist = ["일", "월", "화", "수", "목", "금", "토"];
 
-    arrayFor.push(
-      <div className="oneWeek  ">
-        <Day date="일" />
-        <Day date="월" />
-        <Day date="화" />
-        <Day date="수" />
-        <Day date="목" />
-        <Day date="금" />
-        <Day date="토" />
+    return (
+      <div className="oneWeek">
+        {daylist.map((value) => (
+          <Day date={value} onClick={onClickNo} />
+        ))}
       </div>
     );
-
-    return arrayFor;
   }
 
   return (

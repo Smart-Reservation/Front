@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import MainPage from "./routes/MainPage";
-import LoginPage from "./routes/LoginPage";
 import ReservationPage from "./routes/ReservationPage";
 import SettingPage from "./routes/SettingPage";
 import ReservationDetailPage from "./routes/ReservationDetailPage";
@@ -20,7 +19,6 @@ function App() {
             <ScrollToTop />
             <Routes>
               <Route path="/" element={<MainPage />}></Route>
-              <Route path="/LoginPage" element={<LoginPage />}></Route>
               <Route path="/ReservationPage" element={<ReservationPage />}></Route>
               <Route path="/SettingPage" element={<SettingPage />}></Route>
               <Route path="/ReservationDetailPage" element={<ReservationDetailPage />} ></Route>
