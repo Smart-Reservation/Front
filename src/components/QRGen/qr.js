@@ -15,7 +15,7 @@ function QR ({valueForQr}){
     const MakeQr= isCliked ? ()=>{return (<QRCode value={valueForQr} style={{background: 'white',
 margin:"10% 0 0 0 ", width:"100%" ,padding:"0"}} size={512} viewBox={`0 0 512 512`} />)
     }: 
-    ()=>{return (<div id="hider"> <button type="button" 
+    ()=>{return (<div id="hider"> <button type="button" id="btnHider"
      onClick={onClick}>Don't let other see your QR</button></div>)}
 
     // const HideQr=()=>{ return  (<div id="hider"> 
