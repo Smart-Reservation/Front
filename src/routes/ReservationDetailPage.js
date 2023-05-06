@@ -1,24 +1,33 @@
 import Head from "../components/header/header";
 import styled, { css } from "styled-components";
 import QRCode from "../components/QRGen/qr";
+import PrintInformation from "../components/reserveInfo/reserveInfo";
 
+const OuterConTainer= styled.div`
+  height:100vh;
+  width:100vw;
+`
 const TotalContainer=styled.div`
   display:flex;
 position: relative;
-  height: 100vh;
-  width: 100vw;
-  background: #FFFFFF;
+  margin: 3% 10%;
+  width:80%;
+  height:80vh;
+  background: #E0E2E6;
+  border: 1px solid black;
   border-radius: 20px;
+  
 `;
 const LeftContainer=styled.div`
-  width:60vw;
-  background:#FFFFFF;
+  width:55%;
   padding: auto;
+  height:100%;
+  padding:0px;
   `;
 
 const RightContainer=styled.div`
-border-Left:1px solid black
-
+  height:100%;
+  padding:0px;
 `;
 
 const ReservationInfo= styled.div`
@@ -35,19 +44,21 @@ function ReservationDetailPage(){
   
   return (
   <>
+  <OuterConTainer>
     <Head />
     
 <TotalContainer>
 
     <LeftContainer>
-      <ReservationInfo />       
+      <PrintInformation />
     </LeftContainer>
   
 
-    <RightContainer/>
+    <RightContainer>
       <QRCode valueForQr={value}/>
-
+    </RightContainer>
     </TotalContainer>
+    </OuterConTainer>
     </>
 )
 
