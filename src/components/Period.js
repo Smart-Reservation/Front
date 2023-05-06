@@ -1,42 +1,37 @@
-import { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 //styled-components
 
-const Container = styled.div``;
-const ContentBox = styled(Container)`
-  /* Auto layout */
+const Container = styled.div`
+  width:100%;   
+`;
+const ContentBox = styled.div`
+  height: 32px;  
 
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   padding: 4px 16px;
-  gap: 8px;
 
-  width: 459px;
-  height: 32px;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+
+  align-items: center;
+  justify-content: center;
 
   background: ${(props) => (props.clicked ? "#E0E2E6" : "white")};
-  text-align: center;
 
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
   ${(props)=>props.clicked?"":`&:hover {
     background-color: rgba(55, 53, 47, 0.05);
   }`}
 `;
 
-function Period({ period, onClick, index, clicked }) {
+function Period({ period, onClick, clicked }) {
   return (
-    <Container onClick={()=>onClick(index)}>
+    <Container onClick={onClick}>
       <ContentBox clicked={clicked} >
-        <div>
-          {period.startTime} ~ {period.endTime}
-        </div>
+          {period}
       </ContentBox>
     </Container>
   );
