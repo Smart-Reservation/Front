@@ -2,7 +2,7 @@ import Day from "./days";
 import {useEffect, useRef, useState} from 'react';
 import './calender.css';
 // import Head from './header';
-
+  
 function Calender(){
     let now=new Date();
     let month=now.getMonth();
@@ -10,7 +10,16 @@ function Calender(){
     const monthCount=useRef(month);
     const [monthCurrent,setMonth]= useState(month);
     const [data, setData] = useState();
-    console.log(data)
+
+
+    const onClick=(d)=>{
+        setData(d);
+        console.log(data);
+    }
+    const onClickNo=()=>{
+        console.log('')
+    }
+
     function monthAfter(){
 
         setMonth(monthCount.current+1);
@@ -18,19 +27,10 @@ function Calender(){
 
     }
     function monthBefore(){
-        console.log(12)
         setMonth(monthCount.current-1);
         monthCount.current--;
     }
-    function changeColor(e){
-        console.log(e)
 
-        
-        // setStyle(e.target())
-    }
-    function dataCall(e){
-        alert(e)
-    }
     
 
     function fullYearAdder (startDate){
@@ -42,7 +42,7 @@ function Calender(){
             sevenDays.push('');}
             for(let j=0; j<=monthForYear.length; j++)
                 for(let i=1; i<=monthForYear[j]; i++){
-                    sevenDays.push(<Day date={i} month={j+1} key={i} monthCompare={monthCount.current} dataCall={dataCall} setData={setData}/>);
+                    sevenDays.push(<Day date={i} month={j+1} key={i} monthCompare={monthCount.current}  onClick={onClick}/>);
                     if(sevenDays.length==7){
                         fullYear.push(sevenDays);
                         sevenDays=[];
@@ -56,9 +56,9 @@ function Calender(){
         console.log(a)
         
         for(let i=0; i<a.length; i++){
-            console.log(a[i][0].props.month==month)
-            if(a[i][0].props.month==month  || a[i][a[i].length-1].props.month==month ){
-                if(a[i][0].props.month==month  != a[i][a[i].length-1].props.month==month ){
+            console.log(a[i][0].props.month===month)
+            if(a[i][0].props.month===month  || a[i][a[i].length-1].props.month===month ){
+                if(a[i][0].props.month===month  != a[i][a[i].length-1].props.month===month ){
                     
                 }
                 b.push(<div className="oneWeek">{a[i]}</div>);
@@ -72,24 +72,22 @@ function Calender(){
 
 
     function DayOfTheWeek(){
-        console.log(1)
-        const arrayFor=[];
+        const daylist=["일","월","화","수","목","금","토"];
 
-        arrayFor.push(<div className="oneWeek  ">
-            <Day date="일"/><Day date="월"/>
-            <Day date="화"/><Day date="수"/><Day date="목"/>
-            < Day date="금"/><Day date="토"/></div>);
+        
 
-        return arrayFor;
-    
+        return <div className="oneWeek">
+            {daylist.map((value)=>
+                <Day date={value} onClick={onClickNo} />
+            )}
+        </div>
     }
 
    
-    
     return(
         <>
         {/* <Head /> */}
-        <div className="calender"> 
+        <div className="calender" > 
             <div ><button onClick={monthBefore}>&lt;</button><span>{year}년{monthCurrent}월</span> <button onClick={monthAfter}>&gt;</button></div>
             <DayOfTheWeek/>
             <DaySpliter  month={monthCount.current}/>

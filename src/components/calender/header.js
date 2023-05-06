@@ -1,20 +1,33 @@
-import logo from './logo.png';
+import logo from './images/logo.png';
 import './header.css';
-import Button from './button'
-import buttonIcon from './menuIcon.png';
-
+import profile from './images/profile.png';
+import profileBoss from './images/profile_boss.png';
+import { useState } from 'react';
 function Head(){
-   return(<div className='top'>
+        const [active, setActive]=useState(false);
+        let button;
+        function alterner(){
+                active?setActive(false)
+                :setActive(true);
+        }
+        
+        button= active?<div className='bossTog' ><img src={profileBoss} /></div> :<div className='customerTog' ><img src={profile} /></div>
 
-        <div><img src={logo} alt="logo"></img></div>
+
+        return(<div className='top'>
+
+                <div><img id="logo" src={logo} alt="logo"></img></div>
 
  
-        <div className='rightSide'>
-        <div>Download Mobile App</div>
+        <       div className='rightSide'>
 
-        <Button contents="Become A StoreManager" style={{ padding:'0.8em'}}/>
-        <Button imageUrl={<img src={buttonIcon} />} style={{ padding: '0.8em' }} /> 
+                <button className='btnHeader' id="btnOut" type='button'>Connect Binance Wallet 
+                <button className='btnHeader' id="toggle" type='button' isActive={active} onClick={alterner} >{button} </button>
+                </button>
+                 
+
+        
         </div></div>)
 }
 
-export default Head;               
+export default Head;                    

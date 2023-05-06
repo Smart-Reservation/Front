@@ -3,6 +3,7 @@ import Calender from "../components/calender/Calendar";
 import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
 import styled, { css } from "styled-components";
 import { useState } from "react";
+import Header from "../components/calender/header"
 
 //styled-components
 const TotalContainer=styled.div`
@@ -161,7 +162,7 @@ const ReservationBtn=styled.div`
   left: 792px;
   top: 630px;
 
-  background: #484848;
+  
   border-radius: 23px;
 
   font-family: 'Montserrat';
@@ -200,6 +201,7 @@ function ReservationPage(){
 
   return(
     <TotalContainer>
+      <Header />
       <LeftContainer>
         <Calender />
       </LeftContainer>
