@@ -1,47 +1,77 @@
 import PeriodList from "../components/PeriodList";
+import ReservationList from "../components/ReservationList";
 import Calender from "../components/calender/Calendar";
-import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
+import {
+  useStoreInfoState,
+  useStoreInfoDispatch,
+} from "../context/StoreInfoContext";
 import styled, { css } from "styled-components";
 import { useState } from "react";
 import Header from "../components/header/Header";
-
+import {
+  useReservationInfoDispatch,
+  useReservationInfoState,
+} from "../context/ReservationInfoContext";
 
 //styled-components
-const TotalContainer=styled.div`
-  /* reservation form_user */
-
-
+const TotalContainer = styled.div`
   position: relative;
-  width: 1366px;
-  height: 1339px;
-
-  background: #FFFFFF;
+  width:100vw;
+  height:100vh;
+  background: #ffffff;
   border-radius: 20px;
 `;
 
-const LeftContainer=styled.div`
+const LeftContainer = styled.div`
+  float:left;
+  width:50%;
+  height:100%;
 `;
 
-const RightContainer=styled.div`
+const RightContainer = styled.div`
+  float:right;
+  width:50%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
 `;
 
-const DecreaseBtn=styled.div`
-  /* Rectangle 59 */
+const CalendarContainer=styled.div`
+  margin:30px;
+  margin-left:100px;
+`;
 
+const PeriodContainer=styled.div`
+  margin:30px;
+`;
+const NumberContainer=styled.div`
+  margin:30px;
+  margin-top:0px;
+`;
 
-  position: absolute;
+const CoinContainer=styled.div `
+  margin:30px;
+  margin-top:0px;`;
+
+const NumberBtn=styled.div`
+  width:100%;
+  display:flex; 
+  margin-top:20px;
+`;
+
+const DecreaseBtn = styled.div`
   width: 48px;
   height: 48px;
-  left: 791px;
-  top: 444px;
 
-  background: #E0E2E6;
-  box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08), 0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.13);
+  background: #e0e2e6;
+  box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
+    0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
+    0px 1px 3px rgba(0, 0, 0, 0.13);
   border-radius: 10px 0px 0px 10px;
-  line-height:40px;
-  display:flex;
-  text-align:center;
-  align-items:center;
+  line-height: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
   justify-content: center;
 
   &:active {
@@ -49,23 +79,19 @@ const DecreaseBtn=styled.div`
   }
 `;
 
-const IncreaseBtn=styled.div`
-  /* Rectangle 58 */
-
-
-  position: absolute;
+const IncreaseBtn = styled.div`
   width: 48px;
   height: 48px;
-  left: 1063px;
-  top: 444px;
 
-  background: #E0E2E6;
-  box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08), 0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.13);
+  background: #e0e2e6;
+  box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
+    0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
+    0px 1px 3px rgba(0, 0, 0, 0.13);
   border-radius: 0px 10px 10px 0px;
-  line-height:40px;
-  display:flex;
-  text-align:center;
-  align-items:center;
+  line-height: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
   justify-content: center;
 
   &:active {
@@ -73,166 +99,178 @@ const IncreaseBtn=styled.div`
   }
 `;
 
-const NumberText=styled.div`
-  position: absolute;
+const NumberText = styled.div`
   width: 224px;
   height: 48px;
-  left: 839px;
-  top: 444px;
 
-  text-align:center;
-  background: #FFFFFF;
-
-  line-height:40px;
-  display:flex;
-  text-align:center;
-  align-items:center;
+  line-height: 40px;
+  display: flex;
+  text-align: center;
+  align-items: center;
   justify-content: center;
+  background: #ffffff;
 `;
 
-const CoinText=styled.div`
-  position: absolute;
+const CoinText = styled.div`
   width: 188px;
   height: 27px;
-  left: 791px;
-  top: 561px;
 
-  font-family: 'Montserrat';
+  margin-top:20px;
+
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
   line-height: 22px;
 
-  color: #9A9A9A;
+  color: #9a9a9a;
 `;
 
-const LabelText1=styled.div`
-`;
-const LabelText2=styled.div`
-  position: absolute;
-  width: 132px;
-  height: 35px;
-  left: 780px;
-  top: 137px;
-
-  font-family: 'Poppins';
+const LabelText = styled.div`
+  font-family: "Poppins";
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  /* or 171% */
-
-  text-align: center;
-`;
-const LabelText3=styled.div`
-  position: absolute;
-  width: 196px;
-  height: 35px;
-  left: 783px;
-  top: 410px;
-
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-
-  text-align: center;
-`;
-const LabelText4=styled.div`
-  position: absolute;
-  width: 90px;
-  height: 35px;
-  left: 785px;
-  top: 533px;
-
-  font-family: 'Poppins';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 24px;
-  /* or 171% */
-
-  text-align: center;
 `;
 
-const ReservationBtn=styled.div`
-  position: absolute;
+const ReservationBtn = styled.div`
   width: 328px;
   height: 46px;
-  left: 792px;
-  top: 630px;
+  margin:30px;
+  margin-top:0px;
 
   background: #484848;
   border-radius: 23px;
 
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 40px;
 
   text-align: center;
-  color: #FFFFFF;
+  color: #ffffff;
 
   &:active {
     background-color: rgba(195, 195, 200, 1);
   }
-`
-const ReservationText=styled.div`
-  position: absolute;
+`;
+const ReservationText = styled.div`
   width: 179px;
   height: 23px;
 
-
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
   line-height: 29px;
 
   text-align: center;
-  // color: #FFFFFF;
-`
+`;
 
-function ReservationPage(){
-  const state = useReservationInfoState();
-  const dispatch = useReservationInfoDispatch(); 
+function ReservationPage() {
+  const storeState = useStoreInfoState();
+  const storeDispatch = useStoreInfoDispatch();
+  const reservationState = useReservationInfoState();
+  const reservationDispatch = useReservationInfoDispatch();
   const [number, setNumber] = useState(1);
+  const [Index, setIndex]=useState(-1);
 
-  return(
+  let possibleIdxs = reservationState.reservationList.find(
+    (reservation) =>
+      reservation.storeId === reservationState.selectedId &&
+      JSON.stringify(reservation.date) ===
+        JSON.stringify(reservationState.selectedDate)
+  ).possibleIdxList;
+
+  let storePeriods = storeState.totalStore.find(
+    (store) => store.id === storeState.selectedId
+  ).periodList;
+
+  const SelectDate=(date)=>{
+    reservationDispatch({
+      type: 'SELECT_DATE',
+      date:date
+    })
+  }
+  const selectIndex=(Index)=>{
+    setIndex(Index);
+  }
+  const AddReservation=(Index)=>{
+    reservationDispatch({
+      type: 'ADD_RESERVATION',
+      reservedIdx:Index
+    })
+  };
+
+  
+  return (
     <TotalContainer>
       <Header />
       <LeftContainer>
-        <Calender />
+        <CalendarContainer>
+          <LabelText>Select a date : </LabelText>
+          <Calender SelectDate={SelectDate} />
+        </CalendarContainer>
       </LeftContainer>
       <RightContainer>
-        <>
-          <LabelText2>Select a period : </LabelText2>
-          <PeriodList 
+        <PeriodContainer>
+          <LabelText>Select a period : </LabelText>
+          {/* <PeriodList 
             periods={state.totalStore.find(store => store.id === state.selectedId).periodList} 
             //periods={[{startTime:"10:00",endTime:"11:00"}]}
+          /> */}
+          <PeriodList
+            periods={possibleIdxs.map((index) => storePeriods[index])}
+            selectIndex={selectIndex}
           />
-        </>
-        <>
-          <LabelText3>Select number of people :</LabelText3>
-          <DecreaseBtn onClick={
-            number <= 1 ? ()=>{} : ()=>{setNumber(number-1);}}>-</DecreaseBtn>
-          <NumberText>{number}</NumberText>
-          <IncreaseBtn onClick={()=>{setNumber(number+1);}}>+</IncreaseBtn>
-        </>
-        <>
-          <LabelText4>Price Coin :</LabelText4>
-          <CoinText>{((state.totalStore.find(store => store.id === state.selectedId).deposit)*number).toFixed(3)}BNB</CoinText>
-        </>
-        <ReservationBtn>
+        </PeriodContainer>
+        <NumberContainer>
+          <LabelText>Select number of people :</LabelText>
+          <NumberBtn>
+            <DecreaseBtn
+              onClick={
+                number <= 1
+                  ? () => {}
+                  : () => {
+                      setNumber(number - 1);
+                    }
+              }
+            >
+              -
+            </DecreaseBtn>
+            <NumberText>{number}</NumberText>
+            <IncreaseBtn
+              onClick={() => {
+                setNumber(number + 1);
+              }}
+            >
+              +
+            </IncreaseBtn>
+          </NumberBtn>
+        </NumberContainer>
+        <CoinContainer>
+          <LabelText>Price Coin :</LabelText>
+          <CoinText>
+            {(
+              storeState.totalStore.find(
+                (store) => store.id === storeState.selectedId
+              ).deposit * number
+            ).toFixed(3)}
+            BNB
+          </CoinText>
+        </CoinContainer>
+        <ReservationBtn
+          onClick={()=>{AddReservation(Index)}}
+        >
           {/* <ReservationText> */}
-            RESERVATION
-            {/* </ReservationText> */}
+          RESERVATION
+          {/* </ReservationText> */}
         </ReservationBtn>
       </RightContainer>
     </TotalContainer>
-  )
+  );
 }
 
 export default ReservationPage;

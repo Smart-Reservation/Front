@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import StoreBox from "./StoreBox";
-import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import { useStoreInfoDispatch, useStoreInfoState } from "../../context/StoreInfoContext";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -13,8 +13,8 @@ const BoxListContainer = styled.div`
 
 
 function StoreBoxList(){
-    const storeList=useReservationInfoState();
-    const storeDispatch=useReservationInfoDispatch();
+    const storeList=useStoreInfoState();
+    const storeDispatch=useStoreInfoDispatch();
     const nav = useNavigate();
     const onClick=(id)=>{
         storeDispatch({type:"LOAD_STORE_RESERVATION",id:id})

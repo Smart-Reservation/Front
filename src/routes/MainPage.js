@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import StoreBoxList from "../components/main/StoreBoxList";
 import StoreCategory from "../components/main/StoreCategory";
-import Head from "../components/calender/header";
+import Header from "../components/header/Header";
 
 
 const MainContainer=styled.div`
@@ -16,7 +16,7 @@ const StoreBoxListContainer = styled.div`
 function MainPage() {
     return (
         <MainContainer>
-        <Head/>
+        <Header/>
         <StoreBoxListContainer>
             <StoreCategory/>
             <StoreBoxList />
