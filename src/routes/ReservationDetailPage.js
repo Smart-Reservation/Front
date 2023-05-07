@@ -1,4 +1,4 @@
-import Head from "../components/header/header";
+import Header from "../components/header/Header";
 import styled, { css } from "styled-components";
 import QRCode from "../components/QRGen/qr";
 import PrintInformation from "../components/reserveInfo/reserveInfo";
@@ -45,7 +45,7 @@ function ReservationDetailPage(){
   return (
   <>
   <OuterConTainer>
-    <Head />
+    <Header />
     
 <TotalContainer>
 
