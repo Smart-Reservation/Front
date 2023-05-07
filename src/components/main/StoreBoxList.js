@@ -27,7 +27,7 @@ function StoreBoxList(){
                 id:store.id,
                 category:store.category,
                 imgUrl:store.imgUrl,
-                storeName:store.store_name,
+                storeName:store.storeName,
                 location:store.location,
                 deposit:store.deposit,
                 periodList:["10:00","11:00","12:00","13:00","14:00"]
