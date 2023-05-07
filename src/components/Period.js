@@ -1,47 +1,39 @@
-import {  useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 //styled-components
 
 const Container = styled.div`
+  width:100%;   
 `;
-const ContentBox = styled(Container)`
-  ${(props)=>
-    props.clicked
-      ? css`
-        `
-      : css`
-          display: flex;
-          flex-direction: row;
-          align-items: flex-start;
-          padding: 4px 16px;
-          gap: 8px;
-          
-          width: 459px;
-          height: 32px;
-          
-          
-          /* Inside auto layout */
-          
-          flex: none;
-          order: 4;
-          align-self: stretch;
-          flex-grow: 0;
-        `
-  }
+const ContentBox = styled.div`
+  height: 32px;  
+
+  display: flex;
+  padding: 4px 16px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+
+  align-items: center;
+  justify-content: center;
+
+  background: ${(props) => (props.clicked ? "#E0E2E6" : "white")};
+
+  ${(props)=>props.clicked?"":`&:hover {
+    background-color: rgba(55, 53, 47, 0.05);
+  }`}
 `;
 
-function Period({period}){
-  const [clicked, setClicked] = useState(false);
-
-    return (
-      <Container>
-        <ContentBox clicked={clicked}>
-          <div>
-            {period.startTime} ~ {period.endTime}
-          </div>
-        </ContentBox>
-      </Container>
-    )
+function Period({ period, onClick, clicked }) {
+  return (
+    <Container onClick={onClick}>
+      <ContentBox clicked={clicked} >
+          {period}
+      </ContentBox>
+    </Container>
+  );
 }
 export default Period;
