@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useStoreInfoState } from "../../context/StoreInfoContext";
 
 const CategoryContainer = styled.div`
     padding:20px;
@@ -58,23 +59,26 @@ function Category({text,active}) {
     <div style={{display:"inline-block"}}>
         <CategoryText>
             <span>{text}</span>
-            {/* {active ? <ActiveBar /> : <></>} */}
+            {/* {active ? <ActiveBar /> : <></>} */}    
         </CategoryText>
     </div>);
 }
 
 function StoreCategory() {
-    const count = [1, 2, 3, 4];
+    const storeList=useStoreInfoState();
+
+    const category=[...new Set(storeList.totalStore.map((store)=>store.category))]
+    console.log(category)
 
     return (
         <CategoryContainer>
             <Category text="All Store" active={true}/>
             {
-                count.map((index) =>
-                    <>
+                category.map((value,index) =>
+                    <span key={value} >
                         <AbleDot />
-                        <Category key={index} text={'type'+index} active={true}/>
-                    </>
+                        <Category text={value} active={true}/>
+                    </span>
                 )
             }
 
