@@ -3,7 +3,10 @@ import styled from "styled-components";
 //styled-components
 
 const Container = styled.div`
-  width:100%;   
+  width:100%;
+  &:hover{
+    cursor:pointer;
+  }
 `;
 const ContentBox = styled.div`
   height: 32px;  

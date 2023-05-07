@@ -21,12 +21,12 @@ const DateContainer = styled.div`
     `}
     
     ${
-        (props)=> !props.isactive&&props.isDate && `&:hover{
+        (props)=> !props.isactive&&props.isDate&&!props.disable && `&:hover{
         display: inline-block;
         background-color: lightGray;
         width:4em;
         height:3em;
-        cursor:grab;
+        cursor:pointer;
         }`   
     }
 `
