@@ -5,7 +5,7 @@ import './calender.css';
   
 function Calender(){
     let now=new Date();
-    let month=now.getMonth();
+    let month=now.getMonth()+1;
     let year= now.getFullYear();
     const [monthCurrent,setMonth]= useState(month);
     const [yearCurrent,setyear]= useState(year);
