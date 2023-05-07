@@ -2,18 +2,13 @@ import React, { useReducer, createContext, useContext } from "react";
 
 const initialState={
   address:"",
-  coin:0.00, //그럼 가게도 있어야 하는거 아니야..?
   reservationList:[
     {
+      id:1,
       storeId:1,
-      date:{
-        year:2023,
-        month:5,
-        day:5
-      },
-      reservationIdx:0,  
+      periodIndex:1,   
     },
-  ]
+]
 };
 
 function UserInfoReducer(state,action){
@@ -22,8 +17,6 @@ function UserInfoReducer(state,action){
       return{
         ...state,
         address:action.address,
-        coin:action.coin, //
-        reservationList:action.reservationList,
       }
       case "ADD_USER_RESERVATION": //사용자 예약 추가
       return{
@@ -34,7 +27,7 @@ function UserInfoReducer(state,action){
       return{
         ...state,
         reservationList:state.reservationList.filter(
-          (reservation) => reservation !== action.reservation),
+          (reservation) => reservation.id !== action.id),
       };
     default:
       return state;

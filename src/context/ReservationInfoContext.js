@@ -1,68 +1,89 @@
 import React, { useReducer, createContext, useContext } from "react";
 
 const initialState={
-  reservationList:[
+  totalStore: [
     {
-      storeId:1,
-      date:{
-        year:2023,
-        month:5,
-        day:5
-      },
-      possibleIdxList:[0,2,3], //1,4 제외한 나머지 0,2,3시간대만 예약가능
-      reservedIdxList:[0,3] //0,2,3,4 시간대 중 0,3 은 이미 예약됨 
+      id:1,
+      category:"food",
+      storeName: "store1",
+      location:"",
+      deposit:"0.025",
+      imgUrl:"store/img/1",
+      periodList:[
+        {
+          index:1,
+          startTime:"10:00",
+          endTime:"11:00"
+        },
+        { index:2,
+          startTime:"11:00",
+          endTime:"12:00"
+        },
+        {
+          index:3,
+          startTime:"12:00",
+          endTime:"13:00"
+        }
+      ],
+        
+      possibleList:[1,2],
+      impossibleList:[3],
+      reservationList:[],
     },
   ],
   selectedId:1, //선택된 가게 ID
-  selectedDate:{
-    year:2023,
-    month:5,
-    day:5
-  }
 };
 
 function ReservationReducer(state, action){
   switch(action.type){
-    case "LOAD_STORE_RESERVATION": //해당 날짜 가게 예약 목록 불러오기
+    case "LOAD_STORE_RESERVATIONS": //가게 예약 목록 불러오기
       return {
         ...state,
         selectedId:action.id,
-        selectedDate:action.date,
+        
       };
-    case "SELECT_DATE": //캘린더에서 날짜 선택
+    case "ADD_STORE_RESERVATION": //가게 예약 추가
       return{
         ...state,
-        date:action.date,
-      }
-    case "ADD_RESERVATION": //해당 날짜/시간에 예약 추가
-      return{
-        ...state,
-        reservationList:state.reservationList.map((reservation)=>
-          ((reservation.storeId === state.selectedId) && (reservation.date === state.selectedDate))
+        totalStore:state.totalStore.map((store)=>
+        store.id === state.selectedId
           ? {
-              ...reservation,
-              reservedIdxList:reservation.reservedIdxList.concat(action.reservedIdx),
+              ...store,
+              reservationList:store.reservationList.concat(action.reservation),
             }
-          : reservation
+          : store
         ),
       };
-    case "CANCEL_RESERVATION": //가게 예약 취소
+    case "CANCEL_STORE_RESERVATION": //가게 예약 취소
       return{
         ...state,
-        reservationList:state.reservationList.map((reservation)=>
-          ((reservation.storeId === state.selectedId) && (reservation.date === state.selectedDate))
+        totalStore:state.totalStore.map((store)=>
+          store.id === state.selectedId
           ? {
-              ...reservation,
-              reservedIdxList:reservation.reservedIdxList.filter(
-                (index) => index !== action.reservedIdx
+              ...store,
+              reservationList:store.reservationList.filter(
+                (reservation) => reservation.id !== action.id
               ),
             }
-          : reservation
+          : store
         ),
       };
+    case "CONFIRM_STORE_RESERVATION": //가게 예약 확정(예약 편집) -> contract
+    return{
+      ...state,
+      totalStore:state.totalStore.map((store)=>
+        store.id === state.selectedId
+        ? {
+            ...store,
+            reservationList:state.reservationList.map((reservation)=>
+              reservation.id === action.id ? action.reservation : reservation
+            ),
+          }
+        :store
+      ),
+    };
     default:
       return state;
-
   }
 }
 

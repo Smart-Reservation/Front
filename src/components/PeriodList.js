@@ -1,53 +1,41 @@
 import Period from "./Period";
-import {
-  useStoreInfoState,
-  useStoreInfoDispatch,
-} from "../context/StoreInfoContext";
-import styled, { css } from "styled-components";
-import { useState, useEffect } from "react";
+import { useReservationInfoState, useReservationInfoDispatch } from '../context/ReservationInfoContext';
+import styled ,{css}  from "styled-components";
 
-const PeriodListContainer = styled.div`
-  width: 30vw;
-  height: 200px;
-
+const PeriodListContainer=styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 8px 0px;
 
-  margin-top:20px;
+  position: absolute;
+  width: 459px;
+  height: 200px;
+  left: 791px;
+  top: 172px;
   overflow-y: scroll;
 
-  background: #ffffff;
-  box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08),
-    0px 8px 32px rgba(19, 10, 46, 0.07), 0px 3px 14px rgba(19, 10, 46, 0.03),
-    0px 1px 3px rgba(19, 10, 46, 0.13);
+  /* White */
+
+  background: #FFFFFF;
+  box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08), 0px 8px 32px rgba(19, 10, 46, 0.07), 0px 3px 14px rgba(19, 10, 46, 0.03), 0px 1px 3px rgba(19, 10, 46, 0.13);
   border-radius: 8px;
 `;
 
-function PeriodList({ periods, selectIndex }) {
-  const storeState = useStoreInfoState();
-  const storeDispatch = useStoreInfoDispatch();
-  const [clickeds, setClickeds] = useState(Array(periods.length).fill(false));
-
-  const onClick = (index,realIndex) => {
-    const newArr = Array(periods.length).fill(false);
-    newArr[index] = true;
-    setClickeds(newArr);
-    selectIndex(realIndex); 
-  };
-
-  return (
+function PeriodList({periods}){
+  const state = useReservationInfoState();
+  const dispatch = useReservationInfoDispatch(); 
+  
+  return(
     <PeriodListContainer>
-      {periods.map((period, index) => (
-        <Period
-          onClick={()=>{onClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))}}
-          period={period}
-          clicked={clickeds[index]}
+      {periods.map((period)=>(
+        <Period period={period}
         />
       ))}
     </PeriodListContainer>
-  );
+  )
+
 }
 
 export default PeriodList;
+
