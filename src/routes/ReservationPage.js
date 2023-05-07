@@ -141,7 +141,7 @@ const ReservationBtn = styled.div`
   margin:30px;
   margin-top:0px;
 
-  
+  background:#484848;
   border-radius: 23px;
 
   font-family: "Montserrat";
