@@ -1,6 +1,6 @@
 import Day from "./days";
-import {useEffect, useRef, useState} from 'react';
-import './calender.css';
+import { useEffect, useRef, useState } from "react";
+import "./calender.css";
 // import Head from './header';
   
 function Calender(){
@@ -30,7 +30,6 @@ function Calender(){
         }
         monthCount.current++;
         setMonth(monthCount.current);
-
     }
     function monthBefore(){
         if(monthCount.current===1){
@@ -98,13 +97,19 @@ function Calender(){
                 }
                 b.push(<div className="oneWeek">{a[i]}</div>);
         }
-    }           
-            return (<div>
-                {b}
-            </div>)
-    }
+      }
+    return fullYear;
+  }
 
+  function DaySpliter({ month }) {
+    const a = fullYearAdder();
+    const b = [];
 
+    for (let i = 0; i < a.length; i++) {
+      if (a[i][0].props.month === month ||a[i][a[i].length - 1].props.month === month) {
+        // if (((a[i][0].props.month === month) !== a[i][a[i].length - 1].props.month) ===month) { }
+        b.push(<div className="oneWeek">{a[i]}</div>);
+      }
 
     function DayOfTheWeek(){
         const daylist=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
@@ -125,12 +130,13 @@ function Calender(){
             <div ><button onClick={monthBefore}>&lt;</button><span>{yearCurrent}년{monthCurrent}월</span> <button onClick={monthAfter}>&gt;</button></div>
             <DayOfTheWeek/>
             <DaySpliter  month={monthCurrent}/>
+
         </div>
-        </>
-    )
-
-
+        <DayOfTheWeek />
+        <DaySpliter month={monthCount.current} />
+      </div>
+    </>
+  );
 }
 
-    export default Calender;
-
+export default Calender;
