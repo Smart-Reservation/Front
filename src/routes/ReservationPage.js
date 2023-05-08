@@ -13,6 +13,7 @@ import {
   useReservationInfoDispatch,
   useReservationInfoState,
 } from "../context/ReservationInfoContext";
+import { useNavigate } from "react-router";
 
 //styled-components
 const TotalContainer = styled.div`
@@ -37,24 +38,24 @@ const RightContainer = styled.div`
   flex-direction: column;
 `;
 
-const CalendarContainer=styled.div`
+const CalendarContainer = styled.div`
   margin:30px;
   margin-left:100px;
 `;
 
-const PeriodContainer=styled.div`
+const PeriodContainer = styled.div`
   margin:30px;
 `;
-const NumberContainer=styled.div`
+const NumberContainer = styled.div`
   margin:30px;
   margin-top:0px;
 `;
 
-const CoinContainer=styled.div `
+const CoinContainer = styled.div`
   margin:30px;
   margin-top:0px;`;
 
-const NumberBtn=styled.div`
+const NumberBtn = styled.div`
   width:100%;
   display:flex; 
   margin-top:20px;
@@ -75,6 +76,10 @@ const DecreaseBtn = styled.div`
   align-items: center;
   justify-content: center;
 
+  &:hover{
+    cursor:pointer;
+  }
+
   &:active {
     background-color: rgba(190, 190, 191, 0.9);
   }
@@ -94,6 +99,10 @@ const IncreaseBtn = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
+
+  &:hover{
+    cursor:pointer;
+  }
 
   &:active {
     background-color: rgba(190, 190, 191, 0.9);
@@ -153,6 +162,10 @@ const ReservationBtn = styled.div`
   text-align: center;
   color: #ffffff;
 
+  &:hover {
+    cursor:pointer;
+  }
+
   &:active {
     background-color: rgba(195, 195, 200, 1);
   }
@@ -176,36 +189,39 @@ function ReservationPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const [number, setNumber] = useState(1);
-  const [Index, setIndex]=useState(-1);
+  const [Index, setIndex] = useState(-1);
+  const nav=useNavigate();
 
   let possibleIdxs = reservationState.reservationList.find(
     (reservation) =>
       reservation.storeId === reservationState.selectedId &&
       JSON.stringify(reservation.date) ===
-        JSON.stringify(reservationState.selectedDate)
+      JSON.stringify(reservationState.selectedDate)
   ).possibleIdxList;
 
   let storePeriods = storeState.totalStore.find(
     (store) => store.id === storeState.selectedId
   ).periodList;
 
-  const SelectDate=(date)=>{
+  const SelectDate = (date) => {
     reservationDispatch({
       type: 'SELECT_DATE',
-      date:date
+      date: date
     })
   }
-  const selectIndex=(Index)=>{
+  const selectIndex = (Index) => {
     setIndex(Index);
   }
-  const AddReservation=(Index)=>{
+  const AddReservation = (Index) => {
     reservationDispatch({
       type: 'ADD_RESERVATION',
-      reservedIdx:Index
+      reservedIdx: Index
     })
+    nav("/ReservationDetailPage")
+    
   };
 
-  
+
   return (
     <TotalContainer>
       <Header />
@@ -233,10 +249,10 @@ function ReservationPage() {
             <DecreaseBtn
               onClick={
                 number <= 1
-                  ? () => {}
+                  ? () => { }
                   : () => {
-                      setNumber(number - 1);
-                    }
+                    setNumber(number - 1);
+                  }
               }
             >
               -
@@ -263,7 +279,7 @@ function ReservationPage() {
           </CoinText>
         </CoinContainer>
         <ReservationBtn
-          onClick={()=>{AddReservation(Index)}}
+          onClick={() => { AddReservation(Index) }}
         >
           {/* <ReservationText> */}
           RESERVATION

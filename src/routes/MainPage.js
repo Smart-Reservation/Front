@@ -4,9 +4,6 @@ import StoreCategory from "../components/main/StoreCategory";
 import Header from "../components/header/Header";
 
 
-const MainContainer=styled.div`
-
-`
 
 const StoreBoxListContainer = styled.div`
     position:absolute;
@@ -15,13 +12,13 @@ const StoreBoxListContainer = styled.div`
 `
 function MainPage() {
     return (
-        <MainContainer>
+        <div>
         <Header/>
         <StoreBoxListContainer>
             <StoreCategory/>
             <StoreBoxList />
         </StoreBoxListContainer>
-        </MainContainer>
+        </div>
     );
 }
 

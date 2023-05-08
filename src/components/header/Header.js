@@ -1,10 +1,12 @@
-import logo from "./images/logo.png";
-import "./header.css";
-import profile from "./images/profile.png";
-import profileBoss from "./images/profile_boss.png";
-import { useEffect, useState } from "react";
+import logo from './images/logo.png';
+import './header.css';
+import Profile from './images/profile.png';
+import ProfileStore from './images/profile_boss.png';
+import { useState } from 'react';
 import login from '../Login';
+import { Link } from 'react-router-dom';
 import UserOption from "../user_option/UserOption";
+
 function Header() {
   const [active, setActive] = useState(false);
   let button;
@@ -12,15 +14,9 @@ function Header() {
     active ? setActive(false) : setActive(true);
   }
 
-  button = active ? (
-    <div className="bossTog">
-      <img src={profileBoss} />
-    </div>
-  ) : (
-    <div className="customerTog">
-      <img src={profile} />
-    </div>
-  );
+  button = active ? <div className='bossTog' ><img src={ProfileStore} alt='profileStore'/></div> : <div className='customerTog' ><img src={Profile}  alt='profile'/></div>
+
+
   const [logged, setlogged]=useState(false); //전역적으로 관리
   const [clicked,setClicked]=useState(false);
 
@@ -33,9 +29,7 @@ function Header() {
   }
   return (
     <div className="top">
-      <div>
-        <img id="logo" src={logo} alt="logo"></img>
-      </div>
+      <Link to={'/'}><img id="logo" src={logo} alt="logo"></img></Link>
       <div className="rightSide">
         <button className="btnHeader" id="btnOut" type="button" >
           <div 
@@ -46,7 +40,7 @@ function Header() {
             className="btnHeader"
             id="toggle"
             type="button"
-            isActive={active}
+            isactive={active.toString()}
             onClick={alterner}
           >
             {button}{" "}

@@ -41,6 +41,7 @@ function PeriodList({ periods, selectIndex }) {
     <PeriodListContainer>
       {periods.map((period, index) => (
         <Period
+          key={index}
           onClick={()=>{onClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))}}
           period={period}
           clicked={clickeds[index]}
