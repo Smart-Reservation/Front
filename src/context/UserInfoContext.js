@@ -1,7 +1,7 @@
 import React, { useReducer, createContext, useContext } from "react";
 
 const initialState={
-  address:"",
+  address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
   coin:0.00, //그럼 가게도 있어야 하는거 아니야..?
   reservationList:[
     {
@@ -11,7 +11,18 @@ const initialState={
         month:5,
         day:5
       },
+      numbers:2,
       reservationIdx:0,  
+    },
+    {
+      storeId:1,
+      date:{
+        year:2023,
+        month:5,
+        day:5
+      },
+      numbers:1,
+      reservationIdx:3,  
     },
   ]
 };
