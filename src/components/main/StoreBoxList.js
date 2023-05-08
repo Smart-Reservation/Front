@@ -25,26 +25,12 @@ function StoreBoxList(){
         .then((res)=>{
             const totalStore=res.data.map((store)=>({
                 id:store.id,
+                category:store.category,
                 imgUrl:store.imgUrl,
                 storeName:store.store_name,
                 location:store.location,
                 deposit:store.deposit,
-                periodList:[
-                    {
-                      index:1,
-                      startTime:"10:00",
-                      endTime:"11:00"
-                    },
-                    { index:2,
-                      startTime:"11:00",
-                      endTime:"12:00"
-                    },
-                    {
-                      index:3,
-                      startTime:"12:00",
-                      endTime:"13:00"
-                    }
-                  ],
+                periodList:["10:00","11:00","12:00","13:00","14:00"]
             }));
             storeDispatch({type:"LOAD_STORE_LIST",totalStore:totalStore});
         })

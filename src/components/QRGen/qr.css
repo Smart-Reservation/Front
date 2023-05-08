@@ -1,0 +1,22 @@
+.qrContainer{
+    display:block;
+    border: 10px sold black;
+    padding: 15% 10%;
+}
+
+#hider{
+    top: 0px;
+    background: black;
+ }
+
+ #btnHider{
+    position:absolute;
+    border:2px white solid;
+     color:white;
+     background-color:transparent;
+     font-size:2em;
+ }
+ #btnHider:hover{
+    cursor: grab;
+ }
+   

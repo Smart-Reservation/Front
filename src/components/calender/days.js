@@ -1,23 +1,46 @@
-import classes from './days.module.css'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import styled from 'styled-components';
 
-
-function Day({date,month, monthCompare,isactive, data, onClick}){
-
+const DateContainer = styled.div`
+    border:1px solid white;
+    background-color: ${(props)=>props.isactive?'gray':'white'};
+    width:4em;
+    height:3em;
+    border-radius:10px;
     
-    const dataExample={
-        link : "www.naver.com",
-        date, 
-        avalableTime:[12,13,14,15,16],
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 3em;
+    text-align: center;
+    ${(props)=>props.disable&&`
+        color:'gray';
+        background-color: lightGray;
+    `}
+    
+    ${
+        (props)=> !props.isactive&&props.isDate && `&:hover{
+        display: inline-block;
+        background-color: lightGray;
+        width:4em;
+        height:3em;
+        cursor:grab;
+        }`   
     }
-    
+`
 
-    return(
-        <div id={`${date}`} onClick={()=>onClick(dataExample)} style={{
-            backgroundColor: isactive ? 'blue' : ''
-        }}
-         className={classes.eachDay}>
-            {monthCompare===month ? date:(null)}
-        </div>
+function Day({ date, onClickDay, onClickEmpty, isDate,selectedDate ,disable}) {
+    return (
+        <DateContainer 
+        onClick={isDate ? onClickDay : onClickEmpty}
+        disable={disable}
+        isDate={isDate}
+        isactive={isDate&&!disable?selectedDate?.getDate()===date.getDate():false}>
+
+            {isDate ? date.getDate() : date}
+        </DateContainer>
     )
 }
 export default Day;

@@ -7,6 +7,7 @@ import {
 } from "../context/StoreInfoContext";
 import styled, { css } from "styled-components";
 import { useState } from "react";
+
 import Header from "../components/header/Header";
 import {
   useReservationInfoDispatch,
@@ -140,7 +141,7 @@ const ReservationBtn = styled.div`
   margin:30px;
   margin-top:0px;
 
-  background: #484848;
+  background:#484848;
   border-radius: 23px;
 
   font-family: "Montserrat";
