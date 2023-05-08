@@ -16,14 +16,15 @@
     font-style: normal;
     font-weight: bold;
 
-    }  
+    } 
 
 .rightSide{
-    display: flex;
+    display: flex;      
     align-items: center ;
     width: 30%;
     justify-content: space-around;
     margin-right: 5em;
+    flex-direction: column;
 }
 .btnHeader{
     
@@ -37,17 +38,23 @@
     background: #484848;
     border-radius: 23px;
     display: flex;
-     font-family: 'Montserrat';
+    font-family: 'Montserrat';
     font-style: normal;
     justify-content: space-between;
     align-items: center;
+    
 }
-
-
-
 
 .btnHeader:hover{
     cursor:grab;
+}
+#wallet{
+    border-radius: 23px;
+    width:12em;
+    border: transparent;
+    /* border-radius: 20%; */
+    box-shadow: none;
+    padding-left: 1em;
 }
 
 #toggle{
