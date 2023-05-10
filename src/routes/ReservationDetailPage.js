@@ -1,6 +1,6 @@
 import Header from "../components/header/Header";
 import styled, { css } from "styled-components";
-import QRCode from "../components/QRGen/qr";
+import QRCode from "../components/qr/generateQR/qr";
 import PrintInformation from "../components/reserveInfo/reserveInfo";
 
 const OuterConTainer = styled.div`

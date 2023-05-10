@@ -5,7 +5,7 @@ import {
 } from "../context/StoreInfoContext";
 import Header from "../components/header/Header";
 import Calender from "../components/calender/Calendar";
-import PeriodList from "../components/PeriodList";
+import PeriodList from "../components/period/PeriodList";
 import ReservationList from "../components/reservation/ReservationList";
 import {
   useReservationInfoDispatch,
