@@ -2,7 +2,7 @@ import Period from "./Period";
 import {
   useStoreInfoState,
   useStoreInfoDispatch,
-} from "../context/StoreInfoContext";
+} from "../../context/StoreInfoContext";
 import styled from "styled-components";
 import { useState } from "react";
 

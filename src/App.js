@@ -9,7 +9,7 @@ import { StoreInfoProvider } from "./context/StoreInfoContext";
 import { UserInfoProvider } from "./context/UserInfoContext";
 import { ReservationInfoProvider } from "./context/ReservationInfoContext";
 import ScrollToTop from "./components/ScrollTop";
-import QRReadPage from "./routes/QRReadPage";
+import QRScanPage from "./routes/QRScanPage";
 
 function App() {
   return (
@@ -24,7 +24,7 @@ function App() {
               <Route path="/SettingPage" element={<SettingPage />}></Route>
               <Route path="/ReservationDetailPage" element={<ReservationDetailPage />} ></Route>
               <Route path="/ReservationListPage" element={<ReservationListPage />} ></Route>
-              <Route path="/QRScan" element={<QRReadPage />}></Route>  
+              <Route path="/QRScanPage" element={<QRScanPage />}></Route>  
             </Routes>
             {/* <Copyright/> */}
           </Router>
