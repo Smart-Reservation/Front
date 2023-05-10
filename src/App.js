@@ -23,7 +23,7 @@ function App() {
               <Route path="/ReservationPage" element={<ReservationPage />}></Route>
               <Route path="/SettingPage" element={<SettingPage />}></Route>
               <Route path="/ReservationDetailPage" element={<ReservationDetailPage />} ></Route>
-              <Route path="/ReservationLitPage" element={<ReservationListPage />} ></Route>
+              <Route path="/ReservationListPage" element={<ReservationListPage />} ></Route>
               <Route path="/QRScan" element={<QRReadPage />}></Route>  
             </Routes>
             {/* <Copyright/> */}
