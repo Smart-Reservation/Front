@@ -7,7 +7,7 @@ import { useReservationInfoDispatch, useReservationInfoState } from "../../conte
 //styled-component
 const ReservationListContainer=styled.div`
   width: 30vw;
-  height: 200px;
+  height: ${(props) => (props.mode==="user" ? "200px" : "400px")};
 
   display: flex;
   flex-direction: column;
@@ -16,13 +16,9 @@ const ReservationListContainer=styled.div`
   overflow-y: scroll;
 
   background: #ffffff;
-  // box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08),
-  //   0px 8px 32px rgba(19, 10, 46, 0.07), 0px 3px 14px rgba(19, 10, 46, 0.03),
-  //   0px 1px 3px rgba(19, 10, 46, 0.13);
-  // border-radius: 8px;
 `;
 
-function ReservationList({ reservations }) {
+function ReservationList({ mode, reservations }) {
   const [clickeds, setClickeds] = useState(Array(reservations.length).fill(false));
 
   const onClick = (index) => {
@@ -32,9 +28,11 @@ function ReservationList({ reservations }) {
   };
 
   return (
-    <ReservationListContainer>
+    <ReservationListContainer mode={mode}>
       {reservations.map((reservation, index) => (
         <Reservation
+          key={index}
+          mode={mode}
           onClick={onClick}
           reservation={reservation}
           index={index}

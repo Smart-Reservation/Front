@@ -6,7 +6,7 @@ import {
 import Header from "../components/header/Header";
 import Calender from "../components/calender/Calendar";
 import PeriodList from "../components/PeriodList";
-import ReservationList from "../components/user_option/ReservationList";
+import ReservationList from "../components/reservation/ReservationList";
 import {
   useReservationInfoDispatch,
   useReservationInfoState,
