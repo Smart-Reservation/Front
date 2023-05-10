@@ -22,6 +22,18 @@ function StoreReducer(state, action){
         ...state,
         totalStore:action.totalStore
       };
+    case "SELECT_STORE_DEPOSIT": //가게 예약금 변경하기
+      return {
+        ...state,
+        totalStore:state.totalStore.map((store)=>
+          (store.storeId === state.selectedId)
+          ?{
+            ...store,
+            deposit:action.deposit
+          }
+          :store
+        )
+      }
     default:
       return state;
   }
