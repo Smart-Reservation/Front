@@ -170,18 +170,7 @@ const ReservationBtn = styled.div`
     background-color: rgba(195, 195, 200, 1);
   }
 `;
-const ReservationText = styled.div`
-  width: 179px;
-  height: 23px;
 
-  font-family: "Montserrat";
-  font-style: normal;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29px;
-
-  text-align: center;
-`;
 
 function ReservationPage() {
   const storeState = useStoreInfoState();
@@ -234,11 +223,8 @@ function ReservationPage() {
       <RightContainer>
         <PeriodContainer>
           <LabelText>Select a period : </LabelText>
-          {/* <PeriodList 
-            periods={state.totalStore.find(store => store.id === state.selectedId).periodList} 
-            //periods={[{startTime:"10:00",endTime:"11:00"}]}
-          /> */}
           <PeriodList
+            mode="user"
             periods={possibleIdxs.map((index) => storePeriods[index])}
             selectIndex={selectIndex}
           />
@@ -278,13 +264,7 @@ function ReservationPage() {
             BNB
           </CoinText>
         </CoinContainer>
-        <ReservationBtn
-          onClick={() => { AddReservation(Index) }}
-        >
-          {/* <ReservationText> */}
-          RESERVATION
-          {/* </ReservationText> */}
-        </ReservationBtn>
+        <ReservationBtn onClick={() => { AddReservation(Index) }}>RESERVATION</ReservationBtn>
       </RightContainer>
     </TotalContainer>
   );
