@@ -57,6 +57,11 @@ function ReservationReducer(state, action){
         ...state,
         currentSet:action.set,
       }
+    case "ADD_SETTING": //가게 예약 가능 날짜 설정
+      return {
+        ...state,
+        possibleIdxList:action.possibleIdxList,
+      };
     case "ADD_RESERVATION": //해당 날짜/시간에 예약 추가
       return{
         ...state,
