@@ -1,7 +1,7 @@
-import ReservationList from "./ReservationList";
+import ReservationList from "../reservation/ReservationList";
 import { useUserInfoState } from "../../context/UserInfoContext";
 import styled from "styled-components";
-import X from "./X.png";
+import X from "../../asset/img/X.png";
 
 const ReservationContainer=styled.div`
   width: 35vw;
@@ -54,7 +54,7 @@ const ImageContainer=styled.div`
           <img src={X} width={"15px"} height={"15px"}/>
         </ImageContainer>
       </TitleContainer>
-      <ReservationList reservations={userState.reservationList}/>
+      <ReservationList mode="user" reservations={userState.reservationList}/>
     </ReservationContainer>
   );
 }

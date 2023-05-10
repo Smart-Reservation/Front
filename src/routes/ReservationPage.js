@@ -1,5 +1,5 @@
 import PeriodList from "../components/PeriodList";
-import ReservationList from "../components/user_option/ReservationList";
+import ReservationList from "../components/reservation/ReservationList";
 import Calender from "../components/calender/Calendar";
 import {
   useStoreInfoState,

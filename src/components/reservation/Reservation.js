@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useStoreInfoState } from "../../context/StoreInfoContext";
 import { useState } from "react";
-import X from "./X.png";
+import X from "../../asset/img/X.png";
 
 //styled component
 //styled-components
@@ -34,7 +34,7 @@ const ContentBox = styled.div`
   }`}
 `;
 
-function Reservation({ reservation, onClick, index, clicked }) {
+function Reservation({ mode, reservation, onClick, index, clicked }) {
   const storeState = useStoreInfoState();
   let storeName = storeState.totalStore.find(
     (store) => store.id === reservation.storeId
@@ -51,7 +51,7 @@ function Reservation({ reservation, onClick, index, clicked }) {
   };
   const NotHovered = () => {
     setHovered(false);
-  };
+  }
 
   return (
     <Container
@@ -60,7 +60,11 @@ function Reservation({ reservation, onClick, index, clicked }) {
       onMouseLeave={() => NotHovered()}
     >
       <ContentBox clicked={clicked} hovered={hovered}>
-        {storeName} {timeStamp} {reservation.numbers}people
+        {
+          mode==="user"
+          ?<>{storeName} {timeStamp} {reservation.numbers}people</>
+          :<>{reservation.reservedList[index].userAddress} {timeStamp} {reservation.numbers}people</>
+        }
         {hovered ? <img src={X} width={"15px"} height={"15px"} /> : <></>}
       </ContentBox>
     </Container>
