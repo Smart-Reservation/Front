@@ -3,8 +3,8 @@ import {
   useStoreInfoState,
   useStoreInfoDispatch,
 } from "../context/StoreInfoContext";
-import styled, { css } from "styled-components";
-import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useState } from "react";
 
 const PeriodListContainer = styled.div`
   width: 30vw;
@@ -25,24 +25,34 @@ const PeriodListContainer = styled.div`
   border-radius: 8px;
 `;
 
-function PeriodList({ periods, selectIndex }) {
+function PeriodList({ mode, periods, selectIndex, selectIndexs }) {
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
   const [clickeds, setClickeds] = useState(Array(periods.length).fill(false));
 
-  const onClick = (index,realIndex) => {
+  const onUserClick = (index,realIndex) => {
     const newArr = Array(periods.length).fill(false);
     newArr[index] = true;
     setClickeds(newArr);
     selectIndex(realIndex); 
   };
 
+  const onOwnerClick=(index)=>{
+    clickeds[index]=!clickeds[index];
+    setClickeds(clickeds);
+    selectIndexs(index);
+  }
+  
   return (
     <PeriodListContainer>
       {periods.map((period, index) => (
         <Period
           key={index}
-          onClick={()=>{onClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))}}
+          onClick={()=>{
+            mode==="user"
+            ?onUserClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))
+            :onOwnerClick(index)
+          }}
           period={period}
           clicked={clickeds[index]}
         />

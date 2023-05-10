@@ -6,6 +6,7 @@ import { useState } from "react";
 import login from "../Login";
 import { Link } from "react-router-dom";
 import UserOption from "../user_option/UserOption";
+import OwnerOption from "../owner_option/OwnerOption";
 import styled from "styled-components";
 
 const Logo = styled.img`
@@ -152,7 +153,8 @@ function Header() {
           </Toggle>
         </DivHeader>
       </RightSide>
-      {clicked ? <UserOption /> : <></>}
+      {/* 수정 */}
+      {clicked ? <OwnerOption /> : <></>} 
     </Top>
   );
 }
