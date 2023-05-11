@@ -1,5 +1,4 @@
 import logo from "./images/logo.png";
-import "./header.css";
 import Profile from "./images/profile.png";
 import ProfileStore from "./images/profile_boss.png";
 import { useState } from "react";
@@ -10,21 +9,22 @@ import OwnerOption from "../owner_option/OwnerOption";
 import styled from "styled-components";
 
 const Logo = styled.img`
-  height: 7em;
-  margin-left: 6em;
+  margin-top: 1em;
+  height: 3em;
+  margin-left: 4em;
 `;
 
 const Top = styled.div`
   height: 6em;
   margin: 0px;
   display: flex;
-  background-color: #c2c6cc;
+  background-color: #ffe6c7;
   justify-content: space-between;
   width: 100vw;
 
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: bold;
+  font-weight: bolder;
 `;
 const RightSide = styled.div`
   display: flex;
@@ -36,19 +36,19 @@ const RightSide = styled.div`
 `;
 const DivHeader = styled.div`
   border-radius: 20%;
-  border: 1px black solid;
   color: white;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
   height: 3em;
-  background: #484848;
+  background: #ffa559;
   border-radius: 23px;
   display: flex;
   font-family: "Montserrat";
   font-style: normal;
   justify-content: space-between;
   align-items: center;
+
   &:hover {
     cursor: grab;
   }
@@ -58,15 +58,17 @@ const BtnHeader = styled.button`
   border-radius: 20%;
   border: 1px black solid;
   color: white;
+  font-fammily: monospace;
+
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
   height: 3.5em;
-  background: #484848;
+  background: #ffa559;
+  font-weight: 900;
   border-radius: 23px;
   display: flex;
   font-family: "Montserrat";
-  font-style: normal;
   justify-content: space-between;
   align-items: center;
   &:hover {
@@ -79,7 +81,6 @@ const Toggle = styled(BtnHeader)`
   display: block;
   width: 6em;
   margin-right: -0.5em;
-
   & > .customerTog > img {
     height: 3em;
     margin: 0;
@@ -154,7 +155,7 @@ function Header() {
         </DivHeader>
       </RightSide>
       {/* 수정 */}
-      {clicked ? <OwnerOption /> : <></>} 
+      {clicked ? <OwnerOption /> : <></>}
     </Top>
   );
 }
