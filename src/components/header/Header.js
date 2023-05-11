@@ -78,22 +78,43 @@ const BtnHeader = styled.button`
 const Toggle = styled(BtnHeader)`
   background-color: rgb(253, 234, 234);
   border: transparent;
-  display: block;
-  width: 6em;
+  width: 15em;
   margin-right: -0.5em;
-  & > .customerTog > img {
-    height: 3em;
-    margin: 0;
-    padding-right: 70%;
-    transition: all 0.2s ease-in;
+  color: grey;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  & > .customerTog {
+    display: inline-block;
+
+    & > img {
+      position: absolute;
+      height: 2.9em;
+      left: 2%;
+      transition: all 0.2s ease-in;
+
+      top: 10%;
+    }
   }
-  & > .bossTog > img {
-    height: 3em;
-    margin: 0;
-    padding-left: 40%;
-    transition: all 0.2s ease-in;
+  & > p {
+    display: block;
+    width: 1em;
+  }
+  & > .bossTog {
+    display: inline-block;
+
+    & > img {
+      position: absolute;
+      transition: all 0.2s ease-in;
+
+      height: 2.9em;
+      top: 7%;
+
+      left: 80%;
+    }
   }
 `;
+
 const Wallet = styled(BtnHeader)`
   border-radius: 23px;
   width: 13em;
@@ -120,10 +141,15 @@ function Header() {
 
   button = active ? (
     <div className="bossTog">
+      <p>&nbsp;I want to &nbsp;&nbsp;serve</p>
+
       <img src={ProfileStore} alt="profileStore" />
     </div>
   ) : (
     <div className="customerTog">
+      <p>
+        &nbsp;I want to <bold>re</bold>serve
+      </p>
       <img src={Profile} alt="profile" />
     </div>
   );
