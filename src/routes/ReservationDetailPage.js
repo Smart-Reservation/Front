@@ -1,8 +1,9 @@
 import Header from "../components/header/Header";
 import styled, { css } from "styled-components";
-import QRCode from "../components/qr/generateQR/qr";
-import PrintInformation from "../components/reserveInfo/reserveInfo";
-
+import QRCode from "../components/qr/generateQR/QrImage";
+import ReservationDetail from "../components/reservationDetail/ReservationDetail";
+import QrImage from "../components/qr/generateQR/QrImage";
+import { useStoreInfoState,useStoreInfoDispatch } from "../context/StoreInfoContext";
 const OuterConTainer = styled.div`
   height: 100vh;
   width: 100vw;
@@ -13,27 +14,24 @@ const TotalContainer = styled.div`
   margin: 3% 10%;
   width: 80%;
   height: 80vh;
-  background: #e0e2e6;
-  border: 1px solid black;
+  background: #EFF0F2;
   border-radius: 20px;
 `;
 const LeftContainer = styled.div`
-  width: 55%;
+  width: 50%;
   padding: auto;
   height: 100%;
-  padding: 0px;
 `;
 
 const RightContainer = styled.div`
+  width:50%;
   height: 100%;
-  padding: 0px;
 `;
 
-const ReservationInfo = styled.div``;
-
-const QrGen = styled.div``;
-
 function ReservationDetailPage() {
+
+  const storeState=useStoreInfoState();
+  const storeDispatch=useStoreInfoDispatch();
   const value =
     "asdfa8aw8e013897fgv7asd8c87d128dbw08c8gsd0fgg123xe218exy231789xe21896ec9b868ce69cr6rgre";
   //value에 값 전달하기
@@ -45,11 +43,12 @@ function ReservationDetailPage() {
 
         <TotalContainer>
           <LeftContainer>
-            <PrintInformation />
+            <ReservationDetail 
+              store={storeState.totalStore.find((store)=>store.id===storeState.selectedId)}
+            />
           </LeftContainer>
-
           <RightContainer>
-            <QRCode valueForQr={value} />
+            <QrImage valueForQr={value} />
           </RightContainer>
         </TotalContainer>
       </OuterConTainer>
