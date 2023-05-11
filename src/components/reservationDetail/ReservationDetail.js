@@ -73,7 +73,7 @@ function ReservationDetail({store}) {
     reservationState.selectedDate.day;
 
   let time=store.periodList[reservationState.currentSet.index];
-  let number=reservationState.currentSet.number;
+  let numbers=reservationState.currentSet.numbers;
 
   return (
     <div>
@@ -99,8 +99,8 @@ function ReservationDetail({store}) {
           <BoldText>Price Detail</BoldText>
         </p>
         <Text>Each Price : {store.deposit}BNB</Text>
-        <Text>Number Of People : {number}</Text>
-        <Text style={{fontWeight:"700"}}>Total : {number * store.deposit}BNB</Text>
+        <Text>Number Of People : {numbers}</Text>
+        <Text style={{fontWeight:"700"}}>Total : {numbers * store.deposit}BNB</Text>
         {/* <p>
           <span>total : </span>
           {number * store.deposit}BNB

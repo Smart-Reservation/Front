@@ -80,10 +80,11 @@ function ReservationListPage() {
           <ReservationListContainer>
             <ReservationList
               mode="owner"
-              reservations={reservationState.reservationList.filter(
+              reservations={reservationState.reservationList.find(
                 (reservation) =>
-                  reservation.storeId === reservationState.selectedId
-              )}
+                  reservation.storeId === reservationState.selectedId &&
+                  JSON.stringify(reservation.date) === JSON.stringify(reservationState.selectedDate)
+              ).reservedList}
             />
           </ReservationListContainer>
         </ReservationContainer>
