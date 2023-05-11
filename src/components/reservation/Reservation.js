@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { useStoreInfoState } from "../../context/StoreInfoContext";
 import { useState } from "react";
 import X from "../../asset/img/X.png";
+import ConfirmationWindow from "./ConfirmationWindow";
+import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
 
 //styled component
 //styled-components
@@ -24,7 +26,7 @@ const ContentBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  background: ${(props) => (props.clicked ? "#E0E2E6" : "white")};
+  background: ${(props) => (props.mode==="user" && props.clicked ? "#E0E2E6" : "white")};
 
   ${(props) =>
     props.clicked
@@ -33,18 +35,28 @@ const ContentBox = styled.div`
     background-color: rgba(55, 53, 47, 0.05);
   }`}
 `;
+const FullContainer=styled.div`
+  width:100vw;
+  height:100vh;
+
+  position:absolute;
+  left: 0%;
+  top: 0%;
+  backdrop-filter: blur(8px);
+`;
 
 function Reservation({ mode, reservation, onClick, index, clicked }) {
   const storeState = useStoreInfoState();
-  let storeName = storeState.totalStore.find(
-    (store) => store.id === reservation.storeId
-  ).storeName;
-  let timeStamp =
-    reservation.date.year +
-    "/" +
-    reservation.date.month +
-    "/" +
-    reservation.date.day;
+  const reservationState=useReservationInfoState();
+  
+  let store=(mode==="user")
+    ?storeState.totalStore.find((store) => store.id === reservation.storeId)
+    :storeState.totalStore.find((store)=>store.id===storeState.selectedId)
+  ;
+  let storeName = store.storeName;
+  let date=(mode==="user")?reservation.date:reservationState.selectedDate;
+  let timeIdx=reservation.index;
+  let timeStamp = date.year + "/" + date.month + "/" + date.day+ " "+ store.periodList[timeIdx];
   const [hovered, setHovered] = useState(false);
   const Hovered = () => {
     setHovered(true);
@@ -53,26 +65,32 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
     setHovered(false);
   };
 
+  const [close,setClose]=useState(false);
+  const onClose=()=>{
+    setClose(true);
+  }
+  const NotClose=()=>{
+    setClose(false);
+  }
+
   return (
+    <>
     <Container
       onClick={() => onClick(index)}
       onMouseEnter={() => Hovered()}
       onMouseLeave={() => NotHovered()}
     >
       <ContentBox clicked={clicked} hovered={hovered}>
-        {mode === "user" ? (
-          <>
-            {storeName} {timeStamp} {reservation.numbers}people
-          </>
-        ) : (
-          <>
-            {reservation.reservedList[index].userAddress} {timeStamp}{" "}
-            {reservation.numbers}people
-          </>
-        )}
-        {hovered ? <img src={X} width={"15px"} height={"15px"} /> : <></>}
+        {
+          mode==="user"
+          ?<>{storeName} {timeStamp} {reservation.numbers}people</>
+          :<>{reservation.address} {timeStamp} {reservation.numbers}people</>
+        }
+        {hovered ? <img src={X} alt="close" onClick={()=>onClose()} width={"15px"} height={"15px"}/>: <></>}
       </ContentBox>
     </Container>
+    {close&&<FullContainer><ConfirmationWindow reservation={reservation} onReturn={NotClose}/></FullContainer>}
+    </>
   );
 }
 

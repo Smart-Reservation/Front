@@ -12,7 +12,7 @@ const initialState={
         day:5
       },
       numbers:2,
-      reservationIdx:0,  
+      index:0,  
     },
     {
       storeId:1,
@@ -22,7 +22,7 @@ const initialState={
         day:5
       },
       numbers:1,
-      reservationIdx:3,  
+      index:3,  
     },
   ]
 };

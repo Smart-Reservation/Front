@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import ConfirmationWindow from "../reservation/ConfirmationWindow";
 
-const UserOptionContainer=styled.div`
+const OwnerOptionContainer=styled.div`
   width:12vw;
   height:15vh;
   margin:10px;
@@ -37,13 +38,11 @@ const BtnContainer=styled.div`
 function OwnerOption(){
   const nav = useNavigate();
   return(
-    <>
-      <UserOptionContainer>
-        <BtnContainer onClick={()=>nav("/SettingPage")}>Setting</BtnContainer>
-        <BtnContainer onClick={()=>nav("/ReservationListPage")}>Reservation List</BtnContainer>
-        <BtnContainer onClick={()=>nav("/QRScan")}>QR reader</BtnContainer>
-      </UserOptionContainer>
-    </>
+    <OwnerOptionContainer>
+      <BtnContainer onClick={()=>nav("/SettingPage")}>Setting</BtnContainer>
+      <BtnContainer onClick={()=>nav("/ReservationListPage")}>Reservation List</BtnContainer>
+      <BtnContainer onClick={()=>nav("/QRScanPage")}>QR reader</BtnContainer>
+    </OwnerOptionContainer>
   );
 }
 
