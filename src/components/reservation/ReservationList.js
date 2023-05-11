@@ -4,10 +4,11 @@ import Reservation from "./Reservation";
 import styled from "styled-components";
 import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
 import ConfirmationWindow from "./ConfirmationWindow";
+
 //styled-component
-const ReservationListContainer=styled.div`
+const ReservationListContainer = styled.div`
   width: 30vw;
-  height: ${(props) => (props.mode==="user" ? "200px" : "400px")};
+  height: ${(props) => (props.mode === "user" ? "200px" : "400px")};
 
   display: flex;
   flex-direction: column;

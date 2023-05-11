@@ -4,15 +4,15 @@ import styled, { css } from "styled-components";
 
 const QRContainer = styled.div`
   zindex: 500;
-  border: 1px solid grey;
-  background: skyblue;
+  background: #ffe6c7;
   border-radius: 12px;
   padding: 2em;
-  width: 60%;
+  width: 40%;
   margin: auto;
   text-align: center;
   display: flex;
   flex-direction: column;
+  padding-top: 0;
 `;
 const LoadingDiv = styled.div`
   display: flex;
@@ -82,10 +82,6 @@ const QRScan = () => {
         </button>
         {startScan && (
           <>
-            <select onChange={(e) => setSelected(e.target.value)}>
-              <option value={"environment"}>Back Camera</option>
-              <option value={"user"}>Front Camera</option>
-            </select>
             <QrReader
               facingMode={selected}
               delay={1000}

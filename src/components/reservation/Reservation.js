@@ -73,8 +73,6 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
     setClose(false);
   }
 
-  
-
   return (
     <>
     <Container
@@ -88,12 +86,7 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
           ?<>{storeName} {timeStamp} {reservation.numbers}people</>
           :<>{reservation.address} {timeStamp} {reservation.numbers}people</>
         }
-        {hovered 
-          ? 
-            <img src={X} alt="close" onClick={()=>onClose()} width={"15px"} height={"15px"}/>
-          : 
-          <></>
-        }
+        {hovered ? <img src={X} alt="close" onClick={()=>onClose()} width={"15px"} height={"15px"}/>: <></>}
       </ContentBox>
     </Container>
     {close&&<FullContainer><ConfirmationWindow reservation={reservation} onReturn={NotClose}/></FullContainer>}
