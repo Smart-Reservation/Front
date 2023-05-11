@@ -147,9 +147,7 @@ function Header() {
     </div>
   ) : (
     <div className="customerTog">
-      <p>
-        &nbsp;I want to <bold>re</bold>serve
-      </p>
+      <p>&nbsp;&nbsp;I want to reserve</p>
       <img src={Profile} alt="profile" />
     </div>
   );
