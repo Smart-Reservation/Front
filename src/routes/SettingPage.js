@@ -17,41 +17,41 @@ import { useState } from "react";
 //styled-component
 const TotalContainer = styled.div`
   position: relative;
-  width:100vw;
-  height:100vh;
+  width: 100vw;
+  height: 100vh;
   background: #ffffff;
-  border-radius: 20px;`;
+  border-radius: 20px;
+`;
 
 const LeftContainer = styled.div`
-  float:left;
-  width:50%;
-  height:100%;
+  float: left;
+  width: 50%;
+  height: 100%;
 `;
 const RightContainer = styled.div`
-  float:right;
-  width:50%;
-  height:100%;
-  display:flex;
+  float: right;
+  width: 50%;
+  height: 100%;
+  display: flex;
   flex-direction: column;
 `;
 const CalendarContainer = styled.div`
-  margin:30px;
-  margin-left:100px;
+  margin: 30px;
+  margin-left: 100px;
 `;
 
 const PeriodContainer = styled.div`
-  margin:30px;
+  margin: 30px;
 `;
 const NumberContainer = styled.div`
-  margin:30px;
-  margin-top:0px;
+  margin: 30px;
+  margin-top: 0px;
 `;
 
-
 const NumberBtn = styled.div`
-  width:100%;
-  display:flex; 
-  margin-top:20px;
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
 `;
 
 const DecreaseBtn = styled.div`
@@ -69,8 +69,8 @@ const DecreaseBtn = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    cursor:pointer;
+  &:hover {
+    cursor: pointer;
   }
 
   &:active {
@@ -93,8 +93,8 @@ const IncreaseBtn = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    cursor:pointer;
+  &:hover {
+    cursor: pointer;
   }
 
   &:active {
@@ -114,8 +114,6 @@ const NumberText = styled.div`
   background: #ffffff;
 `;
 
-
-
 const LabelText = styled.div`
   font-family: "Poppins";
   font-style: normal;
@@ -127,10 +125,10 @@ const LabelText = styled.div`
 const ReservationBtn = styled.div`
   width: 328px;
   height: 46px;
-  margin:30px;
-  margin-top:0px;
+  margin: 30px;
+  margin-top: 0px;
 
-  background:#484848;
+  background: #484848;
   border-radius: 23px;
 
   font-family: "Montserrat";
@@ -143,45 +141,51 @@ const ReservationBtn = styled.div`
   color: #ffffff;
 
   &:hover {
-    cursor:pointer;
+    cursor: pointer;
   }
 
   &:active {
     background-color: rgba(195, 195, 200, 1);
   }
 `;
-
-
+const StoreName = styled.p`
+  font-size: 2em;
+  font-weight: bold;
+`;
 
 function SettingPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
-  const [deposit, setDeposit] = useState(0.000);
+  const [deposit, setDeposit] = useState(0.0);
   const [Indexs, setIndexs] = useState([]);
-  const nav=useNavigate();
+  const nav = useNavigate();
+  const storeNameIndex = storeState.selectedId;
+  let storeName;
+  storeState.totalStore.map((i) => {
+    if ((i.id = storeNameIndex)) storeName = i.storeName;
+  });
 
   const SelectDate = (date) => {
     reservationDispatch({
-      type: 'SELECT_DATE',
-      date: date
-    })
-  }
+      type: "SELECT_DATE",
+      date: date,
+    });
+  };
   const SelectIndexs = (Index) => {
-    setIndexs([...Indexs,Index]);
-  }
+    setIndexs([...Indexs, Index]);
+  };
   const AddSetting = (idxs) => {
     storeDispatch({
-      type:'SELECT_STORE_DEPOSIT',
-      deposit:deposit
-    })
+      type: "SELECT_STORE_DEPOSIT",
+      deposit: deposit,
+    });
     reservationDispatch({
-      type: 'ADD_SETTING',
-      possibleIdxList: idxs
-    })
-    nav("/ReservationListPage")
-    
+      type: "ADD_SETTING",
+      possibleIdxList: idxs,
+    });
+    nav("/ReservationListPage");
   };
 
   return (
@@ -189,6 +193,7 @@ function SettingPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
+          <StoreName>{storeName}</StoreName>
           <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
@@ -196,22 +201,26 @@ function SettingPage() {
       <RightContainer>
         <PeriodContainer>
           <LabelText>Select a period : </LabelText>
-          <PeriodList 
+          <PeriodList
             mode="owner"
-            periods={storeState.totalStore.find(store => store.id === storeState.selectedId).periodList}
+            periods={
+              storeState.totalStore.find(
+                (store) => store.id === storeState.selectedId
+              ).periodList
+            }
             selectIndexs={SelectIndexs}
           />
-          </PeriodContainer>
+        </PeriodContainer>
         <NumberContainer>
           <LabelText>Price Coin /1 Person</LabelText>
           <NumberBtn>
             <DecreaseBtn
               onClick={
-                deposit <= 0.000
-                  ? () => { }
+                deposit <= 0.0
+                  ? () => {}
                   : () => {
-                    setDeposit(deposit - 0.001);
-                  }
+                      setDeposit(deposit - 0.001);
+                    }
               }
             >
               -
@@ -226,7 +235,13 @@ function SettingPage() {
             </IncreaseBtn>
           </NumberBtn>
         </NumberContainer>
-        <ReservationBtn onClick={() => { AddSetting(Indexs) }}>SETTING</ReservationBtn>
+        <ReservationBtn
+          onClick={() => {
+            AddSetting(Indexs);
+          }}
+        >
+          SETTING
+        </ReservationBtn>
       </RightContainer>
     </TotalContainer>
   );
