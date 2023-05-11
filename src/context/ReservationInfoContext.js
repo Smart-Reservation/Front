@@ -14,12 +14,12 @@ const initialState={
       reservedList:[
         {
           address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
-          number:2,
+          numbers:2,
           index:0
         },
         {
           address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
-          number:1,
+          numbers:1,
           index:3
 
         }
@@ -34,7 +34,7 @@ const initialState={
   },
   currentSet:{
     address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
-    number:2,
+    numbers:2,
     index:0
   }
 };
@@ -66,7 +66,7 @@ function ReservationReducer(state, action){
       return{
         ...state,
         reservationList:state.reservationList.map((reservation)=>
-          ((reservation.storeId === state.selectedId) && (reservation.date === state.selectedDate))
+          ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
           ? {
               ...reservation,
               // reservedIdxList:reservation.reservedIdxList.concat(action.reservedIdx),
@@ -79,14 +79,15 @@ function ReservationReducer(state, action){
       return{
         ...state,
         reservationList:state.reservationList.map((reservation)=>
-          ((reservation.storeId === state.selectedId) && (reservation.date === state.selectedDate))
+          ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
           ? {
               ...reservation,
               // reservedIdxList:reservation.reservedIdxList.filter(
               //   (index) => index !== action.reservedIdx
               // ),
               reservedList:reservation.reservedList.filter(
-                (index)=>index!==action.reserved.index
+                // (index)=>index!==action.reserved.index
+                (reserved)=>reserved.index!==action.index
               )
             }
           : reservation

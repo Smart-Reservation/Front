@@ -8,6 +8,7 @@ const OuterConTainer = styled.div`
   height: 100vh;
   width: 100vw;
 `;
+
 const TotalContainer = styled.div`
   display: flex;
   position: relative;
