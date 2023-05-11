@@ -10,7 +10,6 @@ const CalendarContainer = styled.div`
   font-size: 20px;
   line-height: 3em;
   text-align: center;
-
   margin-top: 20px;
   display: inline-flex;
   justify-content: center;

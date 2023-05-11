@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { useStoreInfoDispatch, useStoreInfoState } from "../../context/StoreInfoContext";
+import {
+  useStoreInfoDispatch,
+  useStoreInfoState,
+} from "../../context/StoreInfoContext";
 import Reservation from "./Reservation";
 import styled from "styled-components";
-import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import {
+  useReservationInfoDispatch,
+  useReservationInfoState,
+} from "../../context/ReservationInfoContext";
 
 //styled-component
-const ReservationListContainer=styled.div`
+const ReservationListContainer = styled.div`
   width: 30vw;
-  height: ${(props) => (props.mode==="user" ? "200px" : "400px")};
+  height: ${(props) => (props.mode === "user" ? "200px" : "400px")};
 
   display: flex;
   flex-direction: column;
@@ -19,7 +25,9 @@ const ReservationListContainer=styled.div`
 `;
 
 function ReservationList({ mode, reservations }) {
-  const [clickeds, setClickeds] = useState(Array(reservations.length).fill(false));
+  const [clickeds, setClickeds] = useState(
+    Array(reservations.length).fill(false)
+  );
 
   const onClick = (index) => {
     const newArr = Array(reservations.length).fill(false);

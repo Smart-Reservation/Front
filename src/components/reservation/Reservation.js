@@ -51,7 +51,7 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
   };
   const NotHovered = () => {
     setHovered(false);
-  }
+  };
 
   return (
     <Container
@@ -60,11 +60,16 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
       onMouseLeave={() => NotHovered()}
     >
       <ContentBox clicked={clicked} hovered={hovered}>
-        {
-          mode==="user"
-          ?<>{storeName} {timeStamp} {reservation.numbers}people</>
-          :<>{reservation.reservedList[index].userAddress} {timeStamp} {reservation.numbers}people</>
-        }
+        {mode === "user" ? (
+          <>
+            {storeName} {timeStamp} {reservation.numbers}people
+          </>
+        ) : (
+          <>
+            {reservation.reservedList[index].userAddress} {timeStamp}{" "}
+            {reservation.numbers}people
+          </>
+        )}
         {hovered ? <img src={X} width={"15px"} height={"15px"} /> : <></>}
       </ContentBox>
     </Container>
