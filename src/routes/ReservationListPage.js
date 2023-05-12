@@ -6,6 +6,10 @@ import {
   useReservationInfoState,
   useReservationInfoDispatch,
 } from "../context/ReservationInfoContext";
+import {
+  useStoreInfoState,
+  useStoreInfoDispatch,
+} from "../context/StoreInfoContext";
 
 //styled-component
 const TotalContainer = styled.div`
@@ -53,10 +57,20 @@ const LabelText = styled.div`
   font-size: 14px;
   line-height: 24px;
 `;
+const StoreName = styled.p`
+  font-size: 2em;
+  font-weight: bold;
+`;
 
 function ReservationListPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
+  const storeState = useStoreInfoState();
+  const storeNameIndex = storeState.selectedId;
+  let storeName;
+  storeState.totalStore.map((i) => {
+    if (i.id === storeNameIndex) storeName = i.storeName;
+  });
 
   const SelectDate = (date) => {
     reservationDispatch({
@@ -70,6 +84,7 @@ function ReservationListPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
+          <StoreName>{storeName}</StoreName>
           <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
@@ -80,11 +95,14 @@ function ReservationListPage() {
           <ReservationListContainer>
             <ReservationList
               mode="owner"
-              reservations={reservationState.reservationList.find(
-                (reservation) =>
-                  reservation.storeId === reservationState.selectedId &&
-                  JSON.stringify(reservation.date) === JSON.stringify(reservationState.selectedDate)
-              ).reservedList}
+              reservations={
+                reservationState.reservationList.find(
+                  (reservation) =>
+                    reservation.storeId === reservationState.selectedId &&
+                    JSON.stringify(reservation.date) ===
+                      JSON.stringify(reservationState.selectedDate)
+                ).reservedList
+              }
             />
           </ReservationListContainer>
         </ReservationContainer>
