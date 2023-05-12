@@ -21,6 +21,13 @@ const TotalContainer = styled.div`
   height: 100vh;
   background: #ffffff;
   border-radius: 20px;
+
+  & > .StoreName {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 2em 0em 0em 4em;
+    padding: 0;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -170,14 +177,14 @@ function SettingPage() {
     });
   };
   const SelectIndexs = (Index) => {
-    setIndexs([...Indexs,Index]);
-  }
-  const SelectDeposit=(deposit)=>{
+    setIndexs([...Indexs, Index]);
+  };
+  const SelectDeposit = (deposit) => {
     storeDispatch({
-      type:'SELECT_STORE_DEPOSIT',
-      deposit:deposit
-    })
-  }
+      type: "SELECT_STORE_DEPOSIT",
+      deposit: deposit,
+    });
+  };
   const AddSetting = (idxs) => {
     // storeDispatch({
     //   type:'SELECT_STORE_DEPOSIT',
@@ -195,10 +202,12 @@ function SettingPage() {
   return (
     <TotalContainer>
       <Header />
+      <div className="StoreName">{storeName}</div>
+
       <LeftContainer>
         <CalendarContainer>
           <LabelText>
-            <span style={{fontWeight: "bold", fontSize: "1.5em"}}>{storeName}</span><> </> Select a date :
+            <> </> Select a date :
           </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>

@@ -18,6 +18,13 @@ const TotalContainer = styled.div`
   height: 100vh;
   background: #ffffff;
   border-radius: 20px;
+
+  & > .StoreName {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 2em 0em 0em 4em;
+    padding: 0;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -57,10 +64,6 @@ const LabelText = styled.div`
   font-size: 14px;
   line-height: 24px;
 `;
-const StoreName = styled.p`
-  font-size: 2em;
-  font-weight: bold;
-`;
 
 function ReservationListPage() {
   const reservationState = useReservationInfoState();
@@ -82,9 +85,10 @@ function ReservationListPage() {
   return (
     <TotalContainer>
       <Header />
+      <div className="StoreName">{storeName}</div>
+
       <LeftContainer>
         <CalendarContainer>
-          <StoreName>{storeName}</StoreName>
           <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
