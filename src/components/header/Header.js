@@ -122,6 +122,7 @@ const Wallet = styled(BtnHeader)`
   /* border-radius: 20%; */
   box-shadow: none;
   padding-left: 1em;
+  justify-content: center;
 `;
 const BtnOut = styled(BtnHeader)`
   border-radius: 23px;
@@ -134,9 +135,18 @@ const BtnOut = styled(BtnHeader)`
 
 function Header() {
   const [active, setActive] = useState(false);
+  //false 손님, true 사장
   let button;
+  function check() {
+    //사장으로 등록되어 있는지 확인
+    return true;
+  }
   function alterner() {
-    active ? setActive(false) : setActive(true);
+    active
+      ? setActive(false)
+      : check()
+      ? setActive(true)
+      : console.log("you are not signed");
   }
 
   button = active ? (
@@ -170,7 +180,7 @@ function Header() {
       <RightSide>
         <DivHeader>
           <Wallet onClick={logged ? onClick : loggedIn}>
-            Connect Binance Wallet
+            {logged ? "How can i assist you" : "Connect Binance Wallet"}
           </Wallet>
 
           <Toggle type="button" isactive={active.toString()} onClick={alterner}>
@@ -179,7 +189,7 @@ function Header() {
         </DivHeader>
       </RightSide>
       {/* 수정 */}
-      {clicked ? <OwnerOption /> : <></>}
+      {clicked ? <OwnerOption isOwner={active} /> : <></>}
     </Top>
   );
 }
