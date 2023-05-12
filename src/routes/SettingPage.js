@@ -148,10 +148,6 @@ const ReservationBtn = styled.div`
     background-color: rgba(195, 195, 200, 1);
   }
 `;
-const StoreName = styled.p`
-  font-size: 2em;
-  font-weight: bold;
-`;
 
 function SettingPage() {
   const reservationState = useReservationInfoState();
@@ -201,9 +197,9 @@ function SettingPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
-          <StoreName>{storeName}</StoreName>
-
-          <LabelText>Select a date : </LabelText>
+          <LabelText>
+            <span style={{fontWeight: "bold", fontSize: "1.5em"}}>{storeName}</span><> </> Select a date :
+          </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
       </LeftContainer>
