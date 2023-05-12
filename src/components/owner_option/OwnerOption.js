@@ -37,6 +37,7 @@ const BtnContainer=styled.div`
 
 function OwnerOption(){
   const nav = useNavigate();
+  
   return(
     <OwnerOptionContainer>
       <BtnContainer onClick={()=>nav("/SettingPage")}>Setting</BtnContainer>

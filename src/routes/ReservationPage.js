@@ -5,7 +5,7 @@ import {
   useStoreInfoState,
   useStoreInfoDispatch,
 } from "../context/StoreInfoContext";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useState } from "react";
 
 import Header from "../components/header/Header";
@@ -14,6 +14,8 @@ import {
   useReservationInfoState,
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
+import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
+import { useEffect } from "react";
 
 //styled-components
 const TotalContainer = styled.div`
@@ -162,13 +164,16 @@ const ReservationBtn = styled.div`
   text-align: center;
   color: #ffffff;
 
-  &:hover {
-    cursor:pointer;
-  }
+  ${(props) => (props.index===-1 ? `background-color:gray;` : 
+  `
+    &:hover {
+      cursor:pointer;
+    }
 
-  &:active {
-    background-color: rgba(195, 195, 200, 1);
-  }
+    &:active {
+      background-color: rgba(195, 195, 200, 1);
+    }
+  `)}
 `;
 
 
@@ -177,6 +182,8 @@ function ReservationPage() {
   const storeDispatch = useStoreInfoDispatch();
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
+  const userState=useUserInfoState();
+  const userDispatch=useUserInfoDispatch();
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav=useNavigate();
@@ -186,7 +193,7 @@ function ReservationPage() {
       reservation.storeId === reservationState.selectedId &&
       JSON.stringify(reservation.date) ===
       JSON.stringify(reservationState.selectedDate)
-  ).possibleIdxList;
+  )?.possibleIdxList;
 
   let storePeriods = storeState.totalStore.find(
     (store) => store.id === storeState.selectedId
@@ -200,16 +207,35 @@ function ReservationPage() {
   }
   const selectIndex = (Index) => {
     setIndex(Index);
+    selectCurrentSet(Index);//추가
+  }
+  const selectCurrentSet= (index)=>{
+    reservationDispatch({
+      type:'SELECT_CURRENT',
+      set:{
+        address:userState.address,
+        numbers:number,
+        index:index
+      }
+    })
   }
   const AddReservation = (Index) => {
+    selectCurrentSet(Index);
     reservationDispatch({
       type: 'ADD_RESERVATION',
-      reservedIdx: Index
+      reserved:reservationState.currentSet,
+    })
+    userDispatch({
+      type:'ADD_USER_RESERVATION',
+      reservation:{
+        storeId:reservationState.selectedId,
+        date:reservationState.selectedDate,
+        numbers:reservationState.currentSet,
+        index:Index,
+      }
     })
     nav("/ReservationDetailPage")
-    
   };
-
 
   return (
     <TotalContainer>
@@ -223,11 +249,13 @@ function ReservationPage() {
       <RightContainer>
         <PeriodContainer>
           <LabelText>Select a period : </LabelText>
+          {possibleIdxs&&
           <PeriodList
             mode="user"
             periods={possibleIdxs.map((index) => storePeriods[index])}
             selectIndex={selectIndex}
           />
+          }
         </PeriodContainer>
         <NumberContainer>
           <LabelText>Select number of people :</LabelText>
@@ -256,15 +284,15 @@ function ReservationPage() {
         <CoinContainer>
           <LabelText>Price Coin :</LabelText>
           <CoinText>
-            {(
+            {
               storeState.totalStore.find(
                 (store) => store.id === storeState.selectedId
               ).deposit * number
-            ).toFixed(3)}
+            .toFixed(3)}
             BNB
           </CoinText>
         </CoinContainer>
-        <ReservationBtn onClick={() => { AddReservation(Index) }}>RESERVATION</ReservationBtn>
+        <ReservationBtn index={Index} onClick={Index===-1?()=>{}:() =>  AddReservation(Index) }>RESERVATION</ReservationBtn>
       </RightContainer>
     </TotalContainer>
   );

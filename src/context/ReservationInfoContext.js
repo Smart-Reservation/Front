@@ -1,16 +1,16 @@
 import React, { useReducer, createContext, useContext } from "react";
 
+const now=new Date();
 const initialState={
   reservationList:[
     {
       storeId:1,
       date:{
-        year:2023,
-        month:5,
-        day:5
+        year:now.getFullYear(),
+        month:now.getMonth()+1,
+        day:now.getDate()
       },
-      possibleIdxList:[0,2,3], //1,4 제외한 나머지 0,2,3시간대만 예약가능 
-      // reservedIdxList:[0,3] //0,2,3,4 시간대 중 0,3 은 이미 예약됨 {address:"",numbers:4,index:} 로 수정해야 하나
+      possibleIdxList:[0,2,3,5,6,7], //1,4 제외한 나머지 0,2,3,5,6,7시간대만 예약가능 
       reservedList:[
         {
           address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
@@ -21,16 +21,15 @@ const initialState={
           address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
           numbers:1,
           index:3
-
         }
       ]
     },
   ],
   selectedId:1, //선택된 가게 ID
-  selectedDate:{
-    year:2023,
-    month:5,
-    day:5
+  selectedDate:{ 
+    year:now.getFullYear(),
+    month:now.getMonth()+1,
+    day:now.getDate()
   },
   currentSet:{
     address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
@@ -45,7 +44,6 @@ function ReservationReducer(state, action){
       return {
         ...state,
         selectedId:action.id,
-        selectedDate:action.date,
       };
     case "SELECT_DATE": //캘린더에서 날짜 선택
       return{
@@ -60,7 +58,15 @@ function ReservationReducer(state, action){
     case "ADD_SETTING": //가게 예약 가능 날짜 설정
       return {
         ...state,
-        possibleIdxList:action.possibleIdxList,
+        // possibleIdxList:action.possibleIdxList,
+        reservationList:state.reservationList.map((reservation)=>
+          ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
+          ? {
+              ...reservation,
+              possibleIdxList:action.possibleIdxList
+            }
+          : reservation
+        ),
       };
     case "ADD_RESERVATION": //해당 날짜/시간에 예약 추가
       return{
@@ -69,8 +75,7 @@ function ReservationReducer(state, action){
           ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
           ? {
               ...reservation,
-              // reservedIdxList:reservation.reservedIdxList.concat(action.reservedIdx),
-              reservedList:reservation.reservedList.concat(action.reservedList)
+              reservedList:reservation.reservedList.concat(action.reserved)
             }
           : reservation
         ),

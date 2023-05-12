@@ -1,5 +1,6 @@
 import React, { useReducer, createContext, useContext } from "react";
 
+const now=new Date();
 const initialState={
   address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
   coin:0.00, //그럼 가게도 있어야 하는거 아니야..?
@@ -7,9 +8,9 @@ const initialState={
     {
       storeId:1,
       date:{
-        year:2023,
-        month:5,
-        day:5
+        year:now.getFullYear(),
+        month:now.getMonth()+1,
+        day:now.getDate()
       },
       numbers:2,
       index:0,  
@@ -17,9 +18,9 @@ const initialState={
     {
       storeId:1,
       date:{
-        year:2023,
-        month:5,
-        day:5
+        year:now.getFullYear(),
+        month:now.getMonth()+1,
+        day:now.getDate()
       },
       numbers:1,
       index:3,  
@@ -47,6 +48,12 @@ function UserInfoReducer(state,action){
         reservationList:state.reservationList.filter(
           (reservation) => reservation !== action.reservation),
       };
+    case "LOGIN":
+      return{
+        
+      }
+    case "LOGOUT":
+      return initialState;
     default:
       return state;
   }

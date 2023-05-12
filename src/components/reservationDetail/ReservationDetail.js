@@ -80,31 +80,27 @@ function ReservationDetail({store}) {
       <UpperInfo>
         <img src={store.imgUrl} alt="사진" />
         <div>
-          <p>
+          <section>
             <BoldText>{store.storeName}</BoldText>
-          </p>
-          <p>
+          </section>
+          <section>
             <Text>{store.location}</Text>
-          </p>
-          <p>
+          </section>
+          <section>
             <BoldText>Reservation Detail</BoldText> 
-          </p>
-          <p>
+          </section>
+          <section>
             <Text>{date} {time}</Text>
-          </p>
+          </section>
         </div>
       </UpperInfo>
       <DownInfo>
-        <p style={{ fontSize: "1.5em" }}>
+        <section style={{ fontSize: "1.5em" }}>
           <BoldText>Price Detail</BoldText>
-        </p>
+        </section>
         <Text>Each Price : {store.deposit}BNB</Text>
         <Text>Number Of People : {numbers}</Text>
         <Text style={{fontWeight:"700"}}>Total : {numbers * store.deposit}BNB</Text>
-        {/* <p>
-          <span>total : </span>
-          {number * store.deposit}BNB
-        </p> */}
       </DownInfo>
     </div>
   );

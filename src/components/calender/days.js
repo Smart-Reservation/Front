@@ -49,7 +49,7 @@ function Day({
       disable={disable}
       isDate={isDate}
       isactive={
-        isDate && !disable ? selectedDate?.getDate() === date.getDate() : false
+        isDate && !disable ? selectedDate?.getDate() === date.getDate()  : false
       }
     >
       {isDate ? date.getDate() : date}

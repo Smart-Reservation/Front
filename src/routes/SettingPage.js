@@ -171,11 +171,18 @@ function SettingPage() {
   const SelectIndexs = (Index) => {
     setIndexs([...Indexs,Index]);
   }
-  const AddSetting = (idxs) => {
+  const SelectDeposit=(deposit)=>{
     storeDispatch({
       type:'SELECT_STORE_DEPOSIT',
       deposit:deposit
     })
+  }
+  const AddSetting = (idxs) => {
+    // storeDispatch({
+    //   type:'SELECT_STORE_DEPOSIT',
+    //   deposit:deposit
+    // })
+    SelectDeposit(deposit);
     reservationDispatch({
       type: 'ADD_SETTING',
       possibleIdxList: idxs

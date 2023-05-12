@@ -1,5 +1,5 @@
 import Day from "./days";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 // import Head from './header';
 
@@ -70,16 +70,22 @@ function getDates(startDate, endDate) {
   return dates;
 }
 
-function Calender() {
+function Calender({SelectDate}) {
   let now = new Date();
   const [year, setyear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [fullMonth, setFullMonth] = useState([]);
-  const [selectedDate, setSelectedDate] = useState();
-  const [data, setData] = useState();
+  const [selectedDate, setSelectedDate] = useState(now);
+  // const [data, setData] = useState();
 
   const handleDayClick = (date) => {
-    setSelectedDate(date);
+    setSelectedDate(()=>date);
+    let dateStamp={
+      year:date.getFullYear(),
+      month:date.getMonth()+1,
+      day:date.getDate()
+    }
+    SelectDate(dateStamp);
   };
 
   const handleEmptyClick = () => {

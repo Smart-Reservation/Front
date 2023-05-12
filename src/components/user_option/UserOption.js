@@ -34,13 +34,6 @@ const UserOptionContainer=styled.div`
 
 function UserOption(){
   const [clicked,setClicked]=useState(false);
-  // const onClick=()=>{
-  //   setClicked(true);
-  // }
-
-  // const Close=()=>{
-  //   setClicked(false);
-  // }
   return(
     <>
       <UserOptionContainer onClick={()=>setClicked(true)}>
