@@ -56,7 +56,7 @@ const DivHeader = styled.div`
 
 const BtnHeader = styled.button`
   border-radius: 20%;
-  border: 1px black solid;
+  // border: 1px black solid;
   color: white;
   font-fammily: monospace;
 
@@ -78,7 +78,11 @@ const BtnHeader = styled.button`
 const Toggle = styled(BtnHeader)`
   background-color: rgb(253, 234, 234);
   border: transparent;
+
+  height: 3.6em;
+  //display: block;
   width: 15em;
+
   margin-right: -0.5em;
   color: grey;
   justify-content: center;

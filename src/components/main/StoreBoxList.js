@@ -4,6 +4,7 @@ import { useStoreInfoDispatch, useStoreInfoState } from "../../context/StoreInfo
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useReservationInfoDispatch } from "../../context/ReservationInfoContext";
 
 const BoxListContainer = styled.div`
     width:100%;
@@ -15,9 +16,11 @@ const BoxListContainer = styled.div`
 function StoreBoxList(){
     const storeList=useStoreInfoState();
     const storeDispatch=useStoreInfoDispatch();
+    const reservationDispatch=useReservationInfoDispatch();
     const nav = useNavigate();
     const onClick=(id)=>{
-        storeDispatch({type:"LOAD_STORE_RESERVATION",id:id})
+        storeDispatch({type:"SELECT_STORE",id:id}) //
+        reservationDispatch({type:"LOAD_STORE_RESERVATION",id:id})
         nav("/ReservationPage")
     }
     useEffect(()=>{
@@ -30,7 +33,7 @@ function StoreBoxList(){
                 storeName:store.storeName,
                 location:store.location,
                 deposit:store.deposit,
-                periodList:["10:00","11:00","12:00","13:00","14:00"]
+                periodList:["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"]
             }));
             storeDispatch({type:"LOAD_STORE_LIST",totalStore:totalStore});
         })
