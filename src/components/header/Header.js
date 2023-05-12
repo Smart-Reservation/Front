@@ -78,22 +78,43 @@ const BtnHeader = styled.button`
 const Toggle = styled(BtnHeader)`
   background-color: rgb(253, 234, 234);
   border: transparent;
-  display: block;
-  width: 6em;
+  width: 15em;
   margin-right: -0.5em;
-  & > .customerTog > img {
-    height: 3em;
-    margin: 0;
-    padding-right: 70%;
-    transition: all 0.2s ease-in;
+  color: grey;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  & > .customerTog {
+    display: inline-block;
+
+    & > img {
+      position: absolute;
+      height: 2.9em;
+      left: 2%;
+      transition: all 0.2s ease-in;
+
+      top: 10%;
+    }
   }
-  & > .bossTog > img {
-    height: 3em;
-    margin: 0;
-    padding-left: 40%;
-    transition: all 0.2s ease-in;
+  & > p {
+    display: block;
+    width: 1em;
+  }
+  & > .bossTog {
+    display: inline-block;
+
+    & > img {
+      position: absolute;
+      transition: all 0.2s ease-in;
+
+      height: 2.9em;
+      top: 7%;
+
+      left: 80%;
+    }
   }
 `;
+
 const Wallet = styled(BtnHeader)`
   border-radius: 23px;
   width: 13em;
@@ -101,6 +122,7 @@ const Wallet = styled(BtnHeader)`
   /* border-radius: 20%; */
   box-shadow: none;
   padding-left: 1em;
+  justify-content: center;
 `;
 const BtnOut = styled(BtnHeader)`
   border-radius: 23px;
@@ -113,6 +135,7 @@ const BtnOut = styled(BtnHeader)`
 
 function Header() {
   const [active, setActive] = useState(false);
+  //false 손님, true 사장
   let button;
   function alterner() {
     active ? setActive(false) : setActive(true);
@@ -120,10 +143,13 @@ function Header() {
 
   button = active ? (
     <div className="bossTog">
+      <p>&nbsp;I want to &nbsp;&nbsp;serve</p>
+
       <img src={ProfileStore} alt="profileStore" />
     </div>
   ) : (
     <div className="customerTog">
+      <p>&nbsp;&nbsp;I want to reserve</p>
       <img src={Profile} alt="profile" />
     </div>
   );
@@ -146,7 +172,7 @@ function Header() {
       <RightSide>
         <DivHeader>
           <Wallet onClick={logged ? onClick : loggedIn}>
-            Connect Binance Wallet
+            {logged ? "How can i assist you" : "Connect Binance Wallet"}
           </Wallet>
 
           <Toggle type="button" isactive={active.toString()} onClick={alterner}>
@@ -155,7 +181,7 @@ function Header() {
         </DivHeader>
       </RightSide>
       {/* 수정 */}
-      {clicked ? <OwnerOption /> : <></>}
+      {clicked ? <OwnerOption isOwner={active} /> : <></>}
     </Top>
   );
 }
