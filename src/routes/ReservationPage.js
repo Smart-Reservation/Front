@@ -20,47 +20,52 @@ import { useEffect } from "react";
 //styled-components
 const TotalContainer = styled.div`
   position: relative;
-  width:100vw;
-  height:100vh;
+  width: 100vw;
+  height: 100vh;
   background: #ffffff;
   border-radius: 20px;
 `;
 
 const LeftContainer = styled.div`
-  float:left;
-  width:50%;
-  height:100%;
+  float: left;
+  width: 50%;
+  height: 100%;
+`;
+const StoreName = styled.p`
+  font-size: 2em;
+  font-weight: bold;
 `;
 
 const RightContainer = styled.div`
-  float:right;
-  width:50%;
-  height:100%;
-  display:flex;
+  float: right;
+  width: 50%;
+  height: 100%;
+  display: flex;
   flex-direction: column;
 `;
 
 const CalendarContainer = styled.div`
-  margin:30px;
-  margin-left:100px;
+  margin: 30px;
+  margin-left: 100px;
 `;
 
 const PeriodContainer = styled.div`
-  margin:30px;
+  margin: 30px;
 `;
 const NumberContainer = styled.div`
-  margin:30px;
-  margin-top:0px;
+  margin: 30px;
+  margin-top: 0px;
 `;
 
 const CoinContainer = styled.div`
-  margin:30px;
-  margin-top:0px;`;
+  margin: 30px;
+  margin-top: 0px;
+`;
 
 const NumberBtn = styled.div`
-  width:100%;
-  display:flex; 
-  margin-top:20px;
+  width: 100%;
+  display: flex;
+  margin-top: 20px;
 `;
 
 const DecreaseBtn = styled.div`
@@ -78,8 +83,8 @@ const DecreaseBtn = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    cursor:pointer;
+  &:hover {
+    cursor: pointer;
   }
 
   &:active {
@@ -102,8 +107,8 @@ const IncreaseBtn = styled.div`
   align-items: center;
   justify-content: center;
 
-  &:hover{
-    cursor:pointer;
+  &:hover {
+    cursor: pointer;
   }
 
   &:active {
@@ -127,7 +132,7 @@ const CoinText = styled.div`
   width: 188px;
   height: 27px;
 
-  margin-top:20px;
+  margin-top: 20px;
 
   font-family: "Montserrat";
   font-style: normal;
@@ -149,10 +154,10 @@ const LabelText = styled.div`
 const ReservationBtn = styled.div`
   width: 328px;
   height: 46px;
-  margin:30px;
-  margin-top:0px;
+  margin: 30px;
+  margin-top: 0px;
 
-  background:#484848;
+  background: #484848;
   border-radius: 23px;
 
   font-family: "Montserrat";
@@ -163,6 +168,7 @@ const ReservationBtn = styled.div`
 
   text-align: center;
   color: #ffffff;
+
 
   ${(props) => (props.index===-1 ? `background-color:gray;` : 
   `
@@ -176,7 +182,6 @@ const ReservationBtn = styled.div`
   `)}
 `;
 
-
 function ReservationPage() {
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
@@ -186,7 +191,12 @@ function ReservationPage() {
   const userDispatch=useUserInfoDispatch();
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
-  const nav=useNavigate();
+  const nav = useNavigate();
+  const storeNameIndex = storeState.selectedId;
+  let storeName;
+  storeState.totalStore.map((i) => {
+    if ((i.id = storeNameIndex)) storeName = i.storeName;
+  });
 
   let possibleIdxs = reservationState.reservationList.find(
     (reservation) =>
@@ -201,14 +211,15 @@ function ReservationPage() {
 
   const SelectDate = (date) => {
     reservationDispatch({
-      type: 'SELECT_DATE',
-      date: date
-    })
-  }
+      type: "SELECT_DATE",
+      date: date,
+    });
+  };
   const selectIndex = (Index) => {
     setIndex(Index);
     selectCurrentSet(Index);//추가
   }
+  
   const selectCurrentSet= (index)=>{
     reservationDispatch({
       type:'SELECT_CURRENT',
@@ -219,6 +230,7 @@ function ReservationPage() {
       }
     })
   }
+
   const AddReservation = (Index) => {
     selectCurrentSet(Index);
     reservationDispatch({
@@ -242,6 +254,7 @@ function ReservationPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
+          <StoreName>{storeName}</StoreName>
           <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
@@ -263,10 +276,10 @@ function ReservationPage() {
             <DecreaseBtn
               onClick={
                 number <= 1
-                  ? () => { }
+                  ? () => {}
                   : () => {
-                    setNumber(number - 1);
-                  }
+                      setNumber(number - 1);
+                    }
               }
             >
               -

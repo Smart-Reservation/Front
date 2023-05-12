@@ -12,8 +12,8 @@ const initialState={
         month:now.getMonth()+1,
         day:now.getDate()
       },
-      numbers:2,
-      index:0,  
+      numbers: 2,
+      index: 0,
     },
     {
       storeId:1,
@@ -22,31 +22,32 @@ const initialState={
         month:now.getMonth()+1,
         day:now.getDate()
       },
-      numbers:1,
-      index:3,  
+      numbers: 1,
+      index: 3,
     },
-  ]
+  ],
 };
 
-function UserInfoReducer(state,action){
-  switch(action.type){
+function UserInfoReducer(state, action) {
+  switch (action.type) {
     case "LOAD_USER_RESERVSTIONS": //사용자 예약 목록 불러오기
-      return{
+      return {
         ...state,
-        address:action.address,
-        coin:action.coin, //
-        reservationList:action.reservationList,
-      }
-      case "ADD_USER_RESERVATION": //사용자 예약 추가
-      return{
+        address: action.address,
+        coin: action.coin, //
+        reservationList: action.reservationList,
+      };
+    case "ADD_USER_RESERVATION": //사용자 예약 추가
+      return {
         ...state,
-        reservationList:state.reservationList.concat(action.reservation),
+        reservationList: state.reservationList.concat(action.reservation),
       };
     case "CANCEL_STORE_RESERVATION": //사용자 예약 취소
-      return{
+      return {
         ...state,
-        reservationList:state.reservationList.filter(
-          (reservation) => reservation !== action.reservation),
+        reservationList: state.reservationList.filter(
+          (reservation) => reservation !== action.reservation
+        ),
       };
     case "LOGIN":
       return{
@@ -68,7 +69,7 @@ export function UserInfoProvider({ children }) {
   return (
     <div>
       <UserInfoStateContext.Provider value={state}>
-        <UserInfoDispatchContext.Provider value={dispatch} >
+        <UserInfoDispatchContext.Provider value={dispatch}>
           {children}
         </UserInfoDispatchContext.Provider>
       </UserInfoStateContext.Provider>
