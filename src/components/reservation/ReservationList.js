@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { useStoreInfoDispatch, useStoreInfoState } from "../../context/StoreInfoContext";
+import {
+  useStoreInfoDispatch,
+  useStoreInfoState,
+} from "../../context/StoreInfoContext";
 import Reservation from "./Reservation";
 import styled from "styled-components";
-import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import {
+  useReservationInfoDispatch,
+  useReservationInfoState,
+} from "../../context/ReservationInfoContext";
 import ConfirmationWindow from "./ConfirmationWindow";
 
 //styled-component
@@ -14,21 +20,33 @@ const ReservationListContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
 
-  overflow-y: scroll;
+  ::-webkit-scrollbar {
+    width: 1em;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: beige;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  overflow-y: auto;
 
   background: #ffffff;
 `;
 
 function ReservationList({ mode, reservations }) {
-  const [clickeds, setClickeds] = useState(Array(reservations.length).fill(false));
+  const [clickeds, setClickeds] = useState(
+    Array(reservations.length).fill(false)
+  );
   const onClick = (index) => {
     const newArr = Array(reservations.length).fill(false);
     newArr[index] = true;
     setClickeds(newArr);
   };
-  useEffect(()=>{
+  useEffect(() => {
     setClickeds(Array(reservations.length).fill(false));
-  },[reservations])
+  }, [reservations]);
 
   return (
     <ReservationListContainer mode={mode}>
