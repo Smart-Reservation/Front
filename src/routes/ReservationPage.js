@@ -31,10 +31,6 @@ const LeftContainer = styled.div`
   width: 50%;
   height: 100%;
 `;
-const StoreName = styled.p`
-  font-size: 2em;
-  font-weight: bold;
-`;
 
 const RightContainer = styled.div`
   float: right;
@@ -254,8 +250,9 @@ function ReservationPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
-          <StoreName>{storeName}</StoreName>
-          <LabelText>Select a date : </LabelText>
+          <LabelText>
+            <span style={{fontWeight: "bold", fontSize: "1.5em"}}>{storeName}</span><> </> Select a date :
+          </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
       </LeftContainer>
