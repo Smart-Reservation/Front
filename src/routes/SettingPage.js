@@ -164,7 +164,7 @@ function SettingPage() {
   const storeNameIndex = storeState.selectedId;
   let storeName;
   storeState.totalStore.map((i) => {
-    if ((i.id = storeNameIndex)) storeName = i.storeName;
+    if (i.id === storeNameIndex) storeName = i.storeName;
   });
 
   const SelectDate = (date) => {
@@ -194,6 +194,7 @@ function SettingPage() {
       <LeftContainer>
         <CalendarContainer>
           <StoreName>{storeName}</StoreName>
+
           <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
