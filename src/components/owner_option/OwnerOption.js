@@ -25,12 +25,12 @@ const OwnerOptionContainer = styled.div`
 
 const BtnContainer = styled.div`
   height: 5vh;
-  color: #484848;
+  color: black;
   &:hover {
-    background-color: rgba(84, 69, 93, 0.2);
+    background-color: beige;
   }
   &:active {
-    background-color: rgba(84, 69, 93, 0.5);
+    background-color: #ffa559;
   }
 `;
 
