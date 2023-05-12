@@ -137,8 +137,16 @@ function Header() {
   const [active, setActive] = useState(false);
   //false 손님, true 사장
   let button;
+  function check() {
+    //사장으로 등록되어 있는지 확인
+    return true;
+  }
   function alterner() {
-    active ? setActive(false) : setActive(true);
+    active
+      ? setActive(false)
+      : check()
+      ? setActive(true)
+      : console.log("you are not signed");
   }
 
   button = active ? (
