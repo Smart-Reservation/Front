@@ -78,7 +78,7 @@ const DecreaseBtn = styled.div`
   width: 48px;
   height: 48px;
 
-  background: #e0e2e6;
+  background: #ffa559;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -94,7 +94,7 @@ const DecreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
+    background-color: #ff6000;
   }
 `;
 
@@ -102,7 +102,7 @@ const IncreaseBtn = styled.div`
   width: 48px;
   height: 48px;
 
-  background: #e0e2e6;
+  background: #ffa559;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -118,7 +118,7 @@ const IncreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
+    background-color: #ff6000;
   }
 `;
 
@@ -142,11 +142,11 @@ const CoinText = styled.div`
 
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 900;
   font-size: 18px;
   line-height: 22px;
 
-  color: #9a9a9a;
+  color: black;
 `;
 
 const LabelText = styled.div`
@@ -163,7 +163,7 @@ const ReservationBtn = styled.div`
   margin: 30px;
   margin-top: 0px;
 
-  background: #484848;
+  background: #ff6000;
   border-radius: 23px;
 
   font-family: "Montserrat";
@@ -177,14 +177,14 @@ const ReservationBtn = styled.div`
 
   ${(props) =>
     props.index === -1
-      ? `background-color:gray;`
+      ? `background-color:#ffe6c7;`
       : `
     &:hover {
       cursor:pointer;
     }
 
     &:active {
-      background-color: rgba(195, 195, 200, 1);
+      background-color: #ffe6c7;
     }
   `}
 `;
