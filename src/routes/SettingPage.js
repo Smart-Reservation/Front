@@ -162,18 +162,13 @@ const ImgForBtn = styled.img`
   padding-top: 6px;
 `;
 function SettingPage() {
-  const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
   const [deposit, setDeposit] = useState(storeState.totalStore.find((store)=>store.id===storeState.selectedId).deposit);
   const [Indexs, setIndexs] = useState([]);
   const nav = useNavigate();
-  const storeNameIndex = storeState.selectedId;
-  let storeName;
-  storeState.totalStore.map((i) => {
-    if (i.id === storeNameIndex) storeName = i.storeName;
-  });
+
 
   const SelectDate = (date) => {
     reservationDispatch({
@@ -202,7 +197,8 @@ function SettingPage() {
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeName}</div>
+      <div className="StoreName">{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
+
 
       <LeftContainer>
         <CalendarContainer>

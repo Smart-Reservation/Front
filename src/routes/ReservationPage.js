@@ -201,7 +201,6 @@ const ImgForBtn = styled.img`
 
 function ReservationPage() {
   const storeState = useStoreInfoState();
-  const storeDispatch = useStoreInfoDispatch();
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const userState = useUserInfoState();
@@ -209,11 +208,6 @@ function ReservationPage() {
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav = useNavigate();
-  const storeNameIndex = storeState.selectedId;
-  let storeName;
-  storeState.totalStore.map((i) => {
-    if ((i.id = storeNameIndex)) storeName = i.storeName;
-  });
   
   let impossibleIdxs = reservationState.reservationList.find(
     (reservation) =>
@@ -277,7 +271,7 @@ function ReservationPage() {
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeName}</div>
+      <div className="StoreName">{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
       <LeftContainer>
         <CalendarContainer>
           <LabelText>Select a date :</LabelText>

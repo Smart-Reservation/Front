@@ -1,7 +1,9 @@
 import Day from "./days";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useReservationInfoDispatch } from "../../context/ReservationInfoContext";
+import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import { useStoreInfoState } from "../../context/StoreInfoContext";
+import axios from "axios";
 // import Head from './header';
 
 const CalendarContainer = styled.div`
@@ -71,32 +73,51 @@ function getDates(startDate, endDate) {
   return dates;
 }
 
-function Calender({SelectDate}) {
+function Calender({ SelectDate }) {
   let now = new Date();
   const [year, setyear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [fullMonth, setFullMonth] = useState([]);
   const [selectedDate, setSelectedDate] = useState(now);
-  const reservationDispatch=useReservationInfoDispatch();
+  const storeState = useStoreInfoState();
+  const reservationState = useReservationInfoState();
+  const reservationDispatch = useReservationInfoDispatch();
   // const [data, setData] = useState();
 
   const handleDayClick = (date) => {
-    setSelectedDate(()=>date);
-    let dateStamp={
-      year:date.getFullYear(),
-      month:date.getMonth()+1,
-      day:date.getDate()
+    setSelectedDate(() => date);
+    let dateStamp = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
     }
     SelectDate(dateStamp);
+    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/unavailable`, {
+      id: storeState.selectedId,
+      date: dateStamp.year + "-" + dateStamp.month + "-" + dateStamp.day
+    }).then((list) => {
+      const unavailableIdxList = list.data.map((unavailable) => {
+        const date = new Date(unavailable)
+        const storePeriods = storeState.totalStore.find((store) => store.id === storeState.selectedId).periodList
+        return storePeriods.indexOf(date.getHours().toString() + ":00")
+      })
+      reservationDispatch({
+        type: "ADD_SETTING",
+        impossibleIdxList: unavailableIdxList
+      })
+
+    })
   };
 
-  useEffect(()=>{
-    reservationDispatch({type:"SELECT_DATE",date:{
-      year:now.getFullYear(),
-      month:now.getMonth()+1,
-      day:now.getDate()
-    }})
-  },[])
+  useEffect(() => {
+    reservationDispatch({
+      type: "SELECT_DATE", date: {
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+        day: now.getDate()
+      }
+    })
+  }, [])
 
   const handleEmptyClick = () => {
     console.log("");

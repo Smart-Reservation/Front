@@ -10,19 +10,8 @@ const initialState = {
         month: now.getMonth() + 1,
         day: now.getDate(),
       },
-      impossibleIdxList: [1, 4], //1,4 제외한 나머지 0,2,3,5,6,7시간대만 예약가능
-      reservedList: [
-        {
-          address: "0xE2C20E354D8841EccA194B68506DA81827726e30",
-          numbers: 2,
-          index: 0,
-        },
-        {
-          address: "0xE2C20E354D8841EccA194B68506DA81827726e30",
-          numbers: 1,
-          index: 3,
-        },
-      ],
+      impossibleIdxList: [], 
+      reservedList: [],
     },
   ],
   selectedId: 1, //선택된 가게 ID

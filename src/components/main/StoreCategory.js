@@ -68,7 +68,6 @@ function StoreCategory() {
     const storeList=useStoreInfoState();
 
     const category=[...new Set(storeList.totalStore.map((store)=>store.category))]
-    console.log(category)
 
     return (
         <CategoryContainer>

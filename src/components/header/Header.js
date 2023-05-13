@@ -51,7 +51,7 @@ const DivHeader = styled.div`
   align-items: center;
 
   &:hover {
-    cursor: grab;
+    cursor: pointer;
   }
 `;
 
@@ -73,7 +73,7 @@ const BtnHeader = styled.button`
   justify-content: space-between;
   align-items: center;
   &:hover {
-    cursor: grab;
+    cursor: pointer;
   }
 `;
 const Toggle = styled(BtnHeader)`
@@ -142,27 +142,11 @@ function Header() {
   const [clicked, setClicked] = useState(false);
   const userState=useUserInfoState();
   const userDispatch=useUserInfoDispatch();
-  let button;
 
   function alterner() {
-    userState.isOwner
-      ? userDispatch({type:"SWITCH_OWNER"})
-      : userDispatch({type:"SWITCH_USER"})
+    !userState.isOwner  ? userDispatch({type:"SWITCH_OWNER"}) : userDispatch({type:"SWITCH_USER"})
+    console.log(userState.isOwner)
   }
-
-  button = userState.isOwner ? (
-    <div className="bossTog">
-      <p>&nbsp;I want to &nbsp;serve</p>
-
-      <img src={ProfileStore} alt="profileStore" />
-    </div>
-  ) : (
-    <div className="customerTog">
-      <p>&nbsp;&nbsp;I want to reserve</p>
-      <img src={Profile} alt="profile" />
-    </div>
-  );
-
   const onClick = () => {
     setClicked((clicked) => !clicked);
   };
@@ -170,6 +154,18 @@ function Header() {
     const token=await login();
     userDispatch({type:"LOGIN",address:token.address,coin:token.coin});
   };
+  
+  const button=
+    userState.isOwner ? 
+    <div className="bossTog">
+      <p>&nbsp;I want to serve</p>
+      <img src={ProfileStore} alt="profileStore" />
+    </div>
+  : 
+    <div className="customerTog">
+      <p>&nbsp;&nbsp;I want to reserve</p>
+      <img src={Profile} alt="profile" />
+    </div>
   return (
     <Top>
       <Link to={"/"}>
@@ -185,8 +181,8 @@ function Header() {
             : ${userState.coin} BNB `: "Connect Binance Wallet"}
           </Wallet>
 
-          <Toggle type="button" isactive={userState.isOwner.toString()} onClick={userState.login ? alterner:loggedIn}>
-            {button}
+          <Toggle type="button" isactive={userState.isOwner.toString()} onClick={userState.login ? alterner : loggedIn}>
+              {button}
           </Toggle>
         </DivHeader>
       </RightSide>

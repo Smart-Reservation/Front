@@ -1,5 +1,4 @@
 import React, { useReducer, createContext, useContext } from "react";
-import login from "../components/Login";
 
 const now=new Date();
 const initialState={
@@ -36,8 +35,6 @@ function UserInfoReducer(state, action) {
     case "LOAD_USER_RESERVSTIONS": //사용자 예약 목록 불러오기
       return {
         ...state,
-        address: action.address,
-        coin: action.coin, //
         reservationList: action.reservationList,
       };
     case "ADD_USER_RESERVATION": //사용자 예약 추가
@@ -64,11 +61,11 @@ function UserInfoReducer(state, action) {
       }
     case "LOGIN":
       return{
-        ...state,
         login:true,
         address: action.address,
         coin:action.coin,
-        isOwner:false
+        isOwner:false,
+        reservationList:[]
       }
     case "LOGOUT":
       return initialState;
