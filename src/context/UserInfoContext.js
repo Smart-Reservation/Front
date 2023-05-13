@@ -42,11 +42,11 @@ function UserInfoReducer(state, action) {
         ...state,
         reservationList: state.reservationList.concat(action.reservation),
       };
-    case "CANCEL_STORE_RESERVATION": //사용자 예약 취소
+    case "CANCEL_USER_RESERVATION": //사용자 예약 취소
       return {
         ...state,
         reservationList: state.reservationList.filter(
-          (reservation) => reservation !== action.reservation
+          (reservation) => JSON.stringify(reservation) !== JSON.stringify(action.reservation)
         ),
       };
     case "LOGIN":

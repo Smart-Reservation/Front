@@ -6,9 +6,7 @@ import { useStoreInfoState } from "../../context/StoreInfoContext";
 
 const Container = styled.div`
   width: 100%;
-  &:hover {
-    cursor: pointer;
-  }
+
 `;
 const ContentBox = styled.div`
   height: 32px;
@@ -24,19 +22,23 @@ const ContentBox = styled.div`
 
   align-items: center;
   justify-content: center;
-  color : ${(props)=>(props.mode==="user" && props.reservedTimes.find((time)=>time===props.period)?"gray":"black")};
+  ${(props)=>( props.reservedTimes.find((time)=>time===props.period)
+    ?`color: rgba(195, 195, 200, 0.5);`
+    :`color: black;
+    ${(props.clicked
+      ? ""
+      : `&:hover {
+          background-color: beige; 
+          cursor: pointer;
+        }`)}
+  `)};
+  
 
   background: ${(props) => (props.clicked ? "#FFE6C7" : "white")};
 
-  ${(props) =>
-    props.clicked
-      ? ""
-      : `&:hover {
-    background-color: beige;
-  }`}
 `;
 
-function Period({ mode, period, onClick, clicked }) {
+function Period({ period, onClick, clicked }) {
   const storeState=useStoreInfoState();
   const reservationState=useReservationInfoState();
   const reservedTimes=reservationState.reservationList.find((reservation)=>
@@ -45,8 +47,8 @@ function Period({ mode, period, onClick, clicked }) {
   ).reservedList.map((reserved)=>storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList[reserved.index]);
   
   return (
-    <Container onClick={onClick}>
-      <ContentBox mode={mode} reservedTimes={reservedTimes} period={period} clicked={clicked}>{period}</ContentBox>
+    <Container onClick={reservedTimes.find((time)=>time===period)?()=>{}:onClick}>
+      <ContentBox  reservedTimes={reservedTimes} period={period} clicked={clicked}>{period}</ContentBox>
     </Container>
   );
 }

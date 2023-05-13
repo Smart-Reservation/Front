@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useReservationInfoDispatch } from "../../context/ReservationInfoContext";
+import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
 import { useUserInfoDispatch } from "../../context/UserInfoContext";
 
 const TotalContainer=styled.div`
@@ -57,7 +57,8 @@ const Text=styled.div`
   margin-top:0.5em;
 `;
 
-function ConfirmationWindow({onReturn, reservation}){
+function ConfirmationWindow({mode, onReturn, reservation}){
+  const reservationState=useReservationInfoState();
   const reservationDispatch=useReservationInfoDispatch();
   const userDispatch=useUserInfoDispatch();
   const CancelReservation =(reservation)=>{
@@ -66,8 +67,15 @@ function ConfirmationWindow({onReturn, reservation}){
       index: reservation.index,
     });
     userDispatch({
-      type: 'CANCEL_STORE_RESERVATION',
-      reservation: reservation
+      type: 'CANCEL_USER_RESERVATION',
+      reservation: mode==="user" 
+      ? reservation
+      :{
+        storeId:reservationState.selectedId,
+        date:reservationState.selectedDate,
+        numbers: reservation.numbers,
+        index: reservation.index,
+        }
     });
     onReturn();
   }

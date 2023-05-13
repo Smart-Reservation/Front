@@ -98,9 +98,9 @@ function ReservationDetail({store}) {
         <section style={{ fontSize: "1.5em" }}>
           <BoldText>Price Detail</BoldText>
         </section>
-        <Text>Each Price : {store.deposit}BNB</Text>
+        <Text>Each Price : {(store.deposit).toFixed(3)}BNB</Text>
         <Text>Number Of People : {numbers}</Text>
-        <Text style={{fontWeight:"700"}}>Total : {numbers * store.deposit}BNB</Text>
+        <Text style={{fontWeight:"700"}}>Total : {(numbers * store.deposit).toFixed(3)}BNB</Text>
       </DownInfo>
     </div>
   );

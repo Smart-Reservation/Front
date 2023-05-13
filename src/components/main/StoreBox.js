@@ -43,7 +43,7 @@ function StoreBox({store,onClick}){
     <BoxContainer>
         <Heart style={{position:"absolute", right:0, padding:"10px"}}/>
         <DepositText>
-            {store.deposit} BNB
+            {(store.deposit).toFixed(3)} BNB
         </DepositText>
     </BoxContainer>
     <Info>
