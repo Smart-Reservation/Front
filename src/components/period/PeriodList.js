@@ -14,9 +14,19 @@ const PeriodListContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 8px 0px;
+  ::-webkit-scrollbar {
+    width: 1em;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: beige;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: white;
+  }
+  overflow-y: auto;
 
-  margin-top:20px;
-  overflow-y: scroll;
+  margin-top: 20px;
 
   background: #ffffff;
   box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08),
@@ -30,29 +40,34 @@ function PeriodList({ mode, periods, selectIndex, selectIndexs }) {
   const storeDispatch = useStoreInfoDispatch();
   const [clickeds, setClickeds] = useState(Array(periods.length).fill(false));
 
-  const onUserClick = (index,realIndex) => {
+  const onUserClick = (index, realIndex) => {
     const newArr = Array(periods.length).fill(false);
     newArr[index] = true;
     setClickeds(newArr);
-    selectIndex(realIndex); 
+    selectIndex(realIndex);
   };
 
-  const onOwnerClick=(index)=>{
-    clickeds[index]=!clickeds[index];
+  const onOwnerClick = (index) => {
+    clickeds[index] = !clickeds[index];
     setClickeds(clickeds);
     selectIndexs(index);
-  }
-  
+  };
+
   return (
     <PeriodListContainer>
       {periods?.map((period, index) => (
         <Period
           key={index}
           mode={mode}
-          onClick={()=>{
-            mode==="user"
-            ?onUserClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))
-            :onOwnerClick(index)
+          onClick={() => {
+            mode === "user"
+              ? onUserClick(
+                  index,
+                  storeState.totalStore
+                    .find((store) => store.id === storeState.selectedId)
+                    .periodList.indexOf(period)
+                )
+              : onOwnerClick(index);
           }}
           period={period}
           clicked={clickeds[index]}

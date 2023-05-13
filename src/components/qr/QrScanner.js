@@ -3,16 +3,15 @@ import { QrReader } from "react-qr-reader";
 import styled, { css } from "styled-components";
 
 const QRContainer = styled.div`
-  zindex: 500;
-  background: #ffe6c7;
-  border-radius: 12px;
-  padding: 2em;
-  width: 40%;
-  margin: auto;
-  text-align: center;
+  width: 55%;
+
   display: flex;
   flex-direction: column;
-  padding-top: 0;
+  justify-content: center;
+  display: relative;
+  margin: auto;
+  mmargin-top: -20%;
+  // background: red;
 `;
 const LoadingDiv = styled.div`
   display: flex;
@@ -32,7 +31,7 @@ const LoadingDiv = styled.div`
 
 const QRScan = () => {
   const [selected, setSelected] = useState("environment");
-  const [startScan, setStartScan] = useState(false);
+  const [startScan, setStartScan] = useState(true);
   const [loading, setloading] = useState(false);
 
   function sendQRAddress(e) {
@@ -66,42 +65,36 @@ const QRScan = () => {
 
   return (
     <QRContainer>
-      <div>
-        {loading && <LoadingDiv>Loading</LoadingDiv>}
-        <h1>QR</h1>
-        <h2>
-          Last Scan:
-          {selected}
-        </h2>
-        <button
-          onClick={() => {
-            setStartScan(!startScan);
-          }}
-        >
-          {startScan ? "Stop Scan" : "Start Scan"}
-        </button>
-        {startScan && (
-          <>
-            <QrReader
-              facingMode={selected}
-              delay={1000}
-              onError={handleError}
-              chooseDeviceId={() => selected}
-              onResult={(result, error) => {
-                if (!!result) {
-                  console.log(result?.text);
-                  checkReserve(result);
-                }
-                // if (!!error) {
-                //   console.info(error);
-                // }
-                /* 에러 표시하는건데 console창 다 가려서 꺼놨음*/
-              }}
-              style={{ width: "300px" }}
-            />
-          </>
-        )}
-      </div>
+      {loading && <LoadingDiv>Loading</LoadingDiv>}
+
+      {/* <button
+        onClick={() => {
+          setStartScan(!startScan);
+        }}
+      >
+        {startScan ? "Stop Scan" : "Start Scan"}
+      </button> */}
+      {startScan && (
+        <>
+          <QrReader
+            facingMode={selected}
+            delay={1000}
+            onError={handleError}
+            videoStyle={{ width: "100%", height: "100%", top: "-10%" }}
+            chooseDeviceId={() => selected}
+            onResult={(result, error) => {
+              if (!!result) {
+                console.log(result?.text);
+                checkReserve(result);
+              }
+              // if (!!error) {
+              //   console.info(error);
+              // }
+              /* 에러 표시하는건데 console창 다 가려서 꺼놨음*/
+            }}
+          />
+        </>
+      )}
     </QRContainer>
   );
 };

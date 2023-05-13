@@ -155,7 +155,7 @@ function Header() {
 
   button = isOwner ? (
     <div className="bossTog">
-      <p>&nbsp;I want to &nbsp;&nbsp;serve</p>
+      <p>&nbsp;I want to &nbsp;serve</p>
 
       <img src={ProfileStore} alt="profileStore" />
     </div>
