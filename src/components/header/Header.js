@@ -138,7 +138,7 @@ const BtnOut = styled(BtnHeader)`
 `;
 
 function Header() {
-  const [active, setActive] = useState(false);
+  const [isOwner, setOwner] = useState(false);
   //false 손님, true 사장
   let button;
   function check() {
@@ -146,14 +146,14 @@ function Header() {
     return true;
   }
   function alterner() {
-    active
-      ? setActive(false)
+    isOwner
+      ? setOwner(false)
       : check()
-      ? setActive(true)
+      ? setOwner(true)
       : console.log("you are not signed");
   }
 
-  button = active ? (
+  button = isOwner ? (
     <div className="bossTog">
       <p>&nbsp;I want to &nbsp;serve</p>
 
@@ -187,13 +187,13 @@ function Header() {
             {logged ? "How can i assist you" : "Connect Binance Wallet"}
           </Wallet>
 
-          <Toggle type="button" isactive={active.toString()} onClick={alterner}>
+          <Toggle type="button" isactive={isOwner.toString()} onClick={alterner}>
             {button}
           </Toggle>
         </DivHeader>
       </RightSide>
       {/* 수정 */}
-      {clicked ? <OwnerOption isOwner={active} /> : <></>}
+      {logged && clicked ? (isOwner ? <OwnerOption/> : <UserOption/>): <></>}
     </Top>
   );
 }
