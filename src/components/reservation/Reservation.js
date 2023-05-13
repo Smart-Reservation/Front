@@ -90,7 +90,7 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
         {hovered ? <img src={X} alt="close" onClick={()=>onClose()} width={"15px"} height={"15px"}/>: <></>}
       </ContentBox>
     </Container>
-    {close&&<FullContainer><ConfirmationWindow reservation={reservation} onReturn={NotClose}/></FullContainer>}
+    {close&&<FullContainer><ConfirmationWindow mode={mode} reservation={reservation} onReturn={NotClose}/></FullContainer>}
     </>
   );
 }

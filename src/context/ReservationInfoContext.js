@@ -10,7 +10,7 @@ const initialState={
         month:now.getMonth()+1,
         day:now.getDate()
       },
-      possibleIdxList:[0,2,3,5,6,7], //1,4 제외한 나머지 0,2,3,5,6,7시간대만 예약가능 
+      impossibleIdxList:[1,4], //1,4 제외한 나머지 0,2,3,5,6,7시간대만 예약가능 
       reservedList:[
         {
           address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
@@ -58,12 +58,11 @@ function ReservationReducer(state, action){
     case "ADD_SETTING": //가게 예약 가능 날짜 설정
       return {
         ...state,
-        // possibleIdxList:action.possibleIdxList,
         reservationList:state.reservationList.map((reservation)=>
           ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
           ? {
               ...reservation,
-              possibleIdxList:action.possibleIdxList
+              impossibleIdxList:action.impossibleIdxList
             }
           : reservation
         ),
@@ -87,11 +86,7 @@ function ReservationReducer(state, action){
           ((reservation.storeId === state.selectedId) && (JSON.stringify(reservation.date) === JSON.stringify(state.selectedDate)))
           ? {
               ...reservation,
-              // reservedIdxList:reservation.reservedIdxList.filter(
-              //   (index) => index !== action.reservedIdx
-              // ),
               reservedList:reservation.reservedList.filter(
-                // (index)=>index!==action.reserved.index
                 (reserved)=>reserved.index!==action.index
               )
             }

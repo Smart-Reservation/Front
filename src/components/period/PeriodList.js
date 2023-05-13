@@ -58,16 +58,10 @@ function PeriodList({ mode, periods, selectIndex, selectIndexs }) {
       {periods?.map((period, index) => (
         <Period
           key={index}
-          mode={mode}
-          onClick={() => {
-            mode === "user"
-              ? onUserClick(
-                  index,
-                  storeState.totalStore
-                    .find((store) => store.id === storeState.selectedId)
-                    .periodList.indexOf(period)
-                )
-              : onOwnerClick(index);
+          onClick={()=>{
+            mode==="user"
+            ?onUserClick(index,storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList.indexOf(period))
+            :onOwnerClick(index)
           }}
           period={period}
           clicked={clickeds[index]}

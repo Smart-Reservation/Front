@@ -166,7 +166,7 @@ function SettingPage() {
   const reservationDispatch = useReservationInfoDispatch();
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
-  const [deposit, setDeposit] = useState(0.0);
+  const [deposit, setDeposit] = useState(storeState.totalStore.find((store)=>store.id===storeState.selectedId).deposit);
   const [Indexs, setIndexs] = useState([]);
   const nav = useNavigate();
   const storeNameIndex = storeState.selectedId;
@@ -191,15 +191,10 @@ function SettingPage() {
     });
   };
   const AddSetting = (idxs) => {
-    // storeDispatch({
-    //   type:'SELECT_STORE_DEPOSIT',
-    //   deposit:deposit
-    // })
     SelectDeposit(deposit);
-
     reservationDispatch({
       type: "ADD_SETTING",
-      possibleIdxList: idxs,
+      impossibleIdxList: idxs,
     });
     nav("/ReservationListPage");
   };
