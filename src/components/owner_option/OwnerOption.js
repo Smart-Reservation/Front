@@ -25,29 +25,29 @@ const OwnerOptionContainer = styled.div`
 
 const BtnContainer = styled.div`
   height: 5vh;
-  color: #484848;
+  color: black;
   &:hover {
-    background-color: rgba(84, 69, 93, 0.2);
+    background-color: beige;
   }
   &:active {
-    background-color: rgba(84, 69, 93, 0.5);
+    background-color: #ffa559;
   }
 `;
 
-function OwnerOption() {
+function OwnerOption({ isOwner }) {
   const nav = useNavigate();
   return (
-    <OwnerOptionContainer>
-      <BtnContainer onClick={() => nav("/SettingPage")}>
-        Setting
-      </BtnContainer>
-      <BtnContainer onClick={() => nav("/ReservationListPage")}>
-        Reservation List
-      </BtnContainer>
-      <BtnContainer onClick={() => nav("/QRScanPage")}>
-        QR reader
-      </BtnContainer>
-    </OwnerOptionContainer>
+    <>
+      <OwnerOptionContainer>
+        <BtnContainer onClick={() => nav("/SettingPage")}>Setting</BtnContainer>
+        <BtnContainer onClick={() => nav("/ReservationListPage")}>
+          Reservation List
+        </BtnContainer>
+        <BtnContainer onClick={() => nav("/QRScanPage")}>
+          QR reader
+        </BtnContainer>
+      </OwnerOptionContainer>
+    </>
   );
 }
 

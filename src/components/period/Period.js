@@ -22,6 +22,7 @@ const ContentBox = styled.div`
 
   align-items: center;
   justify-content: center;
+
   ${(props)=>( props.reservedTimes.find((time)=>time===props.period)
     ?`color: rgba(195, 195, 200, 0.5);`
     :`color: black;
@@ -33,9 +34,7 @@ const ContentBox = styled.div`
         }`)}
   `)};
   
-
   background: ${(props) => (props.clicked ? "#FFE6C7" : "white")};
-
 `;
 
 function Period({ period, onClick, clicked }) {

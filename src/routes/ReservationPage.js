@@ -1,6 +1,9 @@
 import PeriodList from "../components/period/PeriodList";
 import ReservationList from "../components/reservation/ReservationList";
 import Calender from "../components/calender/Calendar";
+import UserAdd from "../components/reservation/icons/User_add.png";
+import UserMinus from "../components/reservation/icons/User_minus.png";
+
 import {
   useStoreInfoState,
   useStoreInfoDispatch,
@@ -14,6 +17,7 @@ import {
   useReservationInfoState,
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
+
 import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
 
 //styled-components
@@ -23,6 +27,13 @@ const TotalContainer = styled.div`
   height: 100vh;
   background: #ffffff;
   border-radius: 20px;
+
+  & > .StoreName {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 2em 0em 0em 4em;
+    padding: 0;
+  }
 `;
 
 const LeftContainer = styled.div`
@@ -36,21 +47,25 @@ const RightContainer = styled.div`
   width: 50%;
   height: 100%;
   display: flex;
+  justify-content: center;
   flex-direction: column;
 `;
 
 const CalendarContainer = styled.div`
   margin: 3em;
+  margin-top: 2em;
+
   margin-left: 6em;
 `;
 
 const PeriodContainer = styled.div`
   margin: 3em;
-  margin-top:6em;
+  margin-top: 2em;
 `;
 const NumberContainer = styled.div`
   margin: 3em;
-  margin-top: 0px; 
+
+  margin-top: 0px;
 `;
 
 const CoinContainer = styled.div`
@@ -62,13 +77,14 @@ const NumberBtn = styled.div`
   width: 100%;
   display: flex;
   margin-top: 2em;
+  margin-left: 14%;
 `;
 
 const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #e0e2e6;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -84,7 +100,7 @@ const DecreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
+    background-color: #ff6000;
   }
 `;
 
@@ -92,7 +108,7 @@ const IncreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #e0e2e6;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -104,11 +120,11 @@ const IncreaseBtn = styled.div`
   justify-content: center;
 
   &:hover {
+    background-color: #ff6000;
     cursor: pointer;
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
   }
 `;
 
@@ -127,21 +143,15 @@ const NumberText = styled.div`
 const CoinText = styled.div`
   width: 10em;
   height: 2em;
-
-  margin-top: 1em;
+  margin: 1em auto -1em 0em;
 
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: 600;
+  font-weight: 900;
   font-size: 18px;
   line-height: 22px;
 
-  color: #9a9a9a;
-`;
-
-const StoreName = styled.div`
-  font-size: 2em;
-  font-weight: bold;
+  color: black;
 `;
 
 const LabelText = styled.div`
@@ -156,9 +166,10 @@ const ReservationBtn = styled.div`
   width: 13em;
   height: 2em;
   margin: 3em;
-  margin-top: 0px;
+  margin-top: -1em;
+  margin-left: 17%;
 
-  background: #484848;
+  background: #ff6000;
   border-radius: 23px;
 
   font-family: "Montserrat";
@@ -170,17 +181,22 @@ const ReservationBtn = styled.div`
   text-align: center;
   color: #ffffff;
 
-
-  ${(props) => (props.index===-1 ? `background-color:gray;` : 
-  `
+  ${(props) =>
+    props.index === -1
+      ? `background-color:#ffe6c7;`
+      : `
     &:hover {
       cursor:pointer;
     }
 
     &:active {
-      background-color: rgba(195, 195, 200, 1);
+      background-color: #ffe6c7;
     }
-  `)}
+  `}
+`;
+const ImgForBtn = styled.img`
+  width: 2em;
+  padding-top: 6px;
 `;
 
 function ReservationPage() {
@@ -188,8 +204,8 @@ function ReservationPage() {
   const storeDispatch = useStoreInfoDispatch();
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
-  const userState=useUserInfoState();
-  const userDispatch=useUserInfoDispatch();
+  const userState = useUserInfoState();
+  const userDispatch = useUserInfoDispatch();
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav = useNavigate();
@@ -226,20 +242,20 @@ function ReservationPage() {
   
   const selectCurrentSet= (index,number)=>{
     reservationDispatch({
-      type:'SELECT_CURRENT',
-      set:{
-        address:userState.address,
-        numbers:number,
-        index:index
-      }
-    })
-  }
+      type: "SELECT_CURRENT",
+      set: {
+        address: userState.address,
+        numbers: number,
+        index: index,
+      },
+    });
+  };
 
   const AddReservation = (Index) => {
     reservationDispatch({
-      type: 'ADD_RESERVATION',
-      reserved:reservationState.currentSet,
-    })
+      type: "ADD_RESERVATION",
+      reserved: reservationState.currentSet,
+    });
     userDispatch({
       type:'ADD_USER_RESERVATION',
       reservation:{
@@ -255,23 +271,23 @@ function ReservationPage() {
   return (
     <TotalContainer>
       <Header />
+      <div className="StoreName">{storeName}</div>
       <LeftContainer>
         <CalendarContainer>
-          <StoreName>{storeName}</StoreName>
-          <LabelText>Select a date : </LabelText>
+          <LabelText>Select a date :</LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
       </LeftContainer>
       <RightContainer>
         <PeriodContainer>
           <LabelText>Select a period : </LabelText>
-          {possibleIdxs&&
-          <PeriodList
-            mode="user"
-            periods={possibleIdxs.map((index) => storePeriods[index])}
-            selectIndex={selectIndex}
-          />
-          }
+          {possibleIdxs && (
+            <PeriodList
+              mode="user"
+              periods={possibleIdxs.map((index) => storePeriods[index])}
+              selectIndex={selectIndex}
+            />
+          )}
         </PeriodContainer>
         <NumberContainer>
           <LabelText>Select number of people :</LabelText>
@@ -286,7 +302,7 @@ function ReservationPage() {
                     }
               }
             >
-              -
+              <ImgForBtn src={UserMinus} alt="subtract people"></ImgForBtn>
             </DecreaseBtn>
             <NumberText>{number}</NumberText>
             <IncreaseBtn
@@ -295,7 +311,7 @@ function ReservationPage() {
                 selectCurrentSet(Index,number+1);
               }}
             >
-              +
+              <ImgForBtn src={UserAdd} alt="add people"></ImgForBtn>
             </IncreaseBtn>
           </NumberBtn>
         </NumberContainer>
@@ -306,11 +322,15 @@ function ReservationPage() {
                 (storeState.totalStore.find(
                   (store) => store.id === storeState.selectedId
                 ).deposit * number)
-              .toFixed(3)}
-            BNB
+              .toFixed(3)}BNB
           </CoinText>
         </CoinContainer>
-        <ReservationBtn index={Index} onClick={Index===-1?()=>{}:() =>  AddReservation(Index) }>RESERVATION</ReservationBtn>
+        <ReservationBtn
+          index={Index}
+          onClick={Index === -1 ? () => {} : () => AddReservation(Index)}
+        >
+          RESERVATION
+        </ReservationBtn>
       </RightContainer>
     </TotalContainer>
   );

@@ -21,11 +21,18 @@ const TotalContainer = styled.div`
   height: 100vh;
   background: #ffffff;
   border-radius: 20px;
+
+  & > .StoreName {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 2em 0em 0em 4em;
+    padding: 0;
+  }
 `;
 
 const LeftContainer = styled.div`
   float: left;
-  width: 50%;
+  width: 40%;
   height: 100%;
 `;
 const RightContainer = styled.div`
@@ -36,30 +43,30 @@ const RightContainer = styled.div`
   flex-direction: column;
 `;
 const CalendarContainer = styled.div`
-  margin: 3em;
-  margin-left: 6em;
+  margin: 2em 3em 3em 6em;
 `;
 
 const PeriodContainer = styled.div`
   margin: 3em;
-  margin-top:6em;
+  margin-top: 2em;
 `;
 const NumberContainer = styled.div`
   margin: 3em;
-  margin-top: 0px; 
+  margin-top: 0px;
 `;
 
 const NumberBtn = styled.div`
   width: 100%;
   display: flex;
   margin-top: 2em;
+  margin-left: 14%;
 `;
 
 const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #e0e2e6;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -75,7 +82,7 @@ const DecreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
+    background-color: #ff6000;
   }
 `;
 
@@ -83,7 +90,7 @@ const IncreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #e0e2e6;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -99,13 +106,8 @@ const IncreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(190, 190, 191, 0.9);
+    background-color: #ff6000;
   }
-`;
-
-const StoreName = styled.div`
-  font-size: 2em;
-  font-weight: bold;
 `;
 
 const NumberText = styled.div`
@@ -132,9 +134,10 @@ const SettingBtn = styled.div`
   width: 13em;
   height: 2em;
   margin: 3em;
-  margin-top: 0px;
+  margin-top: 1em;
+  margin-left: 17%;
 
-  background: #484848;
+  background: #ff6000;
   border-radius: 23px;
 
   font-family: "Montserrat";
@@ -151,10 +154,13 @@ const SettingBtn = styled.div`
   }
 
   &:active {
-    background-color: rgba(195, 195, 200, 1);
+    background-color: #ffe6c7;
   }
 `;
-
+const ImgForBtn = styled.img`
+  width: 2em;
+  padding-top: 6px;
+`;
 function SettingPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
@@ -176,14 +182,14 @@ function SettingPage() {
     });
   };
   const SelectIndexs = (Index) => {
-    setIndexs([...Indexs,Index]);
-  }
-  const SelectDeposit=(deposit)=>{
+    setIndexs([...Indexs, Index]);
+  };
+  const SelectDeposit = (deposit) => {
     storeDispatch({
-      type:'SELECT_STORE_DEPOSIT',
-      deposit:deposit
-    })
-  }
+      type: "SELECT_STORE_DEPOSIT",
+      deposit: deposit,
+    });
+  };
   const AddSetting = (idxs) => {
     SelectDeposit(deposit);
     reservationDispatch({
@@ -196,10 +202,14 @@ function SettingPage() {
   return (
     <TotalContainer>
       <Header />
+      <div className="StoreName">{storeName}</div>
+
       <LeftContainer>
         <CalendarContainer>
-          <StoreName>{storeName}</StoreName>
-          <LabelText>Select a date : </LabelText>
+          <LabelText>
+            <> </> Select a date :
+          </LabelText>
+
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
       </LeftContainer>
