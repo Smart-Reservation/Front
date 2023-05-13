@@ -13,8 +13,7 @@ import {
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import UserAdd from "../components/reservation/icons/User_add.png";
-import UserMinus from "../components/reservation/icons/User_minus.png";
+
 //styled-component
 const TotalContainer = styled.div`
   position: relative;
@@ -244,7 +243,7 @@ function SettingPage() {
                     }
               }
             >
-              <ImgForBtn src={UserMinus} alt="subtract people"></ImgForBtn>
+              -
             </DecreaseBtn>
             <NumberText>{deposit.toFixed(3)}</NumberText>
             <IncreaseBtn
@@ -252,7 +251,7 @@ function SettingPage() {
                 setDeposit(deposit + 0.001);
               }}
             >
-              <ImgForBtn src={UserAdd} alt="add people"></ImgForBtn>
+              +
             </IncreaseBtn>
           </NumberBtn>
         </NumberContainer>
