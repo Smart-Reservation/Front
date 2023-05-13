@@ -1,6 +1,7 @@
 import Day from "./days";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useReservationInfoDispatch } from "../../context/ReservationInfoContext";
 // import Head from './header';
 
 const CalendarContainer = styled.div`
@@ -76,6 +77,7 @@ function Calender({SelectDate}) {
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [fullMonth, setFullMonth] = useState([]);
   const [selectedDate, setSelectedDate] = useState(now);
+  const reservationDispatch=useReservationInfoDispatch();
   // const [data, setData] = useState();
 
   const handleDayClick = (date) => {
@@ -87,6 +89,14 @@ function Calender({SelectDate}) {
     }
     SelectDate(dateStamp);
   };
+
+  useEffect(()=>{
+    reservationDispatch({type:"SELECT_DATE",date:{
+      year:now.getFullYear(),
+      month:now.getMonth()+1,
+      day:now.getDate()
+    }})
+  },[])
 
   const handleEmptyClick = () => {
     console.log("");

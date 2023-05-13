@@ -231,6 +231,11 @@ function ReservationPage() {
 
   const SelectDate = (date) => {
     reservationDispatch({
+      type:"ADD_DATE",
+      date:date,
+      id:reservationState.selectedId
+    })
+    reservationDispatch({
       type: "SELECT_DATE",
       date: date,
     });
@@ -252,6 +257,7 @@ function ReservationPage() {
   };
 
   const AddReservation = (Index) => {
+    selectCurrentSet(Index,number);
     reservationDispatch({
       type: "ADD_RESERVATION",
       reserved: reservationState.currentSet,

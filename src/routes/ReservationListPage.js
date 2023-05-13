@@ -107,7 +107,7 @@ function ReservationListPage() {
                     reservation.storeId === reservationState.selectedId &&
                     JSON.stringify(reservation.date) ===
                       JSON.stringify(reservationState.selectedDate)
-                ).reservedList
+                )?.reservedList
               }
             />
           </ReservationListContainer>

@@ -37,20 +37,20 @@ const ReservationListContainer = styled.div`
 
 function ReservationList({ mode, reservations }) {
   const [clickeds, setClickeds] = useState(
-    Array(reservations.length).fill(false)
+    Array(reservations?.length).fill(false)
   );
   const onClick = (index) => {
-    const newArr = Array(reservations.length).fill(false);
+    const newArr = Array(reservations?.length).fill(false);
     newArr[index] = true;
     setClickeds(newArr);
   };
   useEffect(() => {
-    setClickeds(Array(reservations.length).fill(false));
+    setClickeds(Array(reservations?.length).fill(false));
   }, [reservations]);
 
   return (
     <ReservationListContainer mode={mode}>
-      {reservations.map((reservation, index) => (
+      {reservations&&reservations.map((reservation, index) => (
         <Reservation
           key={index}
           mode={mode}
