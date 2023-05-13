@@ -18,7 +18,10 @@ import {
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
 
-import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
+import {
+  useUserInfoDispatch,
+  useUserInfoState,
+} from "../context/UserInfoContext";
 
 //styled-components
 const TotalContainer = styled.div`
@@ -214,20 +217,21 @@ function ReservationPage() {
   storeState.totalStore.map((i) => {
     if ((i.id = storeNameIndex)) storeName = i.storeName;
   });
-  
+
   let impossibleIdxs = reservationState.reservationList.find(
     (reservation) =>
       reservation.storeId === reservationState.selectedId &&
       JSON.stringify(reservation.date) ===
-      JSON.stringify(reservationState.selectedDate)
+        JSON.stringify(reservationState.selectedDate)
   )?.impossibleIdxList;
 
   let storePeriods = storeState.totalStore.find(
     (store) => store.id === storeState.selectedId
   )?.periodList;
 
-  let possibleIdxs=storePeriods.map((period)=>storePeriods.indexOf(period)
-    ).filter((idx)=>!impossibleIdxs?.includes(idx));
+  let possibleIdxs = storePeriods
+    .map((period) => storePeriods.indexOf(period))
+    .filter((idx) => !impossibleIdxs?.includes(idx));
 
   const SelectDate = (date) => {
     reservationDispatch({
@@ -237,10 +241,10 @@ function ReservationPage() {
   };
   const selectIndex = (Index) => {
     setIndex(Index);
-    selectCurrentSet(Index);//추가
-  }
-  
-  const selectCurrentSet= (index,number)=>{
+    selectCurrentSet(Index); //추가
+  };
+
+  const selectCurrentSet = (index, number) => {
     reservationDispatch({
       type: "SELECT_CURRENT",
       set: {
@@ -257,15 +261,15 @@ function ReservationPage() {
       reserved: reservationState.currentSet,
     });
     userDispatch({
-      type:'ADD_USER_RESERVATION',
-      reservation:{
-        storeId:reservationState.selectedId,
-        date:reservationState.selectedDate,
-        numbers:number,
-        index:Index,
-      }
-    })
-    nav("/ReservationDetailPage")
+      type: "ADD_USER_RESERVATION",
+      reservation: {
+        storeId: reservationState.selectedId,
+        date: reservationState.selectedDate,
+        numbers: number,
+        index: Index,
+      },
+    });
+    nav("/ReservationDetailPage");
   };
 
   return (
@@ -298,7 +302,7 @@ function ReservationPage() {
                   ? () => {}
                   : () => {
                       setNumber(number - 1);
-                      selectCurrentSet(Index,number-1);
+                      selectCurrentSet(Index, number - 1);
                     }
               }
             >
@@ -308,7 +312,7 @@ function ReservationPage() {
             <IncreaseBtn
               onClick={() => {
                 setNumber(number + 1);
-                selectCurrentSet(Index,number+1);
+                selectCurrentSet(Index, number + 1);
               }}
             >
               <ImgForBtn src={UserAdd} alt="add people"></ImgForBtn>
@@ -318,11 +322,12 @@ function ReservationPage() {
         <CoinContainer>
           <LabelText>Price Coin :</LabelText>
           <CoinText>
-              {
-                (storeState.totalStore.find(
-                  (store) => store.id === storeState.selectedId
-                ).deposit * number)
-              .toFixed(3)}BNB
+            {(
+              storeState.totalStore.find(
+                (store) => store.id === storeState.selectedId
+              ).deposit * number
+            ).toFixed(3)}
+            BNB
           </CoinText>
         </CoinContainer>
         <ReservationBtn
