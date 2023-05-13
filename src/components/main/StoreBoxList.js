@@ -11,7 +11,7 @@ const BoxListContainer = styled.div`
     display:grid;
     grid-template-columns: repeat(3, 1fr);
 `
-
+const now = new Date();
 
 function StoreBoxList(){
     const storeList=useStoreInfoState();
@@ -19,7 +19,7 @@ function StoreBoxList(){
     const reservationDispatch=useReservationInfoDispatch();
     const nav = useNavigate();
     const onClick=(id)=>{
-        storeDispatch({type:"SELECT_STORE",id:id}) //
+        storeDispatch({type:"SELECT_STORE",id:id})
         reservationDispatch({type:"LOAD_STORE_RESERVATION",id:id})
         nav("/ReservationPage")
     }

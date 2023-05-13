@@ -23,7 +23,7 @@ const ContentBox = styled.div`
   align-items: center;
   justify-content: center;
 
-  ${(props)=>( props.reservedTimes.find((time)=>time===props.period)
+  ${(props)=>( props.reservedTimes?.find((time)=>time===props.period)
     ?`color: rgba(195, 195, 200, 0.5);`
     :`color: black;
     ${(props.clicked
@@ -43,10 +43,10 @@ function Period({ period, onClick, clicked }) {
   const reservedTimes=reservationState.reservationList.find((reservation)=>
     reservation.storeId===reservationState.selectedId &&
     JSON.stringify(reservation.date)===JSON.stringify(reservationState.selectedDate)
-  ).reservedList.map((reserved)=>storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList[reserved.index]);
+  )?.reservedList.map((reserved)=>storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList[reserved.index]);
   
   return (
-    <Container onClick={reservedTimes.find((time)=>time===period)?()=>{}:onClick}>
+    <Container onClick={reservedTimes?.find((time)=>time===period)?()=>{}:onClick}>
       <ContentBox  reservedTimes={reservedTimes} period={period} clicked={clicked}>{period}</ContentBox>
     </Container>
   );
