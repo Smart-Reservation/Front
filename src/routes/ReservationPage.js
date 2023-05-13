@@ -87,7 +87,7 @@ const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: transperant;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
