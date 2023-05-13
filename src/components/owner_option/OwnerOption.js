@@ -38,25 +38,15 @@ function OwnerOption({ isOwner }) {
   const nav = useNavigate();
   return (
     <>
-      {isOwner ? (
-        <OwnerOptionContainer>
-          <BtnContainer onClick={() => nav("/SettingPage")}>
-            Setting
-          </BtnContainer>
-          <BtnContainer onClick={() => nav("/ReservationListPage")}>
-            Reservation List
-          </BtnContainer>
-          <BtnContainer onClick={() => nav("/QRScanPage")}>
-            QR reader
-          </BtnContainer>
-        </OwnerOptionContainer>
-      ) : (
-        <OwnerOptionContainer>
-          <BtnContainer onClick={() => nav("/ReservationListPage")}>
-            Reservation List
-          </BtnContainer>
-        </OwnerOptionContainer>
-      )}
+      <OwnerOptionContainer>
+        <BtnContainer onClick={() => nav("/SettingPage")}>Setting</BtnContainer>
+        <BtnContainer onClick={() => nav("/ReservationListPage")}>
+          Reservation List
+        </BtnContainer>
+        <BtnContainer onClick={() => nav("/QRScanPage")}>
+          QR reader
+        </BtnContainer>
+      </OwnerOptionContainer>
     </>
   );
 }
