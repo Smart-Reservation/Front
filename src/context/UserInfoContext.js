@@ -1,9 +1,12 @@
 import React, { useReducer, createContext, useContext } from "react";
+import login from "../components/Login";
 
 const now=new Date();
 const initialState={
+  login:false,
   address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
-  coin:0.00, //그럼 가게도 있어야 하는거 아니야..?
+  coin:0.00,
+  isOwner:false,
   reservationList:[
     {
       storeId:1,
@@ -49,9 +52,23 @@ function UserInfoReducer(state, action) {
           (reservation) => JSON.stringify(reservation) !== JSON.stringify(action.reservation)
         ),
       };
+    case "SWITCH_USER":
+      return {
+        ...state,
+        isOwner: false
+      }
+    case "SWITCH_OWNER":
+      return {
+        ...state,
+        isOwner : true
+      }
     case "LOGIN":
       return{
-        
+        ...state,
+        login:true,
+        address: action.address,
+        coin:action.coin,
+        isOwner:false
       }
     case "LOGOUT":
       return initialState;

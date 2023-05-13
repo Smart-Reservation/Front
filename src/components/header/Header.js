@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import UserOption from "../user_option/UserOption";
 import OwnerOption from "../owner_option/OwnerOption";
 import styled from "styled-components";
+import { useUserInfoDispatch, useUserInfoState } from "../../context/UserInfoContext";
 
 const Logo = styled.img`
   margin-top: 1em;
@@ -138,22 +139,18 @@ const BtnOut = styled(BtnHeader)`
 `;
 
 function Header() {
-  const [isOwner, setOwner] = useState(false);
-  //false 손님, true 사장
+  const [clicked, setClicked] = useState(false);
+  const userState=useUserInfoState();
+  const userDispatch=useUserInfoDispatch();
   let button;
-  function check() {
-    //사장으로 등록되어 있는지 확인
-    return true;
-  }
+
   function alterner() {
-    isOwner
-      ? setOwner(false)
-      : check()
-      ? setOwner(true)
-      : console.log("you are not signed");
+    userState.isOwner
+      ? userDispatch({type:"SWITCH_OWNER"})
+      : userDispatch({type:"SWITCH_USER"})
   }
 
-  button = isOwner ? (
+  button = userState.isOwner ? (
     <div className="bossTog">
       <p>&nbsp;I want to &nbsp;serve</p>
 
@@ -166,15 +163,12 @@ function Header() {
     </div>
   );
 
-  const [logged, setlogged] = useState(false); //전역적으로 관리
-  const [clicked, setClicked] = useState(false);
-
   const onClick = () => {
     setClicked((clicked) => !clicked);
   };
-  const loggedIn = () => {
-    login();
-    setlogged(true);
+  const loggedIn = async () => {
+    const token=await login();
+    userDispatch({type:"LOGIN",address:token.address,coin:token.coin});
   };
   return (
     <Top>
@@ -183,17 +177,21 @@ function Header() {
       </Link>
       <RightSide>
         <DivHeader>
-          <Wallet onClick={logged ? onClick : loggedIn}>
-            {logged ? "How can i assist you" : "Connect Binance Wallet"}
+          <Wallet onClick={userState.login ? onClick : loggedIn}>
+            {userState.login ?
+            `${userState.address.substr(0,5)}
+            ...
+            ${userState.address.substr(userState.address.length-5)}
+            : ${userState.coin} BNB `: "Connect Binance Wallet"}
           </Wallet>
 
-          <Toggle type="button" isactive={isOwner.toString()} onClick={alterner}>
+          <Toggle type="button" isactive={userState.isOwner.toString()} onClick={userState.login ? alterner:loggedIn}>
             {button}
           </Toggle>
         </DivHeader>
       </RightSide>
       {/* 수정 */}
-      {logged && clicked ? (isOwner ? <OwnerOption/> : <UserOption/>): <></>}
+      {userState.login && clicked ? (userState.isOwner ? <OwnerOption/> : <UserOption/>): <></>}
     </Top>
   );
 }
