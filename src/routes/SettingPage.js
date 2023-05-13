@@ -13,7 +13,8 @@ import {
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-
+import UserAdd from "../components/reservation/icons/User_add.png";
+import UserMinus from "../components/reservation/icons/User_minus.png";
 //styled-component
 const TotalContainer = styled.div`
   position: relative;
@@ -59,14 +60,14 @@ const NumberBtn = styled.div`
   width: 100%;
   display: flex;
   margin-top: 2em;
-  margin-left: 5em;
+  margin-left: 14%;
 `;
 
 const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #ffa559;
+  background: transperant;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -90,7 +91,7 @@ const IncreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #ffa559;
+  background: #fefce5;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -135,7 +136,7 @@ const SettingBtn = styled.div`
   height: 2em;
   margin: 3em;
   margin-top: 1em;
-  margin-left: 5em;
+  margin-left: 17%;
 
   background: #ff6000;
   border-radius: 23px;
@@ -157,7 +158,10 @@ const SettingBtn = styled.div`
     background-color: #ffe6c7;
   }
 `;
-
+const ImgForBtn = styled.img`
+  width: 2em;
+  padding-top: 6px;
+`;
 function SettingPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
@@ -240,7 +244,7 @@ function SettingPage() {
                     }
               }
             >
-              -
+              <ImgForBtn src={UserMinus} alt="subtract people"></ImgForBtn>
             </DecreaseBtn>
             <NumberText>{deposit.toFixed(3)}</NumberText>
             <IncreaseBtn
@@ -248,7 +252,7 @@ function SettingPage() {
                 setDeposit(deposit + 0.001);
               }}
             >
-              +
+              <ImgForBtn src={UserAdd} alt="add people"></ImgForBtn>
             </IncreaseBtn>
           </NumberBtn>
         </NumberContainer>
