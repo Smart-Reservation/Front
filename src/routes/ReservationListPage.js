@@ -33,15 +33,16 @@ const RightContainer = styled.div`
   flex-direction: column;
 `;
 const CalendarContainer = styled.div`
-  margin: 30px;
-  margin-left: 100px;
+  margin: 3em;
+  margin-left: 6em;
 `;
 
 const ReservationContainer = styled.div`
-  margin: 30px;
+  margin: 3em;
+  margin-top:6em;
 `;
 const ReservationListContainer = styled.div`
-  margin-top: 20px;
+  margin-top: 1em;
   width: 30vw;
   background: #ffffff;
   box-shadow: 0px 30px 84px rgba(19, 10, 46, 0.08),
@@ -57,7 +58,7 @@ const LabelText = styled.div`
   font-size: 14px;
   line-height: 24px;
 `;
-const StoreName = styled.p`
+const StoreName = styled.div`
   font-size: 2em;
   font-weight: bold;
 `;

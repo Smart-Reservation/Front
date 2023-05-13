@@ -41,32 +41,33 @@ const RightContainer = styled.div`
 `;
 
 const CalendarContainer = styled.div`
-  margin: 30px;
-  margin-left: 100px;
+  margin: 3em;
+  margin-left: 6em;
 `;
 
 const PeriodContainer = styled.div`
-  margin: 30px;
+  margin: 3em;
+  margin-top:6em;
 `;
 const NumberContainer = styled.div`
-  margin: 30px;
-  margin-top: 0px;
+  margin: 3em;
+  margin-top: 0px; 
 `;
 
 const CoinContainer = styled.div`
-  margin: 30px;
+  margin: 3em;
   margin-top: 0px;
 `;
 
 const NumberBtn = styled.div`
   width: 100%;
   display: flex;
-  margin-top: 20px;
+  margin-top: 2em;
 `;
 
 const DecreaseBtn = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 3em;
+  height: 3em;
 
   background: #e0e2e6;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
@@ -89,8 +90,8 @@ const DecreaseBtn = styled.div`
 `;
 
 const IncreaseBtn = styled.div`
-  width: 48px;
-  height: 48px;
+  width: 3em;
+  height: 3em;
 
   background: #e0e2e6;
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
@@ -113,10 +114,10 @@ const IncreaseBtn = styled.div`
 `;
 
 const NumberText = styled.div`
-  width: 224px;
-  height: 48px;
+  width: 12em;
+  height: 3em;
 
-  line-height: 40px;
+  line-height: 2em;
   display: flex;
   text-align: center;
   align-items: center;
@@ -125,10 +126,10 @@ const NumberText = styled.div`
 `;
 
 const CoinText = styled.div`
-  width: 188px;
-  height: 27px;
+  width: 10em;
+  height: 2em;
 
-  margin-top: 20px;
+  margin-top: 1em;
 
   font-family: "Montserrat";
   font-style: normal;
@@ -137,6 +138,11 @@ const CoinText = styled.div`
   line-height: 22px;
 
   color: #9a9a9a;
+`;
+
+const StoreName = styled.div`
+  font-size: 2em;
+  font-weight: bold;
 `;
 
 const LabelText = styled.div`
@@ -148,9 +154,9 @@ const LabelText = styled.div`
 `;
 
 const ReservationBtn = styled.div`
-  width: 328px;
-  height: 46px;
-  margin: 30px;
+  width: 13em;
+  height: 2em;
+  margin: 3em;
   margin-top: 0px;
 
   background: #484848;
@@ -250,9 +256,8 @@ function ReservationPage() {
       <Header />
       <LeftContainer>
         <CalendarContainer>
-          <LabelText>
-            <span style={{fontWeight: "bold", fontSize: "1.5em"}}>{storeName}</span><> </> Select a date :
-          </LabelText>
+          <StoreName>{storeName}</StoreName>
+          <LabelText>Select a date : </LabelText>
           <Calender SelectDate={SelectDate} />
         </CalendarContainer>
       </LeftContainer>

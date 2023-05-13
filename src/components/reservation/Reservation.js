@@ -20,7 +20,7 @@ const ContentBox = styled.div`
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1em;
   line-height: 22px;
 
   align-items: center;
@@ -39,9 +39,10 @@ const FullContainer=styled.div`
   width:100vw;
   height:100vh;
 
-  position:absolute;
+  position:fixed;
   left: 0%;
   top: 0%;
+
   backdrop-filter: blur(8px);
 `;
 
