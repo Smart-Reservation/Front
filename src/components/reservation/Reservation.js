@@ -14,12 +14,12 @@ const Container = styled.div`
   width: 100%;
 `;
 const ContentBox = styled.div`
-  height: 32px;
+  height: 4.5vh;
 
   display: flex;
   padding: 4px 16px;
 
-  font-family: "Montserrat";
+  font-family:'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
   font-size: 1em;
@@ -28,13 +28,13 @@ const ContentBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  background: ${(props) => (props.mode==="user" && props.clicked ? "#E0E2E6" : "white")};
+  background: ${(props) => (props.mode==="user" && props.clicked ? "#FFE6C7" : "white")};
 
   ${(props) =>
     props.clicked
       ? ""
       : `&:hover {
-    background-color: rgba(55, 53, 47, 0.05);
+        background-color: rgba(255, 230, 199, 0.4); 
   }`}
 
   ${(props)=>props.mode==="user"&&'cursor:pointer;'}
@@ -100,8 +100,8 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
       }:()=>{}}>
         {
           mode==="user"
-          ?<>{storeName} {timeStamp} {reservation.numbers}people</>
-          :<>{reservation.address} {timeStamp} {reservation.numbers}people</>
+          ?<><span style={{fontWeight: "600"}}>{storeName}</span>{timeStamp} {reservation.numbers}people<span></span></>
+          :<><span></span><span style={{fontWeight: "600"}}>{reservation.address.substr(0, 8)} ... {reservation.address.substr(reservation.address.length - 8)}</span>{timeStamp} {reservation.numbers}people<span></span></>
         }
         {hovered ? <img src={X} alt="close" onClick={()=>onClose()} width={"15px"} height={"15px"}/>: <></>}
       </ContentBox>

@@ -9,15 +9,15 @@ const Container = styled.div`
 
 `;
 const ContentBox = styled.div`
-  height: 32px;
+  height: 6vh;
 
   display: flex;
   padding: 4px 16px;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.2em;
   line-height: 22px;
 
   align-items: center;
@@ -29,7 +29,7 @@ const ContentBox = styled.div`
     ${(props.clicked
       ? ""
       : `&:hover {
-          background-color: beige; 
+          background-color: rgba(255, 230, 199, 0.4); 
           cursor: pointer;
         }`)}
   `)};

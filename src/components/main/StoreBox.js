@@ -14,7 +14,8 @@ const StoreBoxContainer=styled.div`
 
 const BoxContainer=styled.div`
     position: relative;
-    height: 360px;
+    height: 23em;
+
     
     ${props=>props.src&&`background-image:url(${props.src});`}
     background-size:cover;
@@ -24,7 +25,7 @@ const DepositText=styled.span`
     position: absolute;
     bottom:0;
     padding:8px;
-    font-family: 'Montserrat';
+    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -35,7 +36,7 @@ const DepositText=styled.span`
 `
  
 const Info=styled.div`
-    font-family: 'Montserrat';
+    font-family: 'Pretendard-Regular';
     font-style: normal;
     div{ margin: 15px 0 15px 0;}
 `
@@ -50,8 +51,8 @@ function StoreBox({store,onClick}){
         </DepositText>
     </BoxContainer>
     <Info>
-        <div style={{fontWeight: "700", fontSize: "18px",lineHeight: "22px",color:"#484848" }}>{store.storeName}</div>
-        <div style={{fontWeight: "500", fontSize: "14px",lineHeight: "17px",color: "#9A9A9A"}}>{store.location}</div>
+        <div style={{fontWeight: "700", fontSize: "1.2em",lineHeight: "1.2em",color:"#484848" }}>{store.storeName}</div>
+        <div style={{fontWeight: "500", fontSize: "0.9em",lineHeight: "0.6em",color: "#9A9A9A"}}>{store.location}</div>
     </Info>
     </StoreBoxContainer>
     );
