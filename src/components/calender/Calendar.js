@@ -7,10 +7,10 @@ import axios from "axios";
 // import Head from './header';
 
 const CalendarContainer = styled.div`
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 1.5em;
   line-height: 3em;
   text-align: center;
   margin-top: 20px;
@@ -173,7 +173,7 @@ function Calender({ SelectDate }) {
         <CalendarHeader>
           <MonthButton onClick={previousMonth}>&lt;</MonthButton>
           <span>
-            {year}년{month}월
+            {new Date(year,month-1).toLocaleDateString('en-US', { month: 'long' })} {year}
           </span>
           <MonthButton onClick={nextMonth}>&gt;</MonthButton>
         </CalendarHeader>

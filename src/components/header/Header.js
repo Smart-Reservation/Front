@@ -25,7 +25,7 @@ const Top = styled.div`
   justify-content: space-between;
   width: 100vw;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: bolder;
 `;
@@ -47,7 +47,7 @@ const DivHeader = styled.div`
   background: #ffa559;
   border-radius: 23px;
   display: flex;
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   justify-content: space-between;
   align-items: center;
@@ -61,7 +61,7 @@ const BtnHeader = styled.button`
   border-radius: 20%;
   // border: 1px black solid;
   color: white;
-  font-fammily: monospace;
+  font-family: 'Pretendard-Regular';
 
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
@@ -185,11 +185,12 @@ function Header() {
       <RightSide>
         <DivHeader>
           <Wallet onClick={userState.login ? onClick : loggedIn}>
-            {userState.login ?
-              `${userState.address.substr(0, 5)}
-            ...
-            ${userState.address.substr(userState.address.length - 5)}
-            : ${userState.coin} BNB ` : "Connect Binance Wallet"}
+            {userState.login 
+              ?
+              <>{userState.address.substr(0, 5)}...{userState.address.substr(userState.address.length - 5)}: 
+              <div>{userState.coin} BNB </div> </>
+              : "Connect Binance Wallet"
+            }
           </Wallet>
 
           <Toggle type="button" isactive={userState.isOwner.toString()} onClick={userState.login ? alterner : loggedIn}>

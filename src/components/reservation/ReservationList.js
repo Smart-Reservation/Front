@@ -14,7 +14,7 @@ import ConfirmationWindow from "./ConfirmationWindow";
 //styled-component
 const ReservationListContainer = styled.div`
   width: 30vw;
-  height: ${(props) => (props.mode === "user" ? "200px" : "400px")};
+  height: ${(props) => (props.mode === "user" ? "24vh" : "60vh")};
 
   display: flex;
   flex-direction: column;

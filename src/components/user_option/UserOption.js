@@ -11,25 +11,25 @@ const UserOptionContainer=styled.div`
   top:3.5em;
   right:7em;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 0px 8px rgba(194, 198, 204, 0.6);
   border-radius: 6px;
 
-  font-family: 'Montserrat';
+  font-family:'Pretendard-Regular';
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
-  line-height: 40px;
+  font-size: 1.2em;
+  line-height: 2em;
 
   text-align: center;
   z-index:1;
 
-  color: #484848;  
+  color: black;
   &:hover {
-    background-color: rgba(84, 69, 93, 0.2);  
+    background-color: rgba(255, 230, 199, 0.4); 
   }
   &:active {
-    background-color: rgba(84, 69, 93, 0.5);
+    background-color: #ffa559;
   }
 `;
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
 
 const UpperInfo = styled.div`
-  margin: 3em 3em 3em 5em;
+  margin: 6em 0em 6em 5em;
   display: flex;
   justify-content: baseline;
   align-items: center;
@@ -32,30 +32,31 @@ const DownInfo = styled.div`
 `;
 
 const BoldText=styled.div`
-  width: 370.95px;
-  height: 35.46px;
+  width: 30em;
+  height: 2em;
 
-  margin-top:20px;
+  margin-top:1em;
+  margin-bottom:0.5em;
 
-  font-family: "Montserrat";
+  font-family:'Pretendard-Regular';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 1.2em;
   line-height: 22px;
-  color :#484848;
+  color :black;
 `;
 
 const Text=styled.div`
-  width: 291.79px;
-  height: 35.46px;
+  width: 17em;
+  height: 3em;
 
-  font-family: 'Montserrat';
+  font-family:'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 1em;
+  line-height: 1.5em;
 
-  color: #9A9A9A;
+  color: #484848;
 `;
 
 
