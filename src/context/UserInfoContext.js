@@ -1,34 +1,74 @@
 import React, { useReducer, createContext, useContext } from "react";
 
+const now=new Date();
 const initialState={
-  address:"",
+  login:false,
+  address:"0xE2C20E354D8841EccA194B68506DA81827726e30",
+  coin:0.00,
+  isOwner:false,
   reservationList:[
     {
-      id:1,
       storeId:1,
-      periodIndex:1,   
+      date:{
+        year:now.getFullYear(),
+        month:now.getMonth()+1,
+        day:now.getDate()
+      },
+      numbers: 2,
+      index: 0,
     },
-]
+    {
+      storeId:1,
+      date:{
+        year:now.getFullYear(),
+        month:now.getMonth()+1,
+        day:now.getDate()
+      },
+      numbers: 1,
+      index: 3,
+    },
+  ],
 };
 
-function UserInfoReducer(state,action){
-  switch(action.type){
-    case "LOAD_USER_RESERVSTIONS": //사용자 예약 목록 불러오기
-      return{
+function UserInfoReducer(state, action) {
+  switch (action.type) {
+    case "LOAD_USER_RESERVATIONS": //사용자 예약 목록 불러오기
+      return {
         ...state,
-        address:action.address,
+        reservationList: action.reservationList,
+      };
+    case "ADD_USER_RESERVATION": //사용자 예약 추가
+      return {
+        ...state,
+        reservationList: state.reservationList.concat(action.reservation),
+      };
+    case "CANCEL_USER_RESERVATION": //사용자 예약 취소
+      return {
+        ...state,
+        reservationList: state.reservationList.filter(
+          (reservation) => JSON.stringify(reservation) !== JSON.stringify(action.reservation)
+        ),
+      };
+    case "SWITCH_USER":
+      return {
+        ...state,
+        isOwner: false
       }
-      case "ADD_USER_RESERVATION": //사용자 예약 추가
-      return{
+    case "SWITCH_OWNER":
+      return {
         ...state,
-        reservationList:state.reservationList.concat(action.reservation),
-      };
-    case "CANCEL_STORE_RESERVATION": //사용자 예약 취소
+        isOwner : true
+      }
+    case "LOGIN":
       return{
-        ...state,
-        reservationList:state.reservationList.filter(
-          (reservation) => reservation.id !== action.id),
-      };
+        login:true,
+        address: action.address,
+        coin:action.coin,
+        isOwner:false,
+        reservationList:action.reservationList
+      }
+    case "LOGOUT":
+      return initialState;
     default:
       return state;
   }
@@ -43,7 +83,7 @@ export function UserInfoProvider({ children }) {
   return (
     <div>
       <UserInfoStateContext.Provider value={state}>
-        <UserInfoDispatchContext.Provider value={dispatch} >
+        <UserInfoDispatchContext.Provider value={dispatch}>
           {children}
         </UserInfoDispatchContext.Provider>
       </UserInfoStateContext.Provider>
