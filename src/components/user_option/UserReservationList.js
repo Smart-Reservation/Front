@@ -51,7 +51,7 @@ const ImageContainer=styled.div`
       <TitleContainer>
         <LabelText>Reservation List</LabelText>
         <ImageContainer onClick={Close}>
-          <img src={X} width={"15px"} height={"15px"}/>
+          <img src={X} alt={"x"} width={"15px"} height={"15px"}/>
         </ImageContainer>
       </TitleContainer>
       <ReservationList mode="user" reservations={userState.reservationList}/>

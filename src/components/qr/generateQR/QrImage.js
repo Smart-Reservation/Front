@@ -43,12 +43,13 @@ function QrImage() {
   return (
       <QRContainer>
         <QRCode
+          // value={"hello"}
             value={
-              JSON.parse({
+              JSON.stringify({
               address:userState.address,
               storeId:storeState.selectedId,
-              time : reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "
-              +storeState.totalStore.find((store)=>store.id===reservationState.selectedId).periodList[reservationState.currentSet.index]
+              date : reservationState.selectedDate,
+              set:reservationState.currentSet
             })}
             style={{
               background: "white",
