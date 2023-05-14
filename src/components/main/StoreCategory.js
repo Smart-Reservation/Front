@@ -7,7 +7,7 @@ const CategoryContainer = styled.div`
 
 const CategoryText = styled.div`
     padding:10px;
-    font-family: 'Montserrat';
+    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
@@ -27,7 +27,7 @@ const FilterButton = styled.button`
     border: 1px solid #9A9A9A;
     border-radius: 24px;
 
-    font-family: 'Montserrat';
+    font-family: 'Pretendard-Regular';
     font-style: normal;
     font-weight: 600;
     font-size: 14px;
@@ -68,7 +68,6 @@ function StoreCategory() {
     const storeList=useStoreInfoState();
 
     const category=[...new Set(storeList.totalStore.map((store)=>store.category))]
-    console.log(category)
 
     return (
         <CategoryContainer>
@@ -81,7 +80,7 @@ function StoreCategory() {
                     </span>
                 )
             }
-
+            {/* 나중에 주석 처리 */}
             <FilterButton>Filter</FilterButton>
         </CategoryContainer>
     );

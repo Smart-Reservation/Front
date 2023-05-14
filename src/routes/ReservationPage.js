@@ -9,7 +9,7 @@ import {
   useStoreInfoDispatch,
 } from "../context/StoreInfoContext";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/header/Header";
 import {
@@ -18,10 +18,16 @@ import {
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
 
+<<<<<<< HEAD
 import {
   useUserInfoDispatch,
   useUserInfoState,
 } from "../context/UserInfoContext";
+=======
+import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
+import axios from "axios";
+import login from "../components/Login";
+>>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
 
 //styled-components
 const TotalContainer = styled.div`
@@ -49,8 +55,7 @@ const RightContainer = styled.div`
   float: right;
   width: 50%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  display: flex; 
   flex-direction: column;
 `;
 
@@ -87,7 +92,7 @@ const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #fefce5;
+  background: rgba(255, 230, 199, 0.4);
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -99,11 +104,12 @@ const DecreaseBtn = styled.div`
   justify-content: center;
 
   &:hover {
+    background-color: rgba(255, 245, 199, 0.5);
     cursor: pointer;
   }
 
   &:active {
-    background-color: #ff6000;
+    background-color: rgba(255, 163, 0, 0.5);
   }
 `;
 
@@ -111,7 +117,7 @@ const IncreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #fefce5;
+  background: rgba(255, 230, 199, 0.4);
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -123,11 +129,12 @@ const IncreaseBtn = styled.div`
   justify-content: center;
 
   &:hover {
-    background-color: #ff6000;
+    background-color: rgba(255, 245, 199, 0.5);
     cursor: pointer;
   }
 
   &:active {
+    background-color: rgba(255, 163, 0, 0.5);
   }
 `;
 
@@ -148,7 +155,7 @@ const CoinText = styled.div`
   height: 2em;
   margin: 1em auto -1em 0em;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 900;
   font-size: 18px;
@@ -158,10 +165,10 @@ const CoinText = styled.div`
 `;
 
 const LabelText = styled.div`
-  font-family: "Poppins";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 24px;
 `;
 
@@ -175,11 +182,11 @@ const ReservationBtn = styled.div`
   background: #ff6000;
   border-radius: 23px;
 
-  font-family: "Montserrat";
+  font-family: "Pretendard-Regular";
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 1.3em;
+  line-height: 2em;
 
   text-align: center;
   color: #ffffff;
@@ -204,7 +211,6 @@ const ImgForBtn = styled.img`
 
 function ReservationPage() {
   const storeState = useStoreInfoState();
-  const storeDispatch = useStoreInfoDispatch();
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const userState = useUserInfoState();
@@ -212,12 +218,16 @@ function ReservationPage() {
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav = useNavigate();
+<<<<<<< HEAD
   const storeNameIndex = storeState.selectedId;
   let storeName;
   storeState.totalStore.map((i) => {
     if ((i.id = storeNameIndex)) storeName = i.storeName;
   });
 
+=======
+  
+>>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
   let impossibleIdxs = reservationState.reservationList.find(
     (reservation) =>
       reservation.storeId === reservationState.selectedId &&
@@ -235,25 +245,33 @@ function ReservationPage() {
 
   const SelectDate = (date) => {
     reservationDispatch({
-      type: "SELECT_DATE",
-      date: date,
-    });
+      type:"ADD_DATE",
+      date:date,
+    })
   };
   const selectIndex = (Index) => {
     setIndex(Index);
+<<<<<<< HEAD
     selectCurrentSet(Index); //추가
   };
 
   const selectCurrentSet = (index, number) => {
+=======
+    selectCurrentSet(Index);//추가
+  }
+  
+  const selectCurrentSet= (address,index,number)=>{
+>>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
     reservationDispatch({
       type: "SELECT_CURRENT",
       set: {
-        address: userState.address,
+        address: address,
         numbers: number,
         index: index,
       },
     });
   };
+<<<<<<< HEAD
 
   const AddReservation = (Index) => {
     reservationDispatch({
@@ -270,12 +288,61 @@ function ReservationPage() {
       },
     });
     nav("/ReservationDetailPage");
+=======
+  const reservate=(address)=>{
+    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/reservate`,{
+      data:{
+        storeId:reservationState.selectedId,
+        address:address,
+        time:reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "+storePeriods[Index],
+        number:number
+      }
+    }).then((res) => {
+      if(res.status===200){
+        reservationDispatch({
+          type: "ADD_RESERVATION",
+          reserved: reservationState.currentSet,
+        });
+        userDispatch({
+          type:'ADD_USER_RESERVATION',
+          reservation:{
+            storeId:reservationState.selectedId,
+            date:reservationState.selectedDate,
+            numbers:number,
+            index:Index,
+          }
+        })
+       nav("/ReservationDetailPage")
+      }
+      else{
+        alert("Reservation Failed");
+        nav("/ReservationPage")
+      }
+    })
+  }
+
+  const AddReservation = (Index) => {
+    if(!userState.login){
+      login().then((token)=>{
+        axios.get(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/list/personal/${token.address}`).then((res) => {
+        userDispatch({ type: "LOGIN", address: token.address, coin: token.coin,reservationList: res.data });
+        selectCurrentSet(token.address,Index,number);
+        })
+        reservate(token.address);
+      })
+    }else{
+      selectCurrentSet(userState.address,Index,number);
+      reservate(userState.address)
+    }
+    
+    
+>>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
   };
 
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeName}</div>
+      <div className="StoreName" style={{fontFamily:'Pretendard-Regular'}}>{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
       <LeftContainer>
         <CalendarContainer>
           <LabelText>Select a date :</LabelText>

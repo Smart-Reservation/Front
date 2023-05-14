@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styled from "styled-components";
+import { useUserInfoState } from "../../../context/UserInfoContext";
+import { useStoreInfoState } from "../../../context/StoreInfoContext";
+import { useReservationInfoState } from "../../../context/ReservationInfoContext";
 
 const QRContainer = styled.div`
   display: flex;
   border: 10px sold black;
-  padding: 5% 10%;
+  // margin : 5%;/
+  padding: 10%;
+  // padding: 5% 10%;
 `;
 
 // const Hider = styled.div`
@@ -32,18 +37,22 @@ const QRContainer = styled.div`
 //   }
 // `;
 
-function QrImage({ valueForQr }) {
-  const [isClicked, setisClicked] = useState(true);
+function QrImage() {
+  const userState=useUserInfoState();
+  const storeState=useStoreInfoState();
+  const reservationState=useReservationInfoState()
 
-  const onClick = () => {
-    setisClicked(!isClicked);
-  };
-
-  const MakeQr = isClicked
-    ? () => {
-        return (
-          <QRCode
-            value={valueForQr}
+  return (
+      <QRContainer>
+        <QRCode
+            value={""
+              // JSON.parse({
+              // address:userState.address,
+              // storeId:storeState.selectedId,
+              // time : reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "
+              // +storeState.totalStore.find((store)=>store.id===reservationState.selectedId).periodList[reservationState.currentSet.index]
+              // })
+            }
             style={{
               background: "white",
               margin: "5%",
@@ -54,23 +63,6 @@ function QrImage({ valueForQr }) {
             size={500}
             // viewBox={`0 0 400 400`}
           />
-        );
-      }
-    : () => {
-        return "";
-        //   <Hider>
-        //     <BtnHider onClick={onClick}>Don't let other see it</BtnHider>
-        //   </Hider>
-      };
-
-  // const HideQr=()=>{ return  (<div id="hider">
-  //     <MakeQr />
-  //     <button type="button" id="hider"> don't let others see it</button>
-  // </div>)};
-
-  return (
-      <QRContainer>
-        <MakeQr />
 
         {/* <HideQr /> */}
       </QRContainer>

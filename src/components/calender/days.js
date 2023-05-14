@@ -9,10 +9,10 @@ const DateContainer = styled.div`
   height: 3em;
   border-radius: 10px;
 
-  font-family: "Montserrat";
+  font-family:'Pretendard-Regular';
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 0.84em;
   line-height: 3em;
   text-align: center;
   ${(props) =>

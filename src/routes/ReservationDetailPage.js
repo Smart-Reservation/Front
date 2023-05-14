@@ -8,36 +8,33 @@ import {
   useStoreInfoDispatch,
 } from "../context/StoreInfoContext";
 const OuterConTainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
 `;
 
 const TotalContainer = styled.div`
   display: flex;
-  position: relative;
+  // position: relative;  
   margin: 3% 10%;
   width: 80%;
-  height: 80vh;
-  background: beige;
+  height: 80%;
+  background-color: rgba(255, 230, 198, 0.5);
   border-radius: 20px;
 `;
 const LeftContainer = styled.div`
-  width: 50%;
+  width: 45%;
   padding: auto;
   height: 100%;
 `;
 
 const RightContainer = styled.div`
-  width: 50%;
+  width: 55%;
   height: 100%;
 `;
 
 function ReservationDetailPage() {
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
-  const value =
-    "asdfa8aw8e013897fgv7asd8c87d128dbw08c8gsd0fgg123xe218exy231789xe21896ec9b868ce69cr6rgre";
-  //value에 값 전달하기
 
   return (
     <>
@@ -53,7 +50,7 @@ function ReservationDetailPage() {
             />
           </LeftContainer>
           <RightContainer>
-            <QrImage valueForQr={value} />
+            <QrImage/>
           </RightContainer>
         </TotalContainer>
       </OuterConTainer>

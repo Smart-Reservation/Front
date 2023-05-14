@@ -14,7 +14,7 @@ import ConfirmationWindow from "./ConfirmationWindow";
 //styled-component
 const ReservationListContainer = styled.div`
   width: 30vw;
-  height: ${(props) => (props.mode === "user" ? "200px" : "400px")};
+  height: ${(props) => (props.mode === "user" ? "24vh" : "60vh")};
 
   display: flex;
   flex-direction: column;
@@ -35,22 +35,22 @@ const ReservationListContainer = styled.div`
   background: #ffffff;
 `;
 
-function ReservationList({ mode, reservations }) {
+function ReservationList({ mode, reservations}) {
   const [clickeds, setClickeds] = useState(
-    Array(reservations.length).fill(false)
+    Array(reservations?.length).fill(false)
   );
   const onClick = (index) => {
-    const newArr = Array(reservations.length).fill(false);
+    const newArr = Array(reservations?.length).fill(false);
     newArr[index] = true;
     setClickeds(newArr);
   };
   useEffect(() => {
-    setClickeds(Array(reservations.length).fill(false));
+    setClickeds(Array(reservations?.length).fill(false));
   }, [reservations]);
 
   return (
     <ReservationListContainer mode={mode}>
-      {reservations.map((reservation, index) => (
+      {reservations&&reservations.map((reservation, index) => (
         <Reservation
           key={index}
           mode={mode}

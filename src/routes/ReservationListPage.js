@@ -60,10 +60,10 @@ const ReservationListContainer = styled.div`
 `;
 
 const LabelText = styled.div`
-  font-family: "Poppins";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 24px;
 `;
 
@@ -71,11 +71,6 @@ function ReservationListPage() {
   const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const storeState = useStoreInfoState();
-  const storeNameIndex = storeState.selectedId;
-  let storeName;
-  storeState.totalStore.map((i) => {
-    if (i.id === storeNameIndex) storeName = i.storeName;
-  });
 
   const SelectDate = (date) => {
     reservationDispatch({
@@ -87,8 +82,7 @@ function ReservationListPage() {
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeName}</div>
-
+      <div className="StoreName" style={{fontFamily:'Pretendard-Regular'}}>{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
       <LeftContainer>
         <CalendarContainer>
           <LabelText>Select a date : </LabelText>
@@ -107,7 +101,7 @@ function ReservationListPage() {
                     reservation.storeId === reservationState.selectedId &&
                     JSON.stringify(reservation.date) ===
                       JSON.stringify(reservationState.selectedDate)
-                ).reservedList
+                )?.reservedList
               }
             />
           </ReservationListContainer>

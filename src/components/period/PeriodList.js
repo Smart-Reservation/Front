@@ -8,7 +8,7 @@ import { useState } from "react";
 
 const PeriodListContainer = styled.div`
   width: 30vw;
-  height: 200px;
+  height: 32vh;
 
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@ const PeriodListContainer = styled.div`
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 8px;
-    background-color: beige;
+    background-color: rgba(255, 230, 195, 0.5);
   }
   ::-webkit-scrollbar-track {
     background-color: white;

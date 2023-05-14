@@ -5,12 +5,12 @@ import X from "../../asset/img/X.png";
 
 const ReservationContainer=styled.div`
   width: 35vw;
-  height: 300px;
+  height: 37vh;
   margin:30px;
 
   position:absolute;
   top:3em;
-  right:14em;
+  right:7em;
 
   background: #FFFFFF;
   box-shadow: 0px 0px 8px rgba(194, 198, 204, 0.6);
@@ -30,11 +30,11 @@ const LabelText=styled.div`
   margin:20px;
   margin-left:20px;
   
-  font-family: 'Montserrat';
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 1.3em;
+  line-height: 40px;
 `;
 
 const ImageContainer=styled.div`
@@ -43,7 +43,7 @@ const ImageContainer=styled.div`
   align-items: center;
 `;
 
-  function UserReservationList({Close}){
+  function UserReservationList({Close,onClick}){
   const userState=useUserInfoState();
 
   return (
@@ -51,7 +51,7 @@ const ImageContainer=styled.div`
       <TitleContainer>
         <LabelText>Reservation List</LabelText>
         <ImageContainer onClick={Close}>
-          <img src={X} width={"15px"} height={"15px"}/>
+          <img src={X} alt={"x"} width={"15px"} height={"15px"}/>
         </ImageContainer>
       </TitleContainer>
       <ReservationList mode="user" reservations={userState.reservationList}/>

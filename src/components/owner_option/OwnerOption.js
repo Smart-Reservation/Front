@@ -8,17 +8,18 @@ const OwnerOptionContainer = styled.div`
 
   position: absolute;
   top: 3.5em;
-  right: 14em;
+  right: 7em;
 
   background: #ffffff;
   box-shadow: 0px 0px 8px rgba(194, 198, 204, 0.6);
   border-radius: 6px;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular' ;
   font-style: normal;
   font-weight: 600;
-  font-size: 18px;
-  line-height: 30px;
+  font-size: 1.2em;
+  line-height: 2em;
+
   text-align: center;
   z-index: 1;
 `;
@@ -27,7 +28,7 @@ const BtnContainer = styled.div`
   height: 5vh;
   color: black;
   &:hover {
-    background-color: beige;
+    background-color: rgba(255, 230, 199, 0.4); 
   }
   &:active {
     background-color: #ffa559;

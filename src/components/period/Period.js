@@ -9,27 +9,27 @@ const Container = styled.div`
 
 `;
 const ContentBox = styled.div`
-  height: 32px;
+  height: 6vh;
 
   display: flex;
   padding: 4px 16px;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.2em;
   line-height: 22px;
 
   align-items: center;
   justify-content: center;
 
-  ${(props)=>( props.reservedTimes.find((time)=>time===props.period)
+  ${(props)=>( props.reservedTimes?.find((time)=>time===props.period)
     ?`color: rgba(195, 195, 200, 0.5);`
     :`color: black;
     ${(props.clicked
       ? ""
       : `&:hover {
-          background-color: beige; 
+          background-color: rgba(255, 230, 199, 0.4); 
           cursor: pointer;
         }`)}
   `)};
@@ -43,10 +43,10 @@ function Period({ period, onClick, clicked }) {
   const reservedTimes=reservationState.reservationList.find((reservation)=>
     reservation.storeId===reservationState.selectedId &&
     JSON.stringify(reservation.date)===JSON.stringify(reservationState.selectedDate)
-  ).reservedList.map((reserved)=>storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList[reserved.index]);
+  )?.reservedList.map((reserved)=>storeState.totalStore.find((store)=>store.id===storeState.selectedId).periodList[reserved.index]);
   
   return (
-    <Container onClick={reservedTimes.find((time)=>time===period)?()=>{}:onClick}>
+    <Container onClick={reservedTimes?.find((time)=>time===period)?()=>{}:onClick}>
       <ContentBox  reservedTimes={reservedTimes} period={period} clicked={clicked}>{period}</ContentBox>
     </Container>
   );

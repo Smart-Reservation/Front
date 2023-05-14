@@ -1,13 +1,16 @@
 import Day from "./days";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import { useStoreInfoState } from "../../context/StoreInfoContext";
+import axios from "axios";
 // import Head from './header';
 
 const CalendarContainer = styled.div`
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 1.5em;
   line-height: 3em;
   text-align: center;
   margin-top: 20px;
@@ -70,26 +73,53 @@ function getDates(startDate, endDate) {
   return dates;
 }
 
-function Calender({SelectDate}) {
+function Calender({ SelectDate }) {
   let now = new Date();
   const [year, setyear] = useState(now.getFullYear());
   const [month, setMonth] = useState(now.getMonth() + 1);
   const [fullMonth, setFullMonth] = useState([]);
   const [selectedDate, setSelectedDate] = useState(now);
+  const storeState = useStoreInfoState();
+  const reservationState = useReservationInfoState();
+  const reservationDispatch = useReservationInfoDispatch();
   // const [data, setData] = useState();
 
   const handleDayClick = (date) => {
-    setSelectedDate(()=>date);
-    let dateStamp={
-      year:date.getFullYear(),
-      month:date.getMonth()+1,
-      day:date.getDate()
+    setSelectedDate(() => date);
+    let dateStamp = {
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate()
     }
     SelectDate(dateStamp);
+    // axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/unavailable`, {
+    //   id: storeState.selectedId,
+    //   date: dateStamp.year + "-" + dateStamp.month + "-" + dateStamp.day
+    // }).then((list) => {
+    //   const unavailableIdxList = list.data.map((unavailable) => {
+    //     const date = new Date(unavailable)
+    //     const storePeriods = storeState.totalStore.find((store) => store.id === storeState.selectedId).periodList
+    //     return storePeriods.indexOf(date.getHours().toString() + ":00")
+    //   })
+    //   reservationDispatch({
+    //     type: "ADD_SETTING",
+    //     impossibleIdxList: unavailableIdxList
+    //   })
+
+    // })
   };
 
+  useEffect(() => {
+    reservationDispatch({
+      type: "SELECT_DATE", date: {
+        year: now.getFullYear(),
+        month: now.getMonth() + 1,
+        day: now.getDate()
+      }
+    })
+  }, [])
+
   const handleEmptyClick = () => {
-    console.log("");
   };
 
   function nextMonth() {
@@ -143,7 +173,7 @@ function Calender({SelectDate}) {
         <CalendarHeader>
           <MonthButton onClick={previousMonth}>&lt;</MonthButton>
           <span>
-            {year}년{month}월
+            {new Date(year,month-1).toLocaleDateString('en-US', { month: 'long' })} {year}
           </span>
           <MonthButton onClick={nextMonth}>&gt;</MonthButton>
         </CalendarHeader>

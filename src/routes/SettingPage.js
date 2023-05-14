@@ -66,7 +66,7 @@ const DecreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #fefce5;
+  background: rgba(255, 230, 199, 0.4);
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -82,7 +82,7 @@ const DecreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: #ff6000;
+    background-color: rgba(255, 163, 0, 0.5);
   }
 `;
 
@@ -90,7 +90,7 @@ const IncreaseBtn = styled.div`
   width: 3em;
   height: 3em;
 
-  background: #fefce5;
+  background: rgba(255, 230, 199, 0.4);
   box-shadow: 0px 30px 84px rgba(0, 0, 0, 0.08),
     0px 8px 32px rgba(0, 0, 0, 0.07), 0px 3px 11px rgba(0, 0, 0, 0.03),
     0px 1px 3px rgba(0, 0, 0, 0.13);
@@ -106,7 +106,7 @@ const IncreaseBtn = styled.div`
   }
 
   &:active {
-    background-color: #ff6000;
+    background-color: rgba(255, 163, 0, 0.5);
   }
 `;
 
@@ -123,10 +123,10 @@ const NumberText = styled.div`
 `;
 
 const LabelText = styled.div`
-  font-family: "Poppins";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 24px;
 `;
 
@@ -140,11 +140,11 @@ const SettingBtn = styled.div`
   background: #ff6000;
   border-radius: 23px;
 
-  font-family: "Montserrat";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
-  line-height: 40px;
+  font-size: 1.3em;
+  line-height: 2em;
 
   text-align: center;
   color: #ffffff;
@@ -162,18 +162,13 @@ const ImgForBtn = styled.img`
   padding-top: 6px;
 `;
 function SettingPage() {
-  const reservationState = useReservationInfoState();
   const reservationDispatch = useReservationInfoDispatch();
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
   const [deposit, setDeposit] = useState(storeState.totalStore.find((store)=>store.id===storeState.selectedId).deposit);
   const [Indexs, setIndexs] = useState([]);
   const nav = useNavigate();
-  const storeNameIndex = storeState.selectedId;
-  let storeName;
-  storeState.totalStore.map((i) => {
-    if (i.id === storeNameIndex) storeName = i.storeName;
-  });
+
 
   const SelectDate = (date) => {
     reservationDispatch({
@@ -202,8 +197,7 @@ function SettingPage() {
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeName}</div>
-
+      <div className="StoreName" style={{fontFamily:'Pretendard-Regular'}}>{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
       <LeftContainer>
         <CalendarContainer>
           <LabelText>
