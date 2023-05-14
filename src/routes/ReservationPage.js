@@ -18,16 +18,9 @@ import {
 } from "../context/ReservationInfoContext";
 import { useNavigate } from "react-router";
 
-<<<<<<< HEAD
-import {
-  useUserInfoDispatch,
-  useUserInfoState,
-} from "../context/UserInfoContext";
-=======
 import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
 import axios from "axios";
 import login from "../components/Login";
->>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
 
 //styled-components
 const TotalContainer = styled.div`
