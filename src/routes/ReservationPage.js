@@ -20,7 +20,7 @@ import { useNavigate } from "react-router";
 
 import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
 import axios from "axios";
-import login from "../components/Login";
+import useContract from "../context/useContract";
 
 //styled-components
 const TotalContainer = styled.div`
@@ -211,6 +211,7 @@ function ReservationPage() {
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav = useNavigate();
+  const {login,reservationContract}=useContract();
 
   let impossibleIdxs = reservationState.reservationList.find(
     (reservation) =>
@@ -249,6 +250,7 @@ function ReservationPage() {
     });
   };
   const reservate=(address)=>{
+    if(userState.coin>=number*storeState.totalStore.find((store)=>store.id===storeState.selectedId).deposit){
     axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/reservate`,{
       data:{
         storeId:reservationState.selectedId,
@@ -258,6 +260,7 @@ function ReservationPage() {
       }
     }).then((res) => {
       if(res.status===200){
+        reservationContract(res.data.id,res.data.ownerAddress,res.data.deposit).then(()=>{
         reservationDispatch({
           type: "ADD_RESERVATION",
           reserved: reservationState.currentSet,
@@ -271,13 +274,18 @@ function ReservationPage() {
             index:Index,
           }
         })
-       nav("/ReservationDetailPage")
+        
+          nav("/ReservationDetailPage")
+        })
       }
       else{
         alert("Reservation Failed");
         nav("/ReservationPage")
       }
     })
+  }else{
+    alert("insufficient gas+payment");
+  }
   }
 
   const AddReservation = (Index) => {
@@ -286,8 +294,8 @@ function ReservationPage() {
         axios.get(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/list/personal/${token.address}`).then((res) => {
         userDispatch({ type: "LOGIN", address: token.address, coin: token.coin,reservationList: res.data });
         selectCurrentSet(token.address,Index,number);
-        })
         reservate(token.address);
+        })
       })
     }else{
       selectCurrentSet(userState.address,Index,number);
