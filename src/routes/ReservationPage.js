@@ -211,16 +211,7 @@ function ReservationPage() {
   const [number, setNumber] = useState(1);
   const [Index, setIndex] = useState(-1);
   const nav = useNavigate();
-<<<<<<< HEAD
-  const storeNameIndex = storeState.selectedId;
-  let storeName;
-  storeState.totalStore.map((i) => {
-    if ((i.id = storeNameIndex)) storeName = i.storeName;
-  });
 
-=======
-  
->>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
   let impossibleIdxs = reservationState.reservationList.find(
     (reservation) =>
       reservation.storeId === reservationState.selectedId &&
@@ -244,17 +235,10 @@ function ReservationPage() {
   };
   const selectIndex = (Index) => {
     setIndex(Index);
-<<<<<<< HEAD
-    selectCurrentSet(Index); //추가
-  };
-
-  const selectCurrentSet = (index, number) => {
-=======
     selectCurrentSet(Index);//추가
   }
   
   const selectCurrentSet= (address,index,number)=>{
->>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
     reservationDispatch({
       type: "SELECT_CURRENT",
       set: {
@@ -264,24 +248,6 @@ function ReservationPage() {
       },
     });
   };
-<<<<<<< HEAD
-
-  const AddReservation = (Index) => {
-    reservationDispatch({
-      type: "ADD_RESERVATION",
-      reserved: reservationState.currentSet,
-    });
-    userDispatch({
-      type: "ADD_USER_RESERVATION",
-      reservation: {
-        storeId: reservationState.selectedId,
-        date: reservationState.selectedDate,
-        numbers: number,
-        index: Index,
-      },
-    });
-    nav("/ReservationDetailPage");
-=======
   const reservate=(address)=>{
     axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/reservate`,{
       data:{
@@ -329,7 +295,6 @@ function ReservationPage() {
     }
     
     
->>>>>>> 4b0dbe518c4cc4a5aafb7700a288d8547ea58e75
   };
 
   return (
