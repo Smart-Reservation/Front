@@ -40,10 +40,11 @@ const useContract = () => {
         try {
             // 이벤트 확인 후, 유저 존재 여부 확인 -> 유저가 존재하면 가입 안함.
             const events = await contract.getPastEvents('UserRegistered', options);
-            if (!!events.find((data) => data.address === accounts[0])) {
+            if (events.find((data) => data.returnValues.user === accounts[0])===undefined) {
                 await contract.methods.register().send({ from: accounts[0] }).on("error", console.log);
                 return { address: accounts[0], coin: coin };
             } else {
+                console.log("user")
                 return { address: accounts[0], coin: coin };
             }
         } catch (error) {
@@ -53,7 +54,7 @@ const useContract = () => {
 
     const reservationContract=async(id,ownerAddress,deposit)=>{
         const value = web3.utils.toWei((deposit).toString(), 'ether');
-        await contract.methods.createReservation(id,ownerAddress,value).send({ from: accounts[0] ,value:value}).on("error", console.log);
+        await contract.methods.createReservation(id,ownerAddress,value).send({ from: accounts[0] ,value:value }).on("error", console.log);
     }
 
     return { web3, accounts, contract, login ,reservationContract};
