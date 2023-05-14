@@ -3,6 +3,7 @@ import QRCode from "react-qr-code";
 import styled from "styled-components";
 import { useUserInfoState } from "../../../context/UserInfoContext";
 import { useStoreInfoState } from "../../../context/StoreInfoContext";
+import { useReservationInfoState } from "../../../context/ReservationInfoContext";
 
 const QRContainer = styled.div`
   display: flex;
@@ -37,13 +38,17 @@ const QRContainer = styled.div`
 function QrImage() {
   const userState=useUserInfoState();
   const storeState=useStoreInfoState();
-  
+  const reservationState=useReservationInfoState()
 
   return (
       <QRContainer>
         <QRCode
-            value={JSON.stringify({
-              storeId:storeState.selectedId
+            value={
+              JSON.parse({
+              address:userState.address,
+              storeId:storeState.selectedId,
+              time : reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "
+              +storeState.totalStore.find((store)=>store.id===reservationState.selectedId).periodList[reservationState.currentSet.index]
             })}
             style={{
               background: "white",

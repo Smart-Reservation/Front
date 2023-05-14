@@ -95,6 +95,7 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
         numbers:reservation.numbers,
         index:reservation.index
       }})
+      reservationDispatch({type:"SELECT_DATE",date:reservation.date})
       nav("/ReservationDetailPage")
       }:()=>{}}>
         {

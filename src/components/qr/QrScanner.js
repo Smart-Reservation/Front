@@ -42,6 +42,7 @@ const QRScan = () => {
   const [selected, setSelected] = useState("environment");
   const [data,setData]=useState();
   const [startScan, setStartScan] = useState(true);
+  const [storeId,setStoreId]=useState();
   const [loading, setloading] = useState(false);
 
   const storeState=useStoreInfoState()
@@ -55,7 +56,11 @@ const QRScan = () => {
     //     fetch({ url }, { method: "POST" });
     //   });
   }
-
+  // const storeIdRequest=(data)=>{
+  //   axios.pose(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/exist/`,data).then((res) => {
+  //     setStoreId(res.data);
+  // })
+  // }
   const checkReserve = async (e) => {
     setloading(true);
     // await sendQRAddress()
@@ -87,7 +92,7 @@ const QRScan = () => {
         <>
           <QrReader
             facingMode={selected}
-            delay={1000}
+            delay={5000}
             onError={handleError}
             videoStyle={{ width: "100%", height:"100%",top: "-10%"  }}
             chooseDeviceId={() => selected}
@@ -95,7 +100,7 @@ const QRScan = () => {
               if (!!result) {
                 setStartScan(false);
                 console.log(result?.text);
-                setData(JSON.parse(result?.text))
+                // storeIdRequest(JSON.parse(result?.text))
                 
               }
               if (!!error) {
@@ -105,7 +110,8 @@ const QRScan = () => {
             }}
           />
           </>
-      ):data&&<LoadingDiv><ReservationDetail store={storeState.totalStore.find((store)=>store.id===data.storeId)} /></LoadingDiv>}
+      ):data&&""}
+      {/* <LoadingDiv><ReservationDetail store={} /></LoadingDiv>} */}
     </QRContainer>
   );
 };
