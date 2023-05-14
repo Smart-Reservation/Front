@@ -60,10 +60,10 @@ const ReservationListContainer = styled.div`
 `;
 
 const LabelText = styled.div`
-  font-family: "Poppins";
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 1em;
   line-height: 24px;
 `;
 
@@ -82,9 +82,7 @@ function ReservationListPage() {
   return (
     <TotalContainer>
       <Header />
-      <div className="StoreName">{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
-
-
+      <div className="StoreName" style={{fontFamily:'Pretendard-Regular'}}>{storeState.totalStore.find(store=>store.id===storeState.selectedId).storeName}</div>
       <LeftContainer>
         <CalendarContainer>
           <LabelText>Select a date : </LabelText>

@@ -8,7 +8,9 @@ import { useReservationInfoState } from "../../../context/ReservationInfoContext
 const QRContainer = styled.div`
   display: flex;
   border: 10px sold black;
-  padding: 5% 10%;
+  // margin : 5%;/
+  padding: 10%;
+  // padding: 5% 10%;
 `;
 
 // const Hider = styled.div`
@@ -43,13 +45,14 @@ function QrImage() {
   return (
       <QRContainer>
         <QRCode
-            value={
-              JSON.parse({
-              address:userState.address,
-              storeId:storeState.selectedId,
-              time : reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "
-              +storeState.totalStore.find((store)=>store.id===reservationState.selectedId).periodList[reservationState.currentSet.index]
-            })}
+            value={""
+              // JSON.parse({
+              // address:userState.address,
+              // storeId:storeState.selectedId,
+              // time : reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "
+              // +storeState.totalStore.find((store)=>store.id===reservationState.selectedId).periodList[reservationState.currentSet.index]
+              // })
+            }
             style={{
               background: "white",
               margin: "5%",

@@ -5,7 +5,7 @@ import X from "../../asset/img/X.png";
 
 const ReservationContainer=styled.div`
   width: 35vw;
-  height: 300px;
+  height: 37vh;
   margin:30px;
 
   position:absolute;
@@ -30,10 +30,10 @@ const LabelText=styled.div`
   margin:20px;
   margin-left:20px;
   
-  font-family: 'Montserrat';
+  font-family: 'Pretendard-Regular';
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 1.3em;
   line-height: 40px;
 `;
 
