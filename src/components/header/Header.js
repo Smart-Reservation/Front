@@ -2,7 +2,6 @@ import logo from "./images/logo.png";
 import Profile from "./images/profile.png";
 import ProfileStore from "./images/profile_boss.png";
 import { useEffect, useState } from "react";
-import login from "../Login";
 import { Link } from "react-router-dom";
 import UserOption from "../user_option/UserOption";
 import OwnerOption from "../owner_option/OwnerOption";
@@ -10,6 +9,7 @@ import styled from "styled-components";
 import { useUserInfoDispatch, useUserInfoState } from "../../context/UserInfoContext";
 import axios from "axios";
 import { useStoreInfoState } from "../../context/StoreInfoContext";
+import useContract from "../../context/useContract";
 
 const Logo = styled.img`
   margin-top: 1em;
@@ -142,6 +142,7 @@ const BtnOut = styled(BtnHeader)`
 
 function Header() {
   const [clicked, setClicked] = useState(false);
+  const {login}=useContract();
   const storeState = useStoreInfoState();
   const userState = useUserInfoState();
   const userDispatch = useUserInfoDispatch();
