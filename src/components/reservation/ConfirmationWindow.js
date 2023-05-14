@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
-import { useUserInfoDispatch } from "../../context/UserInfoContext";
+import { useUserInfoDispatch, useUserInfoState } from "../../context/UserInfoContext";
+import axios from "axios";
+import { useStoreInfoState } from "../../context/StoreInfoContext";
 
 const TotalContainer = styled.div`
   width: 20vw;
@@ -60,23 +62,47 @@ const Text = styled.div`
 function ConfirmationWindow({mode, onReturn, reservation}){
   const reservationState=useReservationInfoState();
   const reservationDispatch=useReservationInfoDispatch();
+  const storeState=useStoreInfoState();
   const userDispatch=useUserInfoDispatch();
+  const userState=useUserInfoState();
   const CancelReservation =(reservation)=>{
-    reservationDispatch({
-      type: "CANCEL_RESERVATION",
-      index: reservation.index,
-    });
-    userDispatch({
-      type: 'CANCEL_USER_RESERVATION',
-      reservation: mode==="user" 
-      ? reservation
-      :{
-        storeId:reservationState.selectedId,
-        date:reservationState.selectedDate,
-        numbers: reservation.numbers,
-        index: reservation.index,
-        }
-    });
+    let storePeriods = storeState.totalStore.find(
+      (store) => store.id === storeState.selectedId
+    )?.periodList;
+    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/cancel`,
+    userState.isOwner?
+    {
+      storeId: reservationState.selectedId,
+      address: reservation.address,
+      time: reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "+storePeriods[reservation.index]
+    }:
+    {
+      storeId:reservation.storeId,
+      address:userState.address,
+      time:reservation.date.year+"-"+reservation.date.month+"-"+reservation.date.day+" "+storePeriods[reservation.index]
+    }
+    ).then(res=>{
+      if(res.status===200){
+        reservationDispatch({
+          type: "CANCEL_RESERVATION",
+          index: reservation.index,
+        });
+        userDispatch({
+          type: 'CANCEL_USER_RESERVATION',
+          reservation: mode==="user" 
+          ? reservation
+          :{
+            storeId:reservationState.selectedId,
+            date:reservationState.selectedDate,
+            numbers: reservation.numbers,
+            index: reservation.index,
+            }
+        });
+      }else{
+        alert("Failed")
+      }
+    })
+    
     onReturn();
   };
 

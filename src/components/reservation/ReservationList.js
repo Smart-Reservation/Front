@@ -35,7 +35,7 @@ const ReservationListContainer = styled.div`
   background: #ffffff;
 `;
 
-function ReservationList({ mode, reservations }) {
+function ReservationList({ mode, reservations}) {
   const [clickeds, setClickeds] = useState(
     Array(reservations?.length).fill(false)
   );

@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import styled, { css } from "styled-components";
+import ReservationDetail from "../reservationDetail/ReservationDetail";
+import { useStoreInfoState } from "../../context/StoreInfoContext";
 
 const QRContainer = styled.div`
   width: 55%;
-
+  height:100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   display: relative;
   margin: auto;
-  mmargin-top: -20%;
+  // margin-top: -20%;
   // background: red;
 `;
 const LoadingDiv = styled.div`
@@ -29,11 +31,20 @@ const LoadingDiv = styled.div`
   border: 1px solid black;
 `;
 
+const BlackBox = styled.div`
+  width: 100%;
+  height: 100%;
+  top:10%;
+  background-color: black;
+`;
+
 const QRScan = () => {
   const [selected, setSelected] = useState("environment");
+  const [data,setData]=useState();
   const [startScan, setStartScan] = useState(true);
   const [loading, setloading] = useState(false);
 
+  const storeState=useStoreInfoState()
   function sendQRAddress(e) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -65,8 +76,6 @@ const QRScan = () => {
 
   return (
     <QRContainer>
-      {loading && <LoadingDiv>Loading</LoadingDiv>}
-
       {/* <button
         onClick={() => {
           setStartScan(!startScan);
@@ -74,27 +83,29 @@ const QRScan = () => {
       >
         {startScan ? "Stop Scan" : "Start Scan"}
       </button> */}
-      {startScan && (
+      {startScan ? (
         <>
           <QrReader
             facingMode={selected}
             delay={1000}
             onError={handleError}
-            videoStyle={{ width: "100%", height: "100%", top: "-10%" }}
+            videoStyle={{ width: "100%", height:"100%",top: "-10%"  }}
             chooseDeviceId={() => selected}
             onResult={(result, error) => {
               if (!!result) {
+                setStartScan(false);
                 console.log(result?.text);
-                checkReserve(result);
+                setData(JSON.parse(result?.text))
+                
               }
-              // if (!!error) {
-              //   console.info(error);
-              // }
+              if (!!error) {
+                console.info(error);
+              }
               /* 에러 표시하는건데 console창 다 가려서 꺼놨음*/
             }}
           />
-        </>
-      )}
+          </>
+      ):data&&<LoadingDiv><ReservationDetail store={storeState.totalStore.find((store)=>store.id===data.storeId)} /></LoadingDiv>}
     </QRContainer>
   );
 };

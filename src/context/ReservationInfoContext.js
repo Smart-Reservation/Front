@@ -32,6 +32,7 @@ function ReservationReducer(state, action) {
     case "LOAD_STORE_RESERVATION": //해당 날짜 가게 예약 목록 불러오기
       return {
         ...state,
+        reservationList:action.reservationList,
         selectedId: action.id,
       };
     case "SELECT_DATE": //캘린더에서 날짜 선택
@@ -69,7 +70,7 @@ function ReservationReducer(state, action) {
         }
       });
       if (exist) {
-        return state;
+        return {...state,selectedDate:action.date};
       } else
         return {
           ...state,

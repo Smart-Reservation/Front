@@ -32,7 +32,7 @@ const initialState={
 
 function UserInfoReducer(state, action) {
   switch (action.type) {
-    case "LOAD_USER_RESERVSTIONS": //사용자 예약 목록 불러오기
+    case "LOAD_USER_RESERVATIONS": //사용자 예약 목록 불러오기
       return {
         ...state,
         reservationList: action.reservationList,
@@ -65,7 +65,7 @@ function UserInfoReducer(state, action) {
         address: action.address,
         coin:action.coin,
         isOwner:false,
-        reservationList:[]
+        reservationList:action.reservationList
       }
     case "LOGOUT":
       return initialState;

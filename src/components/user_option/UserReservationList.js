@@ -10,7 +10,7 @@ const ReservationContainer=styled.div`
 
   position:absolute;
   top:3em;
-  right:14em;
+  right:7em;
 
   background: #FFFFFF;
   box-shadow: 0px 0px 8px rgba(194, 198, 204, 0.6);
@@ -34,7 +34,7 @@ const LabelText=styled.div`
   font-style: normal;
   font-weight: 700;
   font-size: 18px;
-  line-height: 22px;
+  line-height: 40px;
 `;
 
 const ImageContainer=styled.div`
@@ -43,7 +43,7 @@ const ImageContainer=styled.div`
   align-items: center;
 `;
 
-  function UserReservationList({Close}){
+  function UserReservationList({Close,onClick}){
   const userState=useUserInfoState();
 
   return (

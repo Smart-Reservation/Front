@@ -9,7 +9,7 @@ const UserOptionContainer=styled.div`
 
   position:absolute;
   top:3.5em;
-  right:14em;
+  right:7em;
 
   background: #FFFFFF;
   box-shadow: 0px 0px 8px rgba(194, 198, 204, 0.6);
@@ -19,7 +19,8 @@ const UserOptionContainer=styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 18px;
-  line-height: 30px;
+  line-height: 40px;
+
   text-align: center;
   z-index:1;
 

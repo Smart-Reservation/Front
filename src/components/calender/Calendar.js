@@ -92,21 +92,21 @@ function Calender({ SelectDate }) {
       day: date.getDate()
     }
     SelectDate(dateStamp);
-    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/unavailable`, {
-      id: storeState.selectedId,
-      date: dateStamp.year + "-" + dateStamp.month + "-" + dateStamp.day
-    }).then((list) => {
-      const unavailableIdxList = list.data.map((unavailable) => {
-        const date = new Date(unavailable)
-        const storePeriods = storeState.totalStore.find((store) => store.id === storeState.selectedId).periodList
-        return storePeriods.indexOf(date.getHours().toString() + ":00")
-      })
-      reservationDispatch({
-        type: "ADD_SETTING",
-        impossibleIdxList: unavailableIdxList
-      })
+    // axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/unavailable`, {
+    //   id: storeState.selectedId,
+    //   date: dateStamp.year + "-" + dateStamp.month + "-" + dateStamp.day
+    // }).then((list) => {
+    //   const unavailableIdxList = list.data.map((unavailable) => {
+    //     const date = new Date(unavailable)
+    //     const storePeriods = storeState.totalStore.find((store) => store.id === storeState.selectedId).periodList
+    //     return storePeriods.indexOf(date.getHours().toString() + ":00")
+    //   })
+    //   reservationDispatch({
+    //     type: "ADD_SETTING",
+    //     impossibleIdxList: unavailableIdxList
+    //   })
 
-    })
+    // })
   };
 
   useEffect(() => {
@@ -120,7 +120,6 @@ function Calender({ SelectDate }) {
   }, [])
 
   const handleEmptyClick = () => {
-    console.log("");
   };
 
   function nextMonth() {

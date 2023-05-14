@@ -35,9 +35,6 @@ const RightContainer = styled.div`
 function ReservationDetailPage() {
   const storeState = useStoreInfoState();
   const storeDispatch = useStoreInfoDispatch();
-  const value =
-    "asdfa8aw8e013897fgv7asd8c87d128dbw08c8gsd0fgg123xe218exy231789xe21896ec9b868ce69cr6rgre";
-  //value에 값 전달하기
 
   return (
     <>
@@ -53,7 +50,7 @@ function ReservationDetailPage() {
             />
           </LeftContainer>
           <RightContainer>
-            <QrImage valueForQr={value} />
+            <QrImage/>
           </RightContainer>
         </TotalContainer>
       </OuterConTainer>

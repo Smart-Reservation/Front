@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import { useStoreInfoState } from "../../context/StoreInfoContext";
+import { useStoreInfoDispatch, useStoreInfoState } from "../../context/StoreInfoContext";
 import { useState } from "react";
 import X from "../../asset/img/X.png";
 import ConfirmationWindow from "./ConfirmationWindow";
 import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
+import { useNavigate } from "react-router-dom";
+import { useUserInfoState } from "../../context/UserInfoContext";
 
 //styled component
 //styled-components
@@ -34,6 +36,8 @@ const ContentBox = styled.div`
       : `&:hover {
     background-color: rgba(55, 53, 47, 0.05);
   }`}
+
+  ${(props)=>props.mode==="user"&&'cursor:pointer;'}
 `;
 const FullContainer=styled.div`
   width:100vw;
@@ -49,7 +53,10 @@ const FullContainer=styled.div`
 function Reservation({ mode, reservation, onClick, index, clicked }) {
   const storeState = useStoreInfoState();
   const reservationState=useReservationInfoState();
-  
+  const reservationDispatch=useReservationInfoDispatch();
+  const storeDispatch=useStoreInfoDispatch();
+  const userState=useUserInfoState()
+  const nav=useNavigate();
   let store=(mode==="user")
     ?storeState.totalStore.find((store) => store.id === reservation.storeId)
     :storeState.totalStore.find((store)=>store.id===storeState.selectedId)
@@ -81,7 +88,15 @@ function Reservation({ mode, reservation, onClick, index, clicked }) {
       onMouseEnter={() => Hovered()}
       onMouseLeave={() => NotHovered()}
     >
-      <ContentBox clicked={clicked} hovered={hovered}>
+      <ContentBox clicked={clicked} hovered={hovered} mode={mode} onClick={mode==="user"? ()=>{
+      storeDispatch({type:"SELECT_STORE",id:reservation.storeId})
+      reservationDispatch({type:"SELECT_CURRENT",set:{
+        address:userState.address,
+        numbers:reservation.numbers,
+        index:reservation.index
+      }})
+      nav("/ReservationDetailPage")
+      }:()=>{}}>
         {
           mode==="user"
           ?<>{storeName} {timeStamp} {reservation.numbers}people</>

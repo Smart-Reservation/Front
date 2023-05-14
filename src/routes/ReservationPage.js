@@ -9,7 +9,7 @@ import {
   useStoreInfoDispatch,
 } from "../context/StoreInfoContext";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/header/Header";
 import {
@@ -19,6 +19,8 @@ import {
 import { useNavigate } from "react-router";
 
 import { useUserInfoDispatch, useUserInfoState } from "../context/UserInfoContext";
+import axios from "axios";
+import login from "../components/Login";
 
 //styled-components
 const TotalContainer = styled.div`
@@ -46,8 +48,7 @@ const RightContainer = styled.div`
   float: right;
   width: 50%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  display: flex; 
   flex-direction: column;
 `;
 
@@ -227,45 +228,70 @@ function ReservationPage() {
     reservationDispatch({
       type:"ADD_DATE",
       date:date,
-      id:reservationState.selectedId
     })
-    reservationDispatch({
-      type: "SELECT_DATE",
-      date: date,
-    });
   };
   const selectIndex = (Index) => {
     setIndex(Index);
     selectCurrentSet(Index);//추가
   }
   
-  const selectCurrentSet= (index,number)=>{
+  const selectCurrentSet= (address,index,number)=>{
     reservationDispatch({
       type: "SELECT_CURRENT",
       set: {
-        address: userState.address,
+        address: address,
         numbers: number,
         index: index,
       },
     });
   };
-
-  const AddReservation = (Index) => {
-    selectCurrentSet(Index,number);
-    reservationDispatch({
-      type: "ADD_RESERVATION",
-      reserved: reservationState.currentSet,
-    });
-    userDispatch({
-      type:'ADD_USER_RESERVATION',
-      reservation:{
+  const reservate=(address)=>{
+    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/reservate`,{
+      data:{
         storeId:reservationState.selectedId,
-        date:reservationState.selectedDate,
-        numbers:number,
-        index:Index,
+        address:address,
+        time:reservationState.selectedDate.year+"-"+reservationState.selectedDate.month+"-"+reservationState.selectedDate.day+" "+storePeriods[Index],
+        number:number
+      }
+    }).then((res) => {
+      if(res.status===200){
+        reservationDispatch({
+          type: "ADD_RESERVATION",
+          reserved: reservationState.currentSet,
+        });
+        userDispatch({
+          type:'ADD_USER_RESERVATION',
+          reservation:{
+            storeId:reservationState.selectedId,
+            date:reservationState.selectedDate,
+            numbers:number,
+            index:Index,
+          }
+        })
+       nav("/ReservationDetailPage")
+      }
+      else{
+        alert("Reservation Failed");
+        nav("/ReservationPage")
       }
     })
-    nav("/ReservationDetailPage")
+  }
+
+  const AddReservation = (Index) => {
+    if(!userState.login){
+      login().then((token)=>{
+        axios.get(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/list/personal/${token.address}`).then((res) => {
+        userDispatch({ type: "LOGIN", address: token.address, coin: token.coin,reservationList: res.data });
+        selectCurrentSet(token.address,Index,number);
+        })
+        reservate(token.address);
+      })
+    }else{
+      selectCurrentSet(userState.address,Index,number);
+      reservate(userState.address)
+    }
+    
+    
   };
 
   return (

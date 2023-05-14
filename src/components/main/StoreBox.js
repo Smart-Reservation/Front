@@ -15,22 +15,25 @@ const StoreBoxContainer=styled.div`
 const BoxContainer=styled.div`
     position: relative;
     height: 360px;
-    background: #E0E2E6;
+    
+    ${props=>props.src&&`background-image:url(${props.src});`}
+    background-size:cover;
     border-radius: 12px;
 `
 const DepositText=styled.span`
     position: absolute;
     bottom:0;
-    padding:10px;
+    padding:8px;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
     line-height: 22px;
-
-    color: #9A9A9A;    
+    background-color:#ffa559;
+    border-radius:0 10px 0 10px;
+    color: #FFFFFF;    
 `
-
+ 
 const Info=styled.div`
     font-family: 'Montserrat';
     font-style: normal;
@@ -39,8 +42,8 @@ const Info=styled.div`
 
 function StoreBox({store,onClick}){
     return (
-    <StoreBoxContainer onClick={onClick}>
-    <BoxContainer>
+    <StoreBoxContainer onClick={onClick} >
+    <BoxContainer src={store.imgUrl}>
         <Heart style={{position:"absolute", right:0, padding:"10px"}}/>
         <DepositText>
             {(store.deposit).toFixed(3)} BNB

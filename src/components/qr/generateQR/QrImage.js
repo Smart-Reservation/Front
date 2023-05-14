@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import styled from "styled-components";
+import { useUserInfoState } from "../../../context/UserInfoContext";
+import { useStoreInfoState } from "../../../context/StoreInfoContext";
 
 const QRContainer = styled.div`
   display: flex;
@@ -32,18 +34,17 @@ const QRContainer = styled.div`
 //   }
 // `;
 
-function QrImage({ valueForQr }) {
-  const [isClicked, setisClicked] = useState(true);
+function QrImage() {
+  const userState=useUserInfoState();
+  const storeState=useStoreInfoState();
+  
 
-  const onClick = () => {
-    setisClicked(!isClicked);
-  };
-
-  const MakeQr = isClicked
-    ? () => {
-        return (
-          <QRCode
-            value={valueForQr}
+  return (
+      <QRContainer>
+        <QRCode
+            value={JSON.stringify({
+              storeId:storeState.selectedId
+            })}
             style={{
               background: "white",
               margin: "5%",
@@ -54,23 +55,6 @@ function QrImage({ valueForQr }) {
             size={500}
             // viewBox={`0 0 400 400`}
           />
-        );
-      }
-    : () => {
-        return "";
-        //   <Hider>
-        //     <BtnHider onClick={onClick}>Don't let other see it</BtnHider>
-        //   </Hider>
-      };
-
-  // const HideQr=()=>{ return  (<div id="hider">
-  //     <MakeQr />
-  //     <button type="button" id="hider"> don't let others see it</button>
-  // </div>)};
-
-  return (
-      <QRContainer>
-        <MakeQr />
 
         {/* <HideQr /> */}
       </QRContainer>
