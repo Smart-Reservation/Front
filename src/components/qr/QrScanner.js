@@ -3,77 +3,71 @@ import { QrReader } from "react-qr-reader";
 import styled, { css } from "styled-components";
 import ReservationDetail from "../reservationDetail/ReservationDetail";
 import { useStoreInfoState } from "../../context/StoreInfoContext";
+import axios from "axios";
+import { useReservationInfoDispatch, useReservationInfoState } from "../../context/ReservationInfoContext";
 
 const QRContainer = styled.div`
   width: 55%;
   height:100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   display: relative;
   margin: auto;
-  // margin-top: -20%;
-  // background: red;
+  margin-top: 5%;
 `;
 const LoadingDiv = styled.div`
   display: flex;
-  height: 30vh;
-  margin: auto;
-  padding: 0;
-  width: 40vw;
-  position: absolute;
   justify-content: center;
   align-items: center;
   background: white;
   z-index: 500;
-  left: 30%;
-  top: 40%;
-  border: 1px solid black;
+  top: 10%;
 `;
 
-const BlackBox = styled.div`
-  width: 100%;
-  height: 100%;
-  top:10%;
-  background-color: black;
-`;
+
 
 const QRScan = () => {
-  const [selected, setSelected] = useState("environment");
-  const [data,setData]=useState();
+  const [data, setData] = useState();
   const [startScan, setStartScan] = useState(true);
-  const [storeId,setStoreId]=useState();
-  const [loading, setloading] = useState(false);
+  const reservationDispatch = useReservationInfoDispatch();
+  const reservationState=useReservationInfoState();
+  const storeState = useStoreInfoState()
 
-  const storeState=useStoreInfoState()
-  function sendQRAddress(e) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve();
-      }, 5000);
-    });
-    //   return new Promise((resolve, reject) => {
-    //     fetch({ url }, { method: "POST" });
-    //   });
+  const storeIdRequest = (data) => {
+    if(data.storeId===reservationState.selectedId){
+    reservationDispatch({type:"SELECT_DATE",date:data.date})
+    reservationDispatch({type:"SELECT_CURRENT",set:data.set})
+    axios.post(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/showUp`,{
+      address:data.address,
+      storeId:data.storeId,
+      time:data.date.year+"-"+data.date.month+"-"+data.date.day+" "
+      +storeState.totalStore.find((store)=>store.id===data.storeId).periodList[data.set.index]
+    }).then((res) => {
+      if(res.status===200){
+        setData(data)
+      axios.get(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/list/${data.storeId}`).then((res) => {
+          reservationDispatch({
+            type: "LOAD_STORE_RESERVATION",
+            reservationList: res.data,
+            id: data.storeId
+          })
+          setTimeout(() => {
+            setData();
+            setStartScan(true);
+          }, 5000);
+        })
+      }else{
+        alert("Not Exist")
+        setData();
+        setStartScan(true);
+      }
+      })
+    }else{
+      alert("Other QR Store ")
+      setData();
+      setStartScan(true);
+    }
   }
-  // const storeIdRequest=(data)=>{
-  //   axios.pose(`http://${process.env.REACT_APP_SERVER_HOST}/reservation/exist/`,data).then((res) => {
-  //     setStoreId(res.data);
-  // })
-  // }
-  const checkReserve = async (e) => {
-    setloading(true);
-    // await sendQRAddress()
-    //   .then((res) => res.json())
-    //   .then((res) => console.log(res))
-    //   .catch(console.log("try again"));
-    await sendQRAddress();
-    setloading(false);
-
-    console.log(e);
-    /* e.text에 url 정보가 담겨 있음. 위의 식은 서버와 url정보를 주고 받고 하는 코든데
-    어떻게 줘야 할지 몰라서 뺴놨음 ㅈㅅ ㅠㅠ*/
-  };
 
   const handleError = (err) => {
     console.error(err);
@@ -81,40 +75,29 @@ const QRScan = () => {
 
   return (
     <QRContainer>
-      {/* <button
-        onClick={() => {
-          setStartScan(!startScan);
-        }}
-      >
-        {startScan ? "Stop Scan" : "Start Scan"}
-      </button> */}
       {startScan ? (
         <>
           <QrReader
-            facingMode={selected}
+            facingMode={"environment"}
             delay={5000}
             onError={handleError}
-            videoStyle={{ width: "100%", height:"100%",top: "-10%"  }}
-            chooseDeviceId={() => selected}
+            videoStyle={{ width: "100%", height: "100%", top: "-10%" }}
+            // chooseDeviceId={() => selected}
             onResult={(result, error) => {
               if (!!result) {
                 setStartScan(false);
-                console.log(result?.text);
-                // storeIdRequest(JSON.parse(result?.text))
-                
+                storeIdRequest(JSON.parse(result?.text))
               }
               if (!!error) {
                 console.info(error);
               }
-              /* 에러 표시하는건데 console창 다 가려서 꺼놨음*/
             }}
           />
-          </>
-      ):data&&""}
-      {/* <LoadingDiv><ReservationDetail store={} /></LoadingDiv>} */}
+        </>
+      ) : data && <LoadingDiv><ReservationDetail store={storeState.totalStore.find((store)=>store.id===data.storeId)} /></LoadingDiv>}
     </QRContainer>
   );
-};
+}
 
 function QRScanner() {
   return (

@@ -12,7 +12,7 @@ async function login() {
     //window.BinanceChain 객체는 사용자가 Binance Smart Chain 지갑 소프트웨어를 설치하고, 웹 브라우저에서 해당 소프트웨어를 활성화할 때 생성
     const web3 = new Web3(window.BinanceChain); //Binance Smart Chain 네트워크에 연결된 Web3 Provider 객체 생성
     const accounts = await web3.eth.requestAccounts(); //현재 연결된 네트워크에서 사용자의 지갑 계정 주소 가져오기
-    const contractAddress = "0x25cE8F66449Bcce4789d617E79d40524A77Af569";
+    const contractAddress = "0x48B53a824012cE1Dcc6827dC118C4e89a2741466";
     const contract = new web3.eth.Contract(ABI, contractAddress);
     const coin=(await web3.eth.getBalance(accounts[0])/Math.pow(10,18)).toFixed(4);
     const options = {
@@ -21,11 +21,15 @@ async function login() {
       address: contract.options.address,
     };
     //이벤트 확인 후, 유저 존재 여부 확인-> 유저가 존재하면 가입 안함.
-    contract.getPastEvents('UserRegistered', options).then((list)=>{
-      list.find((data)=>data.address===accounts[0])&&contract.methods.register().send({from:accounts[0]}).on("error",console.error);
+    return contract.getPastEvents('UserRegistered', options).then((list)=>{
+      if(!list.find((data)=>data.address===accounts[0])){
+        return {address:accounts[0],coin:coin};
+      }else{
+        contract.methods.register().send({from:accounts[0]}).on("error",console.error).then(()=>{
+        return {address:accounts[0],coin:coin}; 
+      })}
     });
-     
-    return {address:accounts[0],coin:coin};
+    
   } else {
     alert('Please install Binance Smart Chain wallet'); // Binance Smart Chain 지갑 소프트웨어가 설치되어 있지 않은 경우
   }

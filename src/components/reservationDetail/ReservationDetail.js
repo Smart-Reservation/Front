@@ -62,7 +62,6 @@ const Text=styled.div`
 
 function ReservationDetail({store}) {
   const reservationState=useReservationInfoState();
-  const reservationDispatch=useReservationInfoDispatch();
 
 
   // const store = information.store;
